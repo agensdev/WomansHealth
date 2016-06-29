@@ -1,19 +1,36 @@
 <resources>
-    <string name="app_name">WomansHealth</string>
+    <string name="app_name">Woman\'s Health</string>
+
+    // Welcome screen
+    <string name="welcome_header">Welcome to Woman\'sHealth</string>
+    <string name="about_yourself">Tell us about yourself...</string>
+    <string name="date_of_birth">Your date of birth:</string>
+    <string name="pregnant">I\'m pregnant</string>
+    <string name="menopause">I\'m in menopause</string>
+    <string name="want_password">If you want to set a password to protect your data, go to Settings</string>
+    <string name="go_to_settings">Go now</string>
+    <string name="begin">Let\'s begin</string>
+    <string name="empty_date_of_birth">Date of birth can\'t be empty</string>
+
+
     <string name="medical_appointments">Medical Appointments</string>
     <string name="weight_and_bmi">Weight/BMI</string>
     <string name="menstrual_period">Menstrual Period</string>
     <string name="medications">Medications</string>
     <string name="settings">Settings</string>
+
     <string name="date">Date:</string>
     <string name="height">Height:</string>
-    <string name="height_units">m</string>
+    <string name="height_units">cm</string>
     <string name="weight">Weight:</string>
     <string name="weight_units">kg</string>
+
     <string name="calculate">Calculate</string>
     <string name="recalculate">Re-Calculate</string>
-    <string name="empty_height">The value of Height must be between 1 to 3 meters</string>
-    <string name="empty_weight">The value of Weight must be between 20 to 200 kg</string>
+
+    <string name="empty_height">The value of Height must be between 100 and 300 cm</string>
+    <string name="empty_weight">The value of Weight must be between 20 and 200 kg</string>
+
     <string name="result">Result</string>
     <string name="bmi">BMI</string>
     <string name="category">Category</string>
@@ -25,5 +42,92 @@
     <string name="underweight_result">Gain</string>
     <string name="normal_result">Need not loss or gain weight</string>
     <string name="overweight_result">Lose</string>
+
+    <string name="last_period">Last Menstrual Period</string>
+    <string name="duration">Duration</string>
+    <string name="next_period">Next Menstrual Period</string>
+    <string name="expected_date">Expected Date</string>
+    <string name="days_to_go">Days to go</string>
+
+    <string name="name">Name</string>
+    <string name="dosage">Dosage</string>
+    <string name="number">Number</string>
+    <string name="how_taken">How is it taken</string>
+    <string name="how_often">How often do you need to take it</string>
+    <string name="commencement_date">Date of commencement</string>
+    <string name="medication_time">Medication time</string>
+    <string name="set_time">Set time</string>
+    <string name="how_long">How long do you need to take it</string>
+
+    <string-array name="how_taken_array">
+        <item>How is it taken</item>
+        <item>Orally (by mouth)</item>
+        <item>Injections</item>
+        <item>Applied locally</item>
+        <item>Eye drops</item>
+        <item>Ear drops</item>
+        <item>Other e.g. patches, suppositories</item>
+    </string-array>
+
+    <string-array name="how_often_array">
+        <item>12 times a day</item>
+        <item>8 times a day</item>
+        <item>6 times a day</item>
+        <item>5 times a day</item>
+        <item>4 times a day</item>
+        <item>Thrice a day</item>
+        <item>Twice a day</item>
+        <item>Once a day</item>
+        <item>Alternate days</item>
+        <item>Thrice a week</item>
+        <item>Twice a week</item>
+        <item>Weekly</item>
+        <item>Twice a month</item>
+        <item>Monthly</item>
+        <item>Once in 2 months</item>
+        <item>Once in 3 months</item>
+        <item>Once in 4 months</item>
+        <item>Once in 5 months</item>
+        <item>Once in 6 months</item>
+        <item>Once a year</item>
+    </string-array>
+
     <string name="record">Record</string>
+    <string name="reminder">Reminder</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+
+    <string name="record_medication_button_toast_message">Name can\'t be empty</string>
+
+    <string name="address">Address</string>
+    <string name="telephone_number1">Telephone number 1</string>
+    <string name="telephone_number2">Telephone number 2</string>
+    <string name="email">Email</string>
+    <string name="last_date">Last date</string>
+    <string name="next_date">Next date</string>
+    <string name="or">--- or ---</string>
+
+
+    <string-array name="appointment_reminder_array">
+        <item>Off</item>
+        <item>One week</item>
+        <item>One month</item>
+        <item>Three months</item>
+        <item>Six months</item>
+        <item>One year</item>
+        <item>Two years</item>
+        <item>Three years</item>
+    </string-array>
+
+    <string name="basis">Basis</string>
+    <string name="select_exact_date">Select exact date</string>
+
+
+
+
+
 </resources>
+
+
