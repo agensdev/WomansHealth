@@ -1,22 +1,28 @@
 package com.blashca.womanshealth;
 
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
-public class WeightActivity extends AppCompatActivity {
+public class WeightActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    private DateFormat dateFormat;
+    private String formattedDate;
+    private static TextView dateTextView;
     private double height;
     private double weight;
     private double bmi;
@@ -29,8 +35,21 @@ public class WeightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
 
-        TextView dateTextView = (TextView) findViewById(R.id.date_textView1);
-        dateTextView.setText(DateFormat.getDateInstance().format(new Date()));
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        formattedDate = dateFormat.format(new Date());
+
+        dateTextView = (TextView) findViewById(R.id.date_textView1);
+        dateTextView.setText(formattedDate);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, monthOfYear, dayOfMonth);
+        Date date = calendar.getTime();
+        formattedDate = dateFormat.format(date);
+
+        dateTextView.setText(formattedDate);
     }
 
     public void showDatePickerDialog(View v) {
@@ -48,16 +67,16 @@ public class WeightActivity extends AppCompatActivity {
         EditText weightEditText = (EditText) findViewById(R.id.weight_editText);
         String weightText = weightEditText.getText().toString();
 
-        if (heightText.equals("") || (Double.parseDouble(heightText) < 1 || Double.parseDouble(heightText) > 3)) {
+        height = Double.parseDouble(heightText) / 100;
+        weight = Double.parseDouble(weightText);
+
+        if (heightText.equals("") || (height < 1 || height > 3)) {
             Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
             return;
-        } else if (weightText.equals("") || (Double.parseDouble(weightText) < 20 || Double.parseDouble(weightText) > 200)) {
+        } else if (weightText.equals("") || (weight < 20 || weight > 200)) {
             Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        height = Double.parseDouble(heightText);
-        weight = Double.parseDouble(weightText);
 
         bmi = weight / Math.pow(height, 2);
 
@@ -85,7 +104,11 @@ public class WeightActivity extends AppCompatActivity {
         categoryResult.setText(category);
 
         TextView optimumResult = (TextView) findViewById(R.id.optimum_result_textView);
-        optimumResult.setText(optimum + " " + String.format("%.1f", optimalWeight) + " " + getString(R.string.weight_units));
+        if (category == R.string.normal_weight) {
+            optimumResult.setText(optimum);
+        } else {
+            optimumResult.setText(optimum + " " + String.format("%.1f", optimalWeight) + " " + getString(R.string.weight_units));
+        }
 
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
         relativeLayout.setVisibility(View.VISIBLE);
