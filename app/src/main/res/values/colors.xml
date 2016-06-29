@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="yellow">#FFC107</color>
+    <color name="electric">#00BFA5</color>
+    <color name="fuchsia">#E040FB</color>
+    <color name="navy">#311B92</color>
+    <color name="light_blue">#C5CAE9</color>
+
 </resources>
