@@ -15,12 +15,48 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".AppointmentsActivity"
+            android:label="My Appointments"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".AppointmentsDetailActivity"
+            android:parentActivityName=".AppointmentsActivity">
+        </activity>
+
         <activity
             android:name=".WeightActivity"
             android:label="Weight/BMI"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateVisible">
         </activity>
+
+        <activity
+            android:name=".PeriodActivity"
+            android:label="Menstrual Period"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".MedicationsActivity"
+            android:label="My Medications"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".MedicationsDetailActivity"
+            android:parentActivityName=".MedicationsActivity">
+        </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
     </application>
 
 </manifest>
