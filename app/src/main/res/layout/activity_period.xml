@@ -1,150 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="@string/last_period"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:background="@drawable/button_accent_style"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_style">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/period_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_style_fuchsia"
             android:gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="-"
+            android:padding="8dp"
+            android:text="@string/last_period"
             android:textSize="18sp"
-            android:background="@drawable/border_style"
-            android:onClick="showDatePickerDialog"/>
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_style_fuchsia"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/period_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_yellow_style"
+                android:gravity="center_horizontal"
+                android:onClick="showDatePickerDialog"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/set_date"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/duration_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/duration"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/duration_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/period_date"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="left"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/duration"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/period_date"
-            android:layout_toRightOf="@id/duration"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border_style_fuchsia"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="@string/next_period"
             android:textSize="18sp"
-            android:background="@drawable/border_style"/>
+            android:textStyle="bold" />
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_style_fuchsia"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:padding="8dp"
-        android:text="@string/next_period"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:background="@drawable/button_accent_style"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_style">
+                <TextView
+                    android:id="@+id/expected_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/expected_date"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/expected_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginTop="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/expected_date"
-            android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/expeced_date_data"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_style_fuchsia"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/expeced_date_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/expected_date"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="-"
-            android:textSize="18sp"
-            android:background="@drawable/border_style"/>
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/days_to_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/expected_date"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="left"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/days_to_go"
-            android:textSize="18sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignLeft="@id/expeced_date_data"
-            android:layout_below="@id/expeced_date_data"
-            android:layout_toRightOf="@id/days_to_go"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="-"
-            android:textSize="18sp"
-            android:background="@drawable/border_style"/>
-    </RelativeLayout>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/days_to_go"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/days_to_go"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/days_to_go_data"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_style_fuchsia"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

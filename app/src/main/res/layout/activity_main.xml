@@ -133,12 +133,12 @@
             app:layout_marginTopPercent="85%"
             android:layout_alignParentRight="true"
             app:layout_marginRightPercent="5%"
-            android:src="@drawable/settings"/>
+            android:src="@drawable/profile"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings"
+            android:text="@string/profile"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             app:layout_marginRightPercent="6%"
