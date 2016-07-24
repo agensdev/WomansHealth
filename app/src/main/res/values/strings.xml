@@ -3,22 +3,29 @@
 
     // Welcome screen
     <string name="welcome_header">Welcome to Woman\'sHealth</string>
-    <string name="about_yourself">Tell us about yourself...</string>
+    <string name="about_yourself">tell us about yourself...</string>
     <string name="date_of_birth">Your date of birth:</string>
     <string name="pregnant">I\'m pregnant</string>
     <string name="menopause">I\'m in menopause</string>
-    <string name="want_password">If you want to set a password to protect your data, go to Settings</string>
+    <string name="want_password">If you want to set a password to protect your data, go to Profile</string>
     <string name="go_to_settings">Go now</string>
     <string name="begin">Let\'s begin</string>
     <string name="empty_date_of_birth">Date of birth can\'t be empty</string>
 
+    // Password screen
+    <string name="enter_password">Enter password</string>
+    <string name="incorrect_password">Incorrect password, try again</string>
+    <string name="access_denied">Access denied</string>
 
+
+    // Main screen
     <string name="medical_appointments">Medical Appointments</string>
     <string name="weight_and_bmi">Weight/BMI</string>
     <string name="menstrual_period">Menstrual Period</string>
     <string name="medications">Medications</string>
-    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
 
+    // Weight/BMI Screen
     <string name="date">Date:</string>
     <string name="height">Height:</string>
     <string name="height_units">cm</string>
@@ -43,11 +50,37 @@
     <string name="normal_result">Need not loss or gain weight</string>
     <string name="overweight_result">Lose</string>
 
+    // Period screen
     <string name="last_period">Last Menstrual Period</string>
+    <string name="set_date">Set date</string>
+    <string name="set_duration">Set duration</string>
     <string name="duration">Duration</string>
     <string name="next_period">Next Menstrual Period</string>
     <string name="expected_date">Expected Date</string>
     <string name="days_to_go">Days to go</string>
+
+    // Medications screen
+
+    <string-array name="medications_array">
+        <item>Medicine 1</item>
+        <item>Medicine 2</item>
+        <item>Medicine 3</item>
+        <item>Medicine 4</item>
+        <item>Medicine 5</item>
+        <item>Medicine 6</item>
+        <item>Medicine 7</item>
+        <item>Medicine 8</item>
+        <item>Medicine 9</item>
+        <item>Medicine 10</item>
+        <item>Medicine 11</item>
+        <item>Medicine 12</item>
+        <item>Medicine Alergy 1</item>
+        <item>Medicine Alergy 2</item>
+        <item>Medicine Alergy 3</item>
+        <item>Medicine Alergy 4</item>
+        <item>Medicine Alergy 5</item>
+    </string-array>
+
 
     <string name="name">Name</string>
     <string name="dosage">Dosage</string>
@@ -58,15 +91,18 @@
     <string name="medication_time">Medication time</string>
     <string name="set_time">Set time</string>
     <string name="how_long">How long do you need to take it</string>
+    <string name="allergy_to">Allergy to:</string>
+    <string name="allergies_effects">Type of allergies or side-effects</string>
+
 
     <string-array name="how_taken_array">
-        <item>How is it taken</item>
         <item>Orally (by mouth)</item>
         <item>Injections</item>
         <item>Applied locally</item>
         <item>Eye drops</item>
         <item>Ear drops</item>
         <item>Other e.g. patches, suppositories</item>
+        <item>How is it taken</item> <!-- Hint -->
     </string-array>
 
     <string-array name="how_often_array">
@@ -92,22 +128,47 @@
         <item>Once a year</item>
     </string-array>
 
+    <string name="once">Once a</string>
+    <string name="twice">Twice a</string>
+    <string name="thrice">Thrice a</string>
+    <string name="times">times a</string>
+
     <string name="record">Record</string>
     <string name="reminder">Reminder</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
     <string name="ok">OK</string>
     <string name="on">ON</string>
     <string name="off">OFF</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="add_appointment">Add appointment</string>
+    <string name="add_medication">Add medication</string>
+    <string name="add_allergy">Add allergy</string>
 
-    <string name="record_medication_button_toast_message">Name can\'t be empty</string>
 
+    <string name="record_button_toast_message">Name can\'t be empty</string>
+
+    <string name="appointment_name">Appointment name</string>
+    <string name="doctors_name">Doctor\'s name</string>
     <string name="address">Address</string>
     <string name="telephone_number1">Telephone number 1</string>
     <string name="telephone_number2">Telephone number 2</string>
     <string name="email">Email</string>
     <string name="last_date">Last date</string>
+    <string name="select_date">Select date</string>
     <string name="next_date">Next date</string>
+    <string name="basis">Basis</string>
     <string name="or">--- or ---</string>
+    <string name="select_exact_date">Select exact date</string>
+    <string name="select_exact_time">Select exact time</string>
+
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="incorrect_password_confirmation">Confirmation doesn\'t match password</string>
+
+
+
 
 
     <string-array name="appointment_reminder_array">
@@ -121,8 +182,38 @@
         <item>Three years</item>
     </string-array>
 
-    <string name="basis">Basis</string>
-    <string name="select_exact_date">Select exact date</string>
+    <string-array name="duration_array">
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+        <item>Set duration</item>
+    </string-array>
+
+    <string-array name="frequency_array">
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+        <item>year</item>
+    </string-array>
+
+    <string-array name="length_array">
+        <item>days</item>
+        <item>weeks</item>
+        <item>months</item>
+        <item>years</item>
+    </string-array>
+
+    <!--Alert messages-->
+    <string name="delete_appointment_message">Delete appointment?</string>
+    <string name="delete_medication_message">Delete medication?</string>
+    <string name="delete_allergen_message">Delete allergen?</string>
+    <string name="delete_dialog_positive">Delete</string>
+    <string name="delete_dialog_negative">Cancel</string>
+
 
 
 
