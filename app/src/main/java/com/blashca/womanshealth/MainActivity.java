@@ -210,13 +210,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
         if(radioButton != null && checkedId > -1){
             switch (checkedId) {
-                case R.id.profile_radio_normal:
+                case R.id.welcome_radio_normal:
                     radioButtonIndex = 0;
                     break;
-                case R.id.profile_radio_pregnant:
+                case R.id.welcome_radio_pregnant:
                     radioButtonIndex = 1;
                     break;
-                case R.id.profile_radio_menopause:
+                case R.id.welcome_radio_menopause:
                     radioButtonIndex = 2;
                     break;
             }
