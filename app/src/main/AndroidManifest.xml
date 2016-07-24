@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blashca.womanshealth">
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -23,8 +24,13 @@
         </activity>
 
         <activity
-            android:name=".AppointmentsDetailActivity"
+            android:name=".AppointmentDetailActivity"
             android:parentActivityName=".AppointmentsActivity">
+        </activity>
+
+        <activity
+            android:name=".AppointmentEditActivity"
+            android:parentActivityName=".AppointmentDetailActivity">
         </activity>
 
         <activity
@@ -47,12 +53,28 @@
         </activity>
 
         <activity
-            android:name=".MedicationsDetailActivity"
+            android:name=".MedicationDetailActivity"
             android:parentActivityName=".MedicationsActivity">
         </activity>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".MedicationEditActivity"
+            android:parentActivityName=".MedicationDetailActivity">
+        </activity>
+
+        <activity
+            android:name=".AllergenDetailActivity"
+            android:parentActivityName=".MedicationsActivity">
+        </activity>
+
+        <activity
+            android:name=".AllergenEditActivity"
+            android:parentActivityName=".AllergenDetailActivity"
+            android:windowSoftInputMode="stateVisible">
+        </activity>
+
+        <activity
+            android:name=".ProfileActivity"
             android:label="Settings"
             android:parentActivityName=".MainActivity">
         </activity>
