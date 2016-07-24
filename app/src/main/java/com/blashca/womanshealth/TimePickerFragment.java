@@ -11,7 +11,7 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+public class TimePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -21,14 +21,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
+        return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) getActivity(), hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        TextView timeSetTextView = (TextView) view.findViewById(R.id.medication_time_set_textView);
-        timeSetTextView.setText(new StringBuilder().append(hourOfDay).append(':')
-                .append(minute).append(" ").toString());
     }
 }
