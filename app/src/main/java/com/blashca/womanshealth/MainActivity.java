@@ -1,41 +1,45 @@
 package com.blashca.womanshealth;
 
 
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.text.DateFormat;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
-    SharedPreferences sharedPreferences;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+    private SharedPreferences sharedPreferences;
     public static final String Overlay = "overlayKey";
+    private String password;
     private TextView birthDateTextView;
+    private int radioButtonIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (sharedPreferences.getBoolean(Overlay, true)) {
             showWelcomeDialog();
+        } else {
+            password = sharedPreferences.getString("password", null);
+
+            if (!password.equals("")) {
+                showPasswordDialog();
+            }
         }
 
         Button appointmentButton = (Button) findViewById(R.id.appointment_button);
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.settins_button:
-                makeIntent(SettingsActivity.class);
+                makeIntent(ProfileActivity.class);
                 break;
 
             default:
@@ -91,73 +95,131 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LayoutInflater inflater = this.getLayoutInflater();
         View view = inflater.inflate(R.layout.welcome_dialog, null);
 
-        birthDateTextView = (TextView) view.findViewById(R.id.date_textView);
-        birthDateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDateOfBirth();
-            }
-        });
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.welcome_radioGroup);
+        radioGroup.setOnCheckedChangeListener(this);
+
+        birthDateTextView = (TextView) view.findViewById(R.id.date_of_birth_textView);
 
         builder.setView(view)
                 .setPositiveButton(R.string.begin, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (!birthDateTextView.getText().toString().equals("DD-MM-YYYY")) {
-                            //Dodaj kod zapisujący dane do bazy
-
-                            dialog.cancel();
-
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(Overlay, false);
-                            editor.commit();
-
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), R.string.empty_date_of_birth, Toast.LENGTH_SHORT).show();
-                        }
+                        //Do nothing here because we override this button later to change the close behaviour.
+                        //However, we still need this because on older versions of Android unless we
+                        //pass a handler the button doesn't get instantiated
                     }
                 });
 
-        builder.create();
-        builder.show();
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        //Overriding the handler immediately after show is probably a better approach than OnShowListener as described below
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Boolean wantToCloseDialog = false;
+                //Do stuff, possibly set wantToCloseDialog to true then...
+                String birthday = birthDateTextView.getText().toString();
+
+                if (!birthday.equals("DD-MM-YYYY")) {
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("birthday", birthday);
+                    editor.putInt("radioButtonIndex", radioButtonIndex);
+                    editor.putBoolean(Overlay, false);
+                    editor.commit();
+
+                    wantToCloseDialog = true;
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.empty_date_of_birth, Toast.LENGTH_SHORT).show();
+                }
+
+                if(wantToCloseDialog)
+                    dialog.dismiss();
+                //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+            }
+        });
     }
 
-    private void setDateOfBirth() {
-        DialogFragment newFragment = new DatePickerFragment();
+    private void showPasswordDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.login_dialog, null);
+
+        builder.setView(view)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Toast.makeText(getApplicationContext(), R.string.access_denied, Toast.LENGTH_SHORT).show();
+
+                        // I'm using thread to delay finishing app (on toast message end)
+                        Thread thread = new Thread(){
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(2000);
+                                    finish();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        thread.start();
+                    }
+                });
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Boolean wantToCloseDialog = false;
+                EditText login = (EditText) view.findViewById(R.id.login_editText);
+                String loginText = login.getText().toString();
+
+                if (loginText.equals(password)) {
+                    wantToCloseDialog = true;
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.incorrect_password, Toast.LENGTH_SHORT).show();
+                }
+
+                if(wantToCloseDialog)
+                    dialog.dismiss();
+            }
+        });
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment((TextView) v);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radio_normal:
-                if (checked)
-
-                    break;
-            case R.id.radio_pregnant:
-                if (checked)
-
-                    break;
-            case R.id.radio_menopause:
-                if (checked)
-
-                    break;
-            default:
-        }
-    }
-
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, monthOfYear, dayOfMonth);
-        Date date = calendar.getTime();
-
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        String formattedDate = dateFormat.format(date);
-        birthDateTextView.setText(formattedDate);
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
+        if(radioButton != null && checkedId > -1){
+            switch (checkedId) {
+                case R.id.profile_radio_normal:
+                    radioButtonIndex = 0;
+                    break;
+                case R.id.profile_radio_pregnant:
+                    radioButtonIndex = 1;
+                    break;
+                case R.id.profile_radio_menopause:
+                    radioButtonIndex = 2;
+                    break;
+            }
+        }
     }
 }
