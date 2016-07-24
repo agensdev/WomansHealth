@@ -1,28 +1,28 @@
 package com.blashca.womanshealth;
 
 
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.data.WomansHealthContract;
+import com.blashca.womanshealth.data.WomansHealthDbHelper;
+
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
-public class WeightActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private DateFormat dateFormat;
-    private String formattedDate;
+public class WeightActivity extends AppCompatActivity {
     private static TextView dateTextView;
+    private WomansHealthDbHelper dbHelper;
     private double height;
     private double weight;
     private double bmi;
@@ -35,25 +35,17 @@ public class WeightActivity extends AppCompatActivity implements DatePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
 
-        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        formattedDate = dateFormat.format(new Date());
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        String formattedDate = dateFormat.format(new Date());
 
-        dateTextView = (TextView) findViewById(R.id.date_textView1);
+        dateTextView = (TextView) findViewById(R.id.date_set_textView);
         dateTextView.setText(formattedDate);
-    }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, monthOfYear, dayOfMonth);
-        Date date = calendar.getTime();
-        formattedDate = dateFormat.format(date);
-
-        dateTextView.setText(formattedDate);
+        dbHelper = new WomansHealthDbHelper(this);
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
+        DialogFragment newFragment = new DatePickerFragment((TextView) v);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -67,16 +59,16 @@ public class WeightActivity extends AppCompatActivity implements DatePickerDialo
         EditText weightEditText = (EditText) findViewById(R.id.weight_editText);
         String weightText = weightEditText.getText().toString();
 
-        height = Double.parseDouble(heightText) / 100;
-        weight = Double.parseDouble(weightText);
-
-        if (heightText.equals("") || (height < 1 || height > 3)) {
+        if (heightText.equals("") || (Integer.parseInt(heightText) < 100 || Integer.parseInt(heightText) > 300)) {
             Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
             return;
-        } else if (weightText.equals("") || (weight < 20 || weight > 200)) {
+        } else if (weightText.equals("") || (Double.parseDouble(weightText) < 20 || Double.parseDouble(weightText) > 200)) {
             Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        height = Integer.parseInt(heightText) / 100.00;
+        weight = Double.parseDouble(weightText);
 
         bmi = weight / Math.pow(height, 2);
 
@@ -115,5 +107,20 @@ public class WeightActivity extends AppCompatActivity implements DatePickerDialo
 
         Button calculateButton = (Button) findViewById(R.id.calculate_button);
         calculateButton.setText(R.string.recalculate);
+    }
+
+    public void onRecordWeightButtonClicked(View view) {
+        dbHelper.insertWeight(getWeightContentValues());
+    }
+
+    private ContentValues getWeightContentValues() {
+        String date = dateTextView.getText().toString();
+
+        ContentValues values = new ContentValues();
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, date);
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT, height);
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT, weight);
+
+        return values;
     }
 }
