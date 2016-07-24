@@ -18,6 +18,7 @@ import android.widget.Toast;
 public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     private SharedPreferences sharedPreferences;
     private TextView dateTextView;
+    private RadioGroup radioGroup;
     private int radioButtonIndex;
 
     @Override
@@ -29,7 +30,28 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
 
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
 
+        radioGroup = (RadioGroup) findViewById(R.id.profile_radioGroup);
+        radioGroup.setOnCheckedChangeListener(this);
+
         setProfileData();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
+        if(radioButton != null && checkedId > -1){
+            switch (checkedId) {
+                case R.id.profile_radio_normal:
+                    radioButtonIndex = 0;
+                    break;
+                case R.id.profile_radio_pregnant:
+                    radioButtonIndex = 1;
+                    break;
+                case R.id.profile_radio_menopause:
+                    radioButtonIndex = 2;
+                    break;
+            }
+        }
     }
 
     public void showDatePickerDialog(View v) {
@@ -42,9 +64,8 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
         String date = sharedPreferences.getString("birthday", null);
         dateTextView.setText(date);
 
-        int radioButtonIndex = sharedPreferences.getInt("radioButtonIndex", 0);
+        radioButtonIndex = sharedPreferences.getInt("radioButtonIndex", 0);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.profile_radioGroup);
         int radioButtonId = R.id.profile_radio_normal;
 
         switch (radioButtonIndex) {
@@ -92,24 +113,6 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
 
         } else {
             Toast.makeText(getApplicationContext(), R.string.incorrect_password_confirmation, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
-        if(radioButton != null && checkedId > -1){
-            switch (checkedId) {
-                case R.id.profile_radio_normal:
-                    radioButtonIndex = 0;
-                    break;
-                case R.id.profile_radio_pregnant:
-                    radioButtonIndex = 1;
-                    break;
-                case R.id.profile_radio_menopause:
-                    radioButtonIndex = 2;
-                    break;
-            }
         }
     }
 }
