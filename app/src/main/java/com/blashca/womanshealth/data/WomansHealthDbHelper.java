@@ -41,6 +41,13 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS
     };
 
+    private static final String[] WEIGHT_COLUMNS_TO_BE_BOUND_WITH_ID = new String[] {
+            WomansHealthContract.WomansHealthWeight._ID,
+            WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE,
+            WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT,
+            WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT
+    };
+
     public WomansHealthDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -285,6 +292,22 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int getWeightsCount(String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] selectionArgs = {String.valueOf(date)};
+
+        Cursor weightCursor = db.query(
+                WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                WEIGHT_COLUMNS_TO_BE_BOUND_WITH_ID,
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " = ?",
+                selectionArgs,
+                null,
+                null,
+                null);
+
+        return weightCursor.getCount();
+    }
+
     public void insertWeight(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -292,6 +315,17 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
                 null,
                 values);
+        db.close();
+    }
+
+    public void updateWeight(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.update(
+                WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                values,
+                null,
+                null);
         db.close();
     }
 }

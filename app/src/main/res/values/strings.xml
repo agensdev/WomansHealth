@@ -49,6 +49,10 @@
     <string name="underweight_result">Gain</string>
     <string name="normal_result">Need not loss or gain weight</string>
     <string name="overweight_result">Lose</string>
+    <string name="weight_recorded">The record is added into database</string>
+    <string name="record_exists">A value already exists for the date. Would you like to update it?</string>
+    <string name="update">Update</string>
+
 
     // Period screen
     <string name="last_period">Last Menstrual Period</string>

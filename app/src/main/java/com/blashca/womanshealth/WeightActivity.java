@@ -3,6 +3,7 @@ package com.blashca.womanshealth;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.Date;
 
 
 public class WeightActivity extends AppCompatActivity {
+    private String formattedDate;
     private static TextView dateTextView;
     private WomansHealthDbHelper dbHelper;
     private double height;
@@ -36,7 +38,7 @@ public class WeightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weight);
 
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        String formattedDate = dateFormat.format(new Date());
+        formattedDate = dateFormat.format(new Date());
 
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
         dateTextView.setText(formattedDate);
@@ -110,7 +112,34 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void onRecordWeightButtonClicked(View view) {
-        dbHelper.insertWeight(getWeightContentValues());
+
+        if (dbHelper.getWeightsCount(formattedDate) == 0) {
+            dbHelper.insertWeight(getWeightContentValues());
+            Toast.makeText(this, R.string.weight_recorded, Toast.LENGTH_SHORT).show();
+        } else {
+            android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+
+            alertDialogBuilder
+                    .setMessage(R.string.record_exists)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.update,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dbHelper.updateWeight(getWeightContentValues());
+                            finish();
+                            Toast.makeText(getApplicationContext(), R.string.weight_recorded, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
+
+            android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
     }
 
     private ContentValues getWeightContentValues() {
