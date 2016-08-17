@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (sharedPreferences.getBoolean(Overlay, true)) {
             showWelcomeDialog();
         } else {
-            password = sharedPreferences.getString("password", null);
+            password = sharedPreferences.getString("password", "");
 
             if (!password.equals("")) {
                 showPasswordDialog();
@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+
         //Overriding the handler immediately after show is probably a better approach than OnShowListener as described below
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,32 +155,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                     }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        Toast.makeText(getApplicationContext(), R.string.access_denied, Toast.LENGTH_SHORT).show();
-
-                        // I'm using thread to delay finishing app (on toast message end)
-                        Thread thread = new Thread(){
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(2000);
-                                    finish();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        };
-                        thread.start();
-                    }
                 });
-
 
         final AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     wantToCloseDialog = true;
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.incorrect_password, Toast.LENGTH_SHORT).show();
+                    login.setText("");
                 }
 
                 if(wantToCloseDialog)
