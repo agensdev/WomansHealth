@@ -70,26 +70,26 @@ public class WeightActivity extends AppCompatActivity {
             return;
         }
 
-        height = Integer.parseInt(heightText) / 100.00;
+        height = Integer.parseInt(heightText);
         weight = Double.parseDouble(weightText);
 
-        bmi = weight / Math.pow(height, 2);
+        bmi = weight / Math.pow(height/100.0, 2);
 
         if (bmi < 18.5) {
             category = R.string.underweight;
             optimum = getString(R.string.underweight_result);
-            optimalWeight = Math.abs(weight - (18.5 * Math.pow(height, 2)));
+            optimalWeight = Math.abs(weight - (18.5 * Math.pow(height/100.0, 2)));
         } else if (bmi >= 18.5 && bmi < 25) {
             category = R.string.normal_weight;
             optimum = getString(R.string.normal_result);
         } else if (bmi >= 25 && bmi < 30) {
             category = R.string.overweight;
             optimum = getString(R.string.overweight_result);
-            optimalWeight = Math.abs((24.9 * Math.pow(height, 2)) - weight);
+            optimalWeight = Math.abs((24.9 * Math.pow(height/100.0, 2)) - weight);
         } else {
             category = R.string.obese;
             optimum = getString(R.string.overweight_result);
-            optimalWeight = Math.abs((24.9 * Math.pow(height, 2)) - weight);
+            optimalWeight = Math.abs((24.9 * Math.pow(height/100.0, 2)) - weight);
         }
 
         TextView bmiResult = (TextView) findViewById(R.id.bmi_result_textView);
