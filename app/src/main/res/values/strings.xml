@@ -87,6 +87,7 @@
 
 
     <string name="name">Name</string>
+    <string name="details">details</string>
     <string name="dosage">Dosage</string>
     <string name="number">Number</string>
     <string name="how_taken">How is it taken</string>
@@ -215,8 +216,7 @@
     <string name="delete_appointment_message">Delete appointment?</string>
     <string name="delete_medication_message">Delete medication?</string>
     <string name="delete_allergen_message">Delete allergen?</string>
-    <string name="delete_dialog_positive">Delete</string>
-    <string name="delete_dialog_negative">Cancel</string>
+    <string name="delete_record">Delete record?</string>
 
 
 
