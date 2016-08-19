@@ -121,16 +121,34 @@
             android:gravity="right"
             android:maxLines="1"/>
 
-        <Button
-            android:id="@+id/calculate_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/calculate"
-            android:textStyle="bold"
-            android:layout_below="@id/weight_units"
-            android:background="@drawable/button_yellow_style"
-            android:onClick="calculateBMI"/>
+            android:orientation="horizontal"
+            android:layout_below="@id/weight_editText">
+
+            <Button
+                android:id="@+id/calculate_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginTop="15dp"
+                android:text="@string/calculate"
+                android:textStyle="bold"
+                android:background="@drawable/button_yellow_style"
+                android:onClick="calculateBMI"/>
+
+            <ImageButton
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:paddingTop="6dp"
+                android:paddingLeft="6dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:layout_gravity="bottom"
+                android:src="@drawable/data"
+                android:onClick="showWeightRecords"/>
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -257,4 +275,5 @@
             android:background="@drawable/button_yellow_style"
             android:onClick="onRecordWeightButtonClicked"/>
     </RelativeLayout>
+
 </LinearLayout>
