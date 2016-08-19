@@ -4,6 +4,7 @@ package com.blashca.womanshealth;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -113,8 +114,9 @@ public class WeightActivity extends AppCompatActivity {
 
     public void onRecordWeightButtonClicked(View view) {
 
-        if (dbHelper.getWeightsCount(formattedDate) == 0) {
+        if (dbHelper.getWeightsCount(chosenDate()) == 0) {
             dbHelper.insertWeight(getWeightContentValues());
+            resetScreen();
             Toast.makeText(this, R.string.weight_recorded, Toast.LENGTH_SHORT).show();
         } else {
             android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
@@ -124,8 +126,8 @@ public class WeightActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.update,new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            dbHelper.updateWeight(getWeightContentValues());
-                            finish();
+                            dbHelper.updateWeight(getWeightContentValues(), chosenDate());
+                            resetScreen();
                             Toast.makeText(getApplicationContext(), R.string.weight_recorded, Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -143,13 +145,28 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     private ContentValues getWeightContentValues() {
-        String date = dateTextView.getText().toString();
 
         ContentValues values = new ContentValues();
-        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, date);
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, chosenDate());
         values.put(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT, height);
         values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT, weight);
 
         return values;
+    }
+
+    private String chosenDate() {
+        return dateTextView.getText().toString();
+    }
+
+    private void resetScreen() {
+        EditText height = (EditText) findViewById(R.id.height_editText);
+        height.setText("");
+        EditText weight = (EditText) findViewById(R.id.weight_editText);
+        weight.setText("");
+        Button calculate = (Button) findViewById(R.id.calculate_button);
+        calculate.setText(R.string.calculate);
+
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
+        relativeLayout.setVisibility(View.INVISIBLE);
     }
 }
