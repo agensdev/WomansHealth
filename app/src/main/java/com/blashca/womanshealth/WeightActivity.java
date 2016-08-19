@@ -112,6 +112,11 @@ public class WeightActivity extends AppCompatActivity {
         calculateButton.setText(R.string.recalculate);
     }
 
+    public void showWeightRecords(View view) {
+        Intent intent = new Intent(this, WeightRecordsActivity.class);
+        startActivity(intent);
+    }
+
     public void onRecordWeightButtonClicked(View view) {
 
         if (dbHelper.getWeightsCount(chosenDate()) == 0) {
