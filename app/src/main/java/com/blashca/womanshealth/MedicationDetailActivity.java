@@ -59,7 +59,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         alertDialogBuilder
                 .setMessage(R.string.delete_medication_message)
                 .setCancelable(false)
-                .setPositiveButton(R.string.delete_dialog_positive,new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
                         dbHelper.deleteMedication(medicationId);
@@ -69,7 +69,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton(R.string.delete_dialog_negative,new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
