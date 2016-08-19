@@ -318,14 +318,44 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateWeight(ContentValues values) {
+    public void updateWeight(ContentValues values, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " = ?";
+        String[] selectionArgs = {String.valueOf(date)};
 
         db.update(
                 WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
                 values,
+                selection,
+                selectionArgs);
+        db.close();
+    }
+
+    public Cursor getWeightsCursor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor weightsCursor = db.query(
+                WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                WEIGHT_COLUMNS_TO_BE_BOUND_WITH_ID,
+                null,
+                null,
+                null,
                 null,
                 null);
+
+        return weightsCursor;
+    }
+
+    public void deleteWeight(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthWeight._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.delete(
+                WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                selection,
+                selectionArgs);
         db.close();
     }
 }
