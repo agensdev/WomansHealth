@@ -8,15 +8,28 @@
     android:background="@drawable/border_style_yellow"
     android:id="@+id/weights_listView_item">
 
-    <TextView
-        android:id="@+id/bmi_record_textView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:gravity="left"
-        android:text="@string/bmi"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/bmi_record_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/bmi"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/category_record_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_toRightOf="@id/bmi_record_textView"
+            android:text="@string/details"
+            android:textSize="18sp"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -27,14 +27,21 @@ public class WeightCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView bmi = (TextView) view.findViewById(R.id.bmi_record_textView);
+        TextView bmiTextView = (TextView) view.findViewById(R.id.bmi_record_textView);
+        TextView categoryTextView = (TextView) view.findViewById(R.id.category_record_textView);
         TextView weightAndHeight = (TextView) view.findViewById(R.id.weight_and_height_record_textView);
         TextView date = (TextView) view.findViewById(R.id.weight_date_record_textView);
 
 
-        String textWeight = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
-        String textHeight = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
-        weightAndHeight.setText(textWeight + " kg   " + textHeight + " cm");
+        int height = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
+        int weight = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
+
+        Bmi bmi = new Bmi(height, weight);
+        String bmiValue = bmi.getBmiValue();
+        int category = bmi.getCategory();
+        bmiTextView.setText(bmiValue + "  -");
+        categoryTextView.setText(category);
+        weightAndHeight.setText(weight + " kg       " + height + " cm");
 
         String textDate = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE));
         date.setText(textDate);
