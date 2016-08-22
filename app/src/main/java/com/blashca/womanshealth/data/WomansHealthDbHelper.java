@@ -341,7 +341,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null);
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " DESC");
 
         return weightsCursor;
     }
