@@ -35,7 +35,7 @@
     <string name="calculate">Calculate</string>
     <string name="recalculate">Re-Calculate</string>
 
-    <string name="empty_height">The value of Height must be between 100 and 300 cm</string>
+    <string name="empty_height">The value of Height must be integer between 100 and 300 cm</string>
     <string name="empty_weight">The value of Weight must be between 20 and 200 kg</string>
 
     <string name="result">Result</string>
