@@ -46,6 +46,14 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         dbHelper = new WomansHealthDbHelper(this);
     }
 
+    @Override
+    public void onDateReceive(Date date, int id) {
+        this.chosenDate = date;
+        // Since there is only one text view with date we don't use the id
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        dateTextView.setText(dateFormat.format(date));
+    }
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView);
         newFragment.show(getFragmentManager(), "datePicker");
@@ -156,13 +164,5 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
 
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
         relativeLayout.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void onDateReceive(Date date, int id) {
-        this.chosenDate = date;
-        // Since there is only one text view with date we don't use the id
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        dateTextView.setText(dateFormat.format(date));
     }
 }
