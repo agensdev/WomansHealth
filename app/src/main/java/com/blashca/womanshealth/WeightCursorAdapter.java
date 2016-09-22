@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.blashca.womanshealth.data.WomansHealthContract;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class WeightCursorAdapter extends CursorAdapter {
     private LayoutInflater cursorInflater;
 
@@ -30,7 +33,7 @@ public class WeightCursorAdapter extends CursorAdapter {
         TextView bmiTextView = (TextView) view.findViewById(R.id.bmi_record_textView);
         TextView categoryTextView = (TextView) view.findViewById(R.id.category_record_textView);
         TextView weightAndHeight = (TextView) view.findViewById(R.id.weight_and_height_record_textView);
-        TextView date = (TextView) view.findViewById(R.id.weight_date_record_textView);
+        TextView dateTextView = (TextView) view.findViewById(R.id.weight_date_record_textView);
 
 
         int height = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
@@ -43,7 +46,10 @@ public class WeightCursorAdapter extends CursorAdapter {
         categoryTextView.setText(category);
         weightAndHeight.setText(weight + " kg       " + height + " cm");
 
-        String textDate = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE));
-        date.setText(textDate);
+        Long timestamp = cursor.getLong(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE));
+        Date date = new Date(timestamp);
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        String formattedDate = dateFormat.format(date);
+        dateTextView.setText(formattedDate);
     }
 }

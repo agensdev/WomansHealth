@@ -1,7 +1,6 @@
 package com.blashca.womanshealth;
 
 
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -29,10 +27,9 @@ import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-public class MedicationEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class MedicationEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener, DateReceiver {
     private DateFormat dateFormat;
     private String formattedDate;
     private static String MEDICATION_ID = "medicationId";
@@ -140,15 +137,6 @@ public class MedicationEditActivity extends AppCompatActivity implements Adapter
         // Another interface callback
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, monthOfYear, dayOfMonth);
-        Date date = calendar.getTime();
-        formattedDate = dateFormat.format(date);
-
-        commencementTextView.setText(formattedDate);
-    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -234,7 +222,7 @@ public class MedicationEditActivity extends AppCompatActivity implements Adapter
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -376,5 +364,11 @@ public class MedicationEditActivity extends AppCompatActivity implements Adapter
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG, howLong);
 
         return values;
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        formattedDate = dateFormat.format(date);
+        commencementTextView.setText(formattedDate);
     }
 }

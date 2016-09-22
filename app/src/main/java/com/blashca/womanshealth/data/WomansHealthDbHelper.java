@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
+import static com.blashca.womanshealth.R.string.date;
+
 
 public class WomansHealthDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -131,7 +135,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_TABLE_WEIGHT = "CREATE TABLE " + WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT + " (" +
                 WomansHealthContract.WomansHealthWeight._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " TEXT NOT NULL, " +
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " INTEGER NOT NULL, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT + " TEXT NOT NULL, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " TEXT NOT NULL " +
                 " );";
@@ -292,9 +296,10 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int getWeightsCount(String date) {
+    public int getWeightsCount(Date date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] selectionArgs = {String.valueOf(date)};
+        Long timestamp = date.getTime(); // We store dates as timestamps (int as a number of seconds since 1970-01-01) in db column
+        String[] selectionArgs = {String.valueOf(timestamp)};
 
         Cursor weightCursor = db.query(
                 WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
@@ -318,11 +323,11 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateWeight(ContentValues values, String date) {
+    public void updateWeight(ContentValues values, Date date) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selection = WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " = ?";
-        String[] selectionArgs = {String.valueOf(date)};
+        String[] selectionArgs = {String.valueOf(date.getTime())};
 
         db.update(
                 WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,

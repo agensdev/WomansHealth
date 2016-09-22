@@ -15,7 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+import java.text.DateFormat;
+import java.util.Date;
+
+public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, DateReceiver {
     private SharedPreferences sharedPreferences;
     private TextView dateTextView;
     private RadioGroup radioGroup;
@@ -55,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment((TextView) v);
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -114,5 +117,11 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
         } else {
             Toast.makeText(getApplicationContext(), R.string.incorrect_password_confirmation, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        dateTextView.setText(dateFormat.format(date));
     }
 }

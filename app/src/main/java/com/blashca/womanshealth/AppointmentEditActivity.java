@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
+import java.text.DateFormat;
+import java.util.Date;
 
-public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
+
+public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener, DateReceiver {
     private static String APPOINTMENT_ID = "appointmentId";
     private long appointmentId;
     private WomansHealthDbHelper dbHelper;
@@ -93,7 +96,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment((TextView) v);
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -181,5 +184,16 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME, nextDateTime);
 
         return values;
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+
+        if (id == R.id.last_date_set_textView) {
+            lastDateTextView.setText(dateFormat.format(date));
+        } else if (id == R.id.next_date_set_textView) {
+            nextDateTextView.setText(dateFormat.format(date));
+        }
     }
 }

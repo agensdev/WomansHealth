@@ -13,18 +13,21 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.R.attr.id;
+
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-    private TextView textView;
-    private DateFormat dateFormat;
+    private DateReceiver dateReceiver;
+    private int id;
 
     public DatePickerFragment() {
 
     }
 
+    // We pass an interface as an argument to the constructor because we only care if this object has onDateReceive method
     @SuppressLint("ValidFragment")
-    public DatePickerFragment(TextView textView) {
-        this.textView = textView;
-        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+    public DatePickerFragment(DateReceiver dateReceiver, int id) {
+        this.dateReceiver = dateReceiver;
+        this.id = id;
     }
 
     @Override
@@ -44,8 +47,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth);
         Date date = calendar.getTime();
-        String formattedDate = dateFormat.format(date);
 
-        textView.setText(formattedDate);
+        dateReceiver.onDateReceive(date, id);
     }
 }

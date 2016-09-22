@@ -15,8 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class PeriodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PeriodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver {
     private DateFormat dateFormat;
+    private TextView periodDate;
     private static TextView expectedDate;
     private Date futureDate;
     private static TextView daysToGo;
@@ -53,6 +54,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setSelection(adapter.getCount());
         spinner.setOnItemSelectedListener(this);
 
+        periodDate = (TextView) findViewById(R.id.period_date);
         expectedDate = (TextView) findViewById(R.id.expeced_date_data);
         daysToGo = (TextView) findViewById(R.id.days_to_go_data);
     }
@@ -68,7 +70,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new PeriodDatePickerFragment((TextView) v, this);
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -84,5 +86,13 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     public void setDaysToGo(Date userDate) {
         int difference = Math.abs ((int) ((userDate.getTime()/(24*60*60*1000)) - (int)(futureDate.getTime()/(24*60*60*1000))));
         daysToGo.setText("" + difference);
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        periodDate.setText(dateFormat.format(date));
+        setExpectedDate(date);
+        setDaysToGo(date);
     }
 }

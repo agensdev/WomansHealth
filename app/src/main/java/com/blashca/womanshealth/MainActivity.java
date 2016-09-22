@@ -18,7 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+import java.text.DateFormat;
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, DateReceiver {
     private SharedPreferences sharedPreferences;
     public static final String Overlay = "overlayKey";
     private String password;
@@ -183,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment((TextView) v);
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -203,5 +206,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         }
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        birthDateTextView.setText(dateFormat.format(date));
     }
 }

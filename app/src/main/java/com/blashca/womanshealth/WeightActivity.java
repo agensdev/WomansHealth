@@ -22,11 +22,12 @@ import java.text.DateFormat;
 import java.util.Date;
 
 
-public class WeightActivity extends AppCompatActivity {
+public class WeightActivity extends AppCompatActivity implements DateReceiver {
     private String formattedDate;
     private static TextView dateTextView;
     private WomansHealthDbHelper dbHelper;
     private double height;
+    private Date chosenDate;
     private double weight;
 
     @Override
@@ -44,7 +45,7 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment((TextView) v);
+        DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -103,7 +104,7 @@ public class WeightActivity extends AppCompatActivity {
 
     public void onRecordWeightButtonClicked(View view) {
 
-        if (dbHelper.getWeightsCount(chosenDate()) == 0) {
+        if (dbHelper.getWeightsCount(chosenDate) == 0) {
             dbHelper.insertWeight(getWeightContentValues());
             resetScreen();
             Toast.makeText(this, R.string.weight_recorded, Toast.LENGTH_SHORT).show();
@@ -115,7 +116,7 @@ public class WeightActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.update,new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            dbHelper.updateWeight(getWeightContentValues(), chosenDate());
+                            dbHelper.updateWeight(getWeightContentValues(), chosenDate);
                             resetScreen();
                             Toast.makeText(getApplicationContext(), R.string.weight_recorded, Toast.LENGTH_SHORT).show();
                         }
@@ -136,15 +137,11 @@ public class WeightActivity extends AppCompatActivity {
     private ContentValues getWeightContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, chosenDate());
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, chosenDate.getTime());
         values.put(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT, height);
         values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT, weight);
 
         return values;
-    }
-
-    private String chosenDate() {
-        return dateTextView.getText().toString();
     }
 
     private void resetScreen() {
@@ -157,5 +154,13 @@ public class WeightActivity extends AppCompatActivity {
 
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
         relativeLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        this.chosenDate = date;
+        // Since there is only one text view with date we don't use the id
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        dateTextView.setText(dateFormat.format(date));
     }
 }
