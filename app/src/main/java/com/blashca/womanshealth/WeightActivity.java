@@ -26,8 +26,8 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
     private String formattedDate;
     private static TextView dateTextView;
     private WomansHealthDbHelper dbHelper;
-    private double height;
     private Date chosenDate;
+    private int height;
     private double weight;
 
     @Override
@@ -69,13 +69,21 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         EditText weightEditText = (EditText) findViewById(R.id.weight_editText);
         String weightText = weightEditText.getText().toString();
 
+        if (heightText.equals("")) {
+            Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
+            return;
+        } else if (weightText.equals("")) {
+            Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         height = Integer.parseInt(heightText);
         weight = Double.parseDouble(weightText);
 
-        if (heightText.equals("") || (height < 100 || height > 300)) {
+        if ((height < 100 || height > 300)) {
             Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
             return;
-        } else if (weightText.equals("") || (weight < 20 || weight > 200)) {
+        } else if ((weight < 20 || weight > 200)) {
             Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
             return;
         }

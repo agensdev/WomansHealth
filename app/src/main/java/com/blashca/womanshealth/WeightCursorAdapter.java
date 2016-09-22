@@ -37,7 +37,7 @@ public class WeightCursorAdapter extends CursorAdapter {
 
 
         int height = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
-        int weight = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
+        double weight = cursor.getDouble(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
 
         Bmi bmi = new Bmi(height, weight);
         String bmiValue = bmi.getBmiValue();

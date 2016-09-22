@@ -2,11 +2,11 @@ package com.blashca.womanshealth;
 
 
 public class Bmi {
-    private double height;
+    private int height;
     private double weight;
     private double bmi;
 
-    public Bmi(double height, double weight) {
+    public Bmi(int height, double weight) {
         this.height = height;
         this.weight = weight;
         bmi = weight / Math.pow(height/100.0, 2);
