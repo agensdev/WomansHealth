@@ -4,6 +4,7 @@ package com.blashca.womanshealth;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,13 @@ public class WeightListFragment extends Fragment {
         myCursorAdapter = new WeightCursorAdapter(getContext(), dbHelper.getWeightsCursor(), 0);
         listView.setAdapter(myCursorAdapter);
 
-        listView.setOnLongClickListener(new AdapterView.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                weightId = v.getId();
 
-                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(getContext());
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                weightId = id;
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 
                 alertDialogBuilder
                         .setMessage(R.string.delete_record)
@@ -49,7 +51,7 @@ public class WeightListFragment extends Fragment {
                         .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dbHelper.deleteWeight(weightId);
-                                //finish();
+                                refresh();
                             }
                         })
                         .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
@@ -59,8 +61,7 @@ public class WeightListFragment extends Fragment {
                                 dialog.cancel();
                             }
                         });
-
-                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
                 return true;
             }
