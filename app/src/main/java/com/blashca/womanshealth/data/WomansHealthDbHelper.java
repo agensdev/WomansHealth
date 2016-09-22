@@ -136,8 +136,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_WEIGHT = "CREATE TABLE " + WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT + " (" +
                 WomansHealthContract.WomansHealthWeight._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " INTEGER NOT NULL, " +
-                WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT + " TEXT NOT NULL, " +
-                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " TEXT NOT NULL " +
+                WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT + " INTEGER NOT NULL, " +
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " REAL NOT NULL " +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_WEIGHT);
