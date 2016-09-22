@@ -35,8 +35,10 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
 
+        chosenDate = new Date();
+
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        formattedDate = dateFormat.format(new Date());
+        formattedDate = dateFormat.format(chosenDate);
 
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
         dateTextView.setText(formattedDate);
