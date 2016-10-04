@@ -128,18 +128,18 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         if (dbHelper.getWeightsCount(chosenDate) == 0) {
             dbHelper.insertWeight(getWeightContentValues());
             resetScreen();
-            Toast.makeText(this, R.string.weight_recorded, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.record_added, Toast.LENGTH_SHORT).show();
         } else {
             android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
 
             alertDialogBuilder
                     .setMessage(R.string.record_exists)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.update,new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dbHelper.updateWeight(getWeightContentValues(), chosenDate);
                             resetScreen();
-                            Toast.makeText(getApplicationContext(), R.string.weight_recorded, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.record_added, Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
