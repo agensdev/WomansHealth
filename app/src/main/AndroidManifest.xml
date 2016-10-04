@@ -54,7 +54,7 @@
 
         <activity
             android:name=".PeriodRecordsActivity"
-            android:label="Period"
+            android:label="Menstrual Period Records"
             android:parentActivityName=".PeriodActivity">
         </activity>
 
