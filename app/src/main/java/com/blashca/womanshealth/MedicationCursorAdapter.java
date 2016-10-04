@@ -14,7 +14,6 @@ import com.blashca.womanshealth.data.WomansHealthContract;
 
 public class MedicationCursorAdapter extends CursorAdapter {
     private LayoutInflater cursorInflater;
-    //private ColorStateList defaultTextColor;
     private int defaultTextColor;
 
     public MedicationCursorAdapter(Context context, Cursor c, int flags) {
@@ -29,7 +28,6 @@ public class MedicationCursorAdapter extends CursorAdapter {
 
         if (defaultTextColor == 0) {
             TextView medicationName = (TextView) view.findViewById(R.id.medication_name);
-            //defaultTextColor = medicationName.getTextColors(); //save original colors of first item in listView
             defaultTextColor = medicationName.getCurrentTextColor();
         }
 
