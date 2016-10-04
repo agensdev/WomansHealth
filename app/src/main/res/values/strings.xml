@@ -49,19 +49,18 @@
     <string name="underweight_result">Gain</string>
     <string name="normal_result">Need not loss or gain weight</string>
     <string name="overweight_result">Lose</string>
-    <string name="weight_recorded">The record is added into database</string>
     <string name="record_exists">A value already exists for the date. Would you like to update it?</string>
     <string name="update">Update</string>
 
 
     // Period screen
     <string name="last_period">Last Menstrual Period</string>
-    <string name="set_date">Set date</string>
     <string name="set_duration">Set duration</string>
     <string name="duration">Duration</string>
     <string name="next_period">Next Menstrual Period</string>
     <string name="expected_date">Expected Date</string>
     <string name="days_to_go">Days to go</string>
+    <string name="interval">Interval: </string>
 
     // Medications screen
 
@@ -217,11 +216,14 @@
     <string name="delete_medication_message">Delete medication?</string>
     <string name="delete_allergen_message">Delete allergen?</string>
     <string name="delete_record">Delete record?</string>
+    <string name="record_added">The record is added into database</string>
 
 
+    <string name="list">List</string>
+    <string name="chart">Chart</string>
 
-
-
+    <string name="day">day</string>
+    <string name="days">days</string>
 
 </resources>
 
