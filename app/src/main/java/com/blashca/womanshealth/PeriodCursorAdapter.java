@@ -12,15 +12,18 @@ import android.widget.TextView;
 import com.blashca.womanshealth.data.WomansHealthContract;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class PeriodCursorAdapter extends CursorAdapter {
     private LayoutInflater cursorInflater;
+    private String day;
+    private String days;
 
     public PeriodCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         cursorInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        day = context.getResources().getString(R.string.day);
+        days = context.getResources().getString(R.string.days);
     }
 
     @Override
@@ -43,11 +46,11 @@ public class PeriodCursorAdapter extends CursorAdapter {
 
         int duration = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION));
         if (duration == 1) {
-            durationTextView.setText(duration + " " );
+            durationTextView.setText("Duration: " + duration + " " + day);
         } else {
-            durationTextView.setText(duration + " " );
+            durationTextView.setText("Duration: " + duration + " " + days);
         }
 
-        intervalTextView.setText("28");
+        intervalTextView.setText("Interval: 28 days");
     }
 }
