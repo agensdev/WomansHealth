@@ -18,6 +18,7 @@ public class WeightListFragment extends Fragment {
     private WomansHealthDbHelper dbHelper;
     private CursorAdapter myCursorAdapter;
     private long weightId;
+    private WeightRecordsActivity activity;
 
 
     /**
@@ -51,7 +52,8 @@ public class WeightListFragment extends Fragment {
                         .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dbHelper.deleteWeight(weightId);
-                                refresh();
+                                activity = (WeightRecordsActivity) getActivity();
+                                activity.onDataChange();
                             }
                         })
                         .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
@@ -75,7 +77,7 @@ public class WeightListFragment extends Fragment {
         refresh();
     }
 
-    private void refresh() {
+    public void refresh() {
         myCursorAdapter.changeCursor(dbHelper.getWeightsCursor());
         // notifies adapter on the change
         myCursorAdapter.notifyDataSetChanged();
