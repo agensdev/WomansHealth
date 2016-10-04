@@ -52,6 +52,12 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT
     };
 
+    private static final String[] PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID = new String[] {
+            WomansHealthContract.WomansHealthPeriod._ID,
+            WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD,
+            WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION
+    };
+
     public WomansHealthDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -126,8 +132,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_TABLE_PERIOD = "CREATE TABLE " + WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD + " (" +
                 WomansHealthContract.WomansHealthPeriod._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " TEXT NOT NULL, " +
-                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " TEXT NOT NULL " +
+                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " INTEGER NOT NULL, " +
+                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL " +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_PERIOD);
@@ -359,6 +365,74 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         db.delete(
                 WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                selection,
+                selectionArgs);
+        db.close();
+    }
+
+    public int getPeriodsCount(Date date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Long timestamp = date.getTime(); // We store dates as timestamps (int as a number of seconds since 1970-01-01) in db column
+        String[] selectionArgs = {String.valueOf(timestamp)};
+
+        Cursor periodCursor = db.query(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
+                PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID,
+                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " = ?",
+                selectionArgs,
+                null,
+                null,
+                null);
+
+        return periodCursor.getCount();
+    }
+
+    public void insertPeriod(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.insert(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
+                null,
+                values);
+        db.close();
+    }
+
+    public void updatePeriod(ContentValues values, Date date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " = ?";
+        String[] selectionArgs = {String.valueOf(date.getTime())};
+
+        db.update(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
+                values,
+                selection,
+                selectionArgs);
+        db.close();
+    }
+
+    public Cursor getPeriodsCursor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor periodsCursor = db.query(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
+                PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID,
+                null,
+                null,
+                null,
+                null,
+                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " DESC");
+
+        return periodsCursor;
+    }
+
+    public void deletePeriod(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthPeriod._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.delete(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
                 selection,
                 selectionArgs);
         db.close();
