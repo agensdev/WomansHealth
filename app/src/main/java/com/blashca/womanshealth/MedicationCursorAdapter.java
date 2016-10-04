@@ -2,7 +2,6 @@ package com.blashca.womanshealth;
 
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -15,8 +14,8 @@ import com.blashca.womanshealth.data.WomansHealthContract;
 
 public class MedicationCursorAdapter extends CursorAdapter {
     private LayoutInflater cursorInflater;
-    private TextView medicationName;
-    private ColorStateList oldColor;
+    //private ColorStateList defaultTextColor;
+    private int defaultTextColor;
 
     public MedicationCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
@@ -28,14 +27,19 @@ public class MedicationCursorAdapter extends CursorAdapter {
     public View newView(final Context context, Cursor cursor, ViewGroup parent) {
         View view = cursorInflater.inflate(R.layout.medications_list_item, parent, false);
 
-        medicationName = (TextView) view.findViewById(R.id.medication_name);
-        oldColor = medicationName.getTextColors(); //save original colors
+        if (defaultTextColor == 0) {
+            TextView medicationName = (TextView) view.findViewById(R.id.medication_name);
+            //defaultTextColor = medicationName.getTextColors(); //save original colors of first item in listView
+            defaultTextColor = medicationName.getCurrentTextColor();
+        }
 
         return view;
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
+        TextView medicationName = (TextView) view.findViewById(R.id.medication_name);
 
         TextView medicationDetail = (TextView) view.findViewById(R.id.medication_detail);
 
@@ -49,18 +53,11 @@ public class MedicationCursorAdapter extends CursorAdapter {
             medicationName.setText(textName);
             medicationDetail.setText("" + howOften);
 
-            if (medicationName.getTextColors() != oldColor) {
-                medicationName.setTextColor(oldColor);//restore original colors
-            }
+            medicationName.setTextColor(defaultTextColor);//restore original color
 
         } else {
             medicationName.setText("Allergy to " + textName);
-
-            if (medicationName.getTextColors() == oldColor) {
-                medicationName.setTextColor(Color.RED);
-            } else {
-                medicationName.setTextColor(oldColor);//restore original colors
-            }
+            medicationName.setTextColor(Color.RED);
 
             medicationDetail.setText(sideEffects);
         }
