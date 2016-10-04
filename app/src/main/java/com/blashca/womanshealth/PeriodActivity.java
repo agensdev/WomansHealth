@@ -1,6 +1,9 @@
 package com.blashca.womanshealth;
 
 import android.app.DialogFragment;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.blashca.womanshealth.data.WomansHealthContract;
+import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -16,43 +23,30 @@ import java.util.Date;
 
 
 public class PeriodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver {
+    private WomansHealthDbHelper dbHelper;
+    private Date chosenDate;
     private DateFormat dateFormat;
+    private String formattedDate;
     private TextView periodDate;
-    private static TextView expectedDate;
+    private TextView expectedDate;
     private Date futureDate;
-    private static TextView daysToGo;
+    private TextView daysToGo;
+    private Spinner spinner;
+    private ArrayAdapter<String> adapter;
+    private int duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_period);
 
+        dbHelper = new WomansHealthDbHelper(this);
+
+        chosenDate = DateUtil.removeTime(new Date());
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        formattedDate = dateFormat.format(chosenDate);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.duration_spinner);
-        String[] durationArray = getResources().getStringArray(R.array.duration_array);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, durationArray) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View v = super.getView(position, convertView, parent);
-                if (position == getCount()) {
-                    ((TextView)v.findViewById(android.R.id.text1)).setText("");
-                    ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
-                }
-                return v;
-            }
-
-            @Override
-            public int getCount() {
-                return super.getCount() - 1;
-            }
-        };
-        spinner.setAdapter(adapter);
-        spinner.setSelection(adapter.getCount());
-        spinner.setOnItemSelectedListener(this);
+        setDuration();
 
         periodDate = (TextView) findViewById(R.id.period_date);
         expectedDate = (TextView) findViewById(R.id.expeced_date_data);
@@ -74,6 +68,34 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+    private void setDuration() {
+        spinner = (Spinner) findViewById(R.id.duration_spinner);
+        String[] durationArray = getResources().getStringArray(R.array.duration_array);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, durationArray) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                duration = position + 1;
+
+                View v = super.getView(position, convertView, parent);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(android.R.id.text1)).setText("");
+                    ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+                }
+                return v;
+            }
+
+            @Override
+            public int getCount() {
+                return super.getCount() - 1;
+            }
+        };
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getCount());
+        spinner.setOnItemSelectedListener(this);
+    }
+
     public void setExpectedDate(Date userDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(userDate);
@@ -90,9 +112,63 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onDateReceive(Date date, int id) {
+        this.chosenDate = date;
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         periodDate.setText(dateFormat.format(date));
         setExpectedDate(date);
         setDaysToGo(date);
+    }
+
+    public void showPeriodRecords(View view) {
+        Intent intent = new Intent(this, PeriodRecordsActivity.class);
+        startActivity(intent);
+    }
+
+    public void onRecordPeriodButtonClicked(View view) {
+
+        if (dbHelper.getPeriodsCount(chosenDate) == 0) {
+            dbHelper.insertPeriod(getPeriodContentValues());
+            resetScreen();
+            Toast.makeText(this, R.string.record_added, Toast.LENGTH_SHORT).show();
+        } else {
+            android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+
+            alertDialogBuilder
+                    .setMessage(R.string.record_exists)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dbHelper.updatePeriod(getPeriodContentValues(), chosenDate);
+                            resetScreen();
+                            Toast.makeText(getApplicationContext(), R.string.record_added, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
+
+            android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+    }
+
+    private ContentValues getPeriodContentValues() {
+
+        ContentValues values = new ContentValues();
+        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD, chosenDate.getTime());
+        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION, duration);
+
+        return values;
+    }
+
+    private void resetScreen() {
+        periodDate.setText(R.string.select_date);
+        spinner.setSelection(adapter.getCount());
+        expectedDate.setText(R.string.expected_date);
+        daysToGo.setText(R.string.days_to_go);
     }
 }
