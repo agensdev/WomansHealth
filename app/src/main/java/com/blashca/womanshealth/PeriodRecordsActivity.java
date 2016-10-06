@@ -7,14 +7,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class PeriodRecordsActivity extends AppCompatActivity {
     private WomansHealthDbHelper dbHelper;
-    private CursorAdapter myCursorAdapter;
+    private PeriodAdapter periodAdapter;
     private long periodId;
 
 
@@ -26,8 +25,8 @@ public class PeriodRecordsActivity extends AppCompatActivity {
         dbHelper = new WomansHealthDbHelper(this);
 
         ListView listView = (ListView) findViewById(R.id.periods_listView);
-        myCursorAdapter = new PeriodCursorAdapter(this, dbHelper.getPeriodsCursor(), 0);
-        listView.setAdapter(myCursorAdapter);
+        periodAdapter = new PeriodAdapter(this, dbHelper.getPeriods(dbHelper.getPeriodsCursor()));
+        listView.setAdapter(periodAdapter);
 
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -67,7 +66,8 @@ public class PeriodRecordsActivity extends AppCompatActivity {
     }
 
     public void refresh() {
-        myCursorAdapter.changeCursor(dbHelper.getPeriodsCursor());
-        myCursorAdapter.notifyDataSetChanged();
+        periodAdapter.clear();
+        periodAdapter.addAll(dbHelper.getPeriods(dbHelper.getPeriodsCursor()));
+        periodAdapter.notifyDataSetChanged();
     }
 }
