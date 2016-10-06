@@ -56,7 +56,7 @@
     // Period screen
     <string name="last_period">Last Menstrual Period</string>
     <string name="set_duration">Set duration</string>
-    <string name="duration">Duration</string>
+    <string name="duration">Duration: </string>
     <string name="next_period">Next Menstrual Period</string>
     <string name="expected_date">Expected Date</string>
     <string name="days_to_go">Days to go</string>
