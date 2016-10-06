@@ -167,6 +167,9 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    //Appointment
+
     public Cursor getAppointmentsCursor() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor appointmentsCursor = db.query(
@@ -196,6 +199,46 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         cursor.moveToNext();
         return cursor;
     }
+
+    public void insertAppointment(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.insert(
+                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
+                null,
+                values);
+        db.close();
+    }
+
+    public void updateAppointment(ContentValues values, long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthAppointment._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.update(
+                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
+                values,
+                selection,
+                selectionArgs);
+        db.close();
+    }
+
+    public void deleteAppointment(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = WomansHealthContract.WomansHealthAppointment._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.delete(
+                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
+                selection,
+                selectionArgs);
+        db.close();
+    }
+
+
+    //Medication
 
     public Cursor getMedicationsCursor() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -227,18 +270,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
-    public void insertAppointment(ContentValues values) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.insert(
-                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
-                null,
-                values);
-        db.close();
-
-    }
-
     public void insertMedication(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -249,7 +280,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
     public void updateMedication(ContentValues values, long id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -258,20 +288,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         db.update(
                 WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION,
-                values,
-                selection,
-                selectionArgs);
-        db.close();
-    }
-
-    public void updateAppointment(ContentValues values, long id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String selection = WomansHealthContract.WomansHealthAppointment._ID + " = ?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        db.update(
-                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
                 values,
                 selection,
                 selectionArgs);
@@ -291,18 +307,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteAppointment(long id) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        String selection = WomansHealthContract.WomansHealthAppointment._ID + " = ?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        db.delete(
-                WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
-                selection,
-                selectionArgs);
-        db.close();
-    }
+    //Weight
 
     public int getWeightsCount(Date date) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -371,6 +377,9 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 selectionArgs);
         db.close();
     }
+
+
+    //Period
 
     public int getPeriodsCount(Date date) {
         SQLiteDatabase db = this.getReadableDatabase();
