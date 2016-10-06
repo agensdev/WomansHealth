@@ -159,7 +159,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     private ContentValues getPeriodContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD, chosenDate.getTime());
+        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE, chosenDate.getTime());
         values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION, duration);
 
         return values;

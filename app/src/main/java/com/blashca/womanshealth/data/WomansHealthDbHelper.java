@@ -54,7 +54,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
     private static final String[] PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID = new String[] {
             WomansHealthContract.WomansHealthPeriod._ID,
-            WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD,
+            WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE,
             WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION
     };
 
@@ -132,7 +132,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_TABLE_PERIOD = "CREATE TABLE " + WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD + " (" +
                 WomansHealthContract.WomansHealthPeriod._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " INTEGER NOT NULL, " +
+                WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " INTEGER NOT NULL, " +
                 WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL " +
                 " );";
 
@@ -378,7 +378,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         Cursor periodCursor = db.query(
                 WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
                 PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID,
-                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " = ?",
+                WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " = ?",
                 selectionArgs,
                 null,
                 null,
@@ -400,7 +400,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
     public void updatePeriod(ContentValues values, Date date) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String selection = WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " = ?";
+        String selection = WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " = ?";
         String[] selectionArgs = {String.valueOf(date.getTime())};
 
         db.update(
@@ -420,7 +420,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                WomansHealthContract.WomansHealthPeriod.COLUMN_LAST_PERIOD + " DESC");
+                WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE);
 
         return periodsCursor;
     }

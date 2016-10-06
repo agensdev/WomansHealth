@@ -41,7 +41,7 @@ public class WomansHealthContract {
     public static final class WomansHealthPeriod implements BaseColumns {
 
         public static final String TABLE_PERIOD = "periods";
-        public static final String COLUMN_LAST_PERIOD = "last_period";
+        public static final String COLUMN_PERIOD_DATE = "last_period";
         public static final String COLUMN_DURATION = "duration";
     }
 
