@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
+import com.blashca.womanshealth.Period;
 
-import static com.blashca.womanshealth.R.string.date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 
 public class WomansHealthDbHelper extends SQLiteOpenHelper {
@@ -436,5 +438,29 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs);
         db.close();
+    }
+
+    public ArrayList<Period> getPeriods(Cursor periodCursor) {
+        ArrayList<Period> periods = new ArrayList<>();
+        long oldTimestamp = 0;
+
+        while (periodCursor.moveToNext()) {
+            int id = periodCursor.getInt(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod._ID));
+            long timestamp = periodCursor.getLong(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE));
+            int duration = periodCursor.getInt(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION));
+            int intervalInDays = 0;
+
+            if (oldTimestamp != 0) {
+                intervalInDays = (int) Math.abs((timestamp - oldTimestamp) / (24 * 60 * 60 * 1000));
+            }
+
+            periods.add(new Period(id, timestamp, duration, intervalInDays));
+
+            oldTimestamp = timestamp;
+        }
+
+        Collections.reverse(periods);
+
+        return periods;
     }
 }
