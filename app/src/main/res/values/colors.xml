@@ -2,12 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
 
     <color name="yellow">#FFC107</color>
-    <color name="electric">#00BFA5</color>
-    <color name="fuchsia">#E040FB</color>
-    <color name="navy">#311B92</color>
-    <color name="light_blue">#C5CAE9</color>
+    <color name="electric">#00bfa5</color>
+    <color name="fuchsia">#e040fb</color>
+    <color name="navy">#311b92</color>
+    <color name="light_blue">#c5cae9</color>
 
 </resources>
