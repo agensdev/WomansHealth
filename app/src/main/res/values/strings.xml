@@ -21,7 +21,7 @@
     // Main screen
     <string name="medical_appointments">Medical Appointments</string>
     <string name="weight_and_bmi">Weight/BMI</string>
-    <string name="menstrual_period">Menstrual Period</string>
+    <string name="menstrual_period">Menstrual\nPeriod</string>
     <string name="medications">Medications</string>
     <string name="profile">Profile</string>
 

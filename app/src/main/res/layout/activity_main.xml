@@ -22,7 +22,7 @@
             android:background="@color/colorAccent"/>
 
         <ImageView
-            android:id="@+id/period_image"
+            android:id="@+id/weight_image"
             android:layout_width="match_parent"
             app:layout_heightPercent="30%"
             android:layout_below="@id/appointment_image"
@@ -30,10 +30,10 @@
             android:background="@color/fuchsia"/>
 
         <ImageView
-            android:id="@+id/weight_image"
+            android:id="@+id/period_image"
             app:layout_widthPercent="25%"
             android:layout_height="match_parent"
-            android:layout_below="@id/period_image"
+            android:layout_below="@id/weight_image"
             android:layout_toRightOf="@id/medications_image"
             android:background="@color/navy"/>
 
@@ -41,8 +41,8 @@
             android:id="@+id/settins_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/period_image"
-            android:layout_toRightOf="@id/weight_image"
+            android:layout_below="@id/weight_image"
+            android:layout_toRightOf="@id/period_image"
             android:background="@color/light_blue"/>
 
     </android.support.percent.PercentRelativeLayout>
@@ -51,102 +51,160 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <android.support.percent.PercentRelativeLayout
+            app:layout_widthPercent="100%"
+            app:layout_heightPercent="40%"
+            android:id="@+id/appointment_icon_text">
+
+            <ImageView
+                android:id="@+id/appointment_icon"
+                app:layout_widthPercent="40%"
+                app:layout_heightPercent="35%"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="15%"
+                android:src="@drawable/heart"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/medical_appointments"
+                android:layout_below="@id/appointment_icon"
+                app:layout_marginTopPercent="10%"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/yellow"
+                android:shadowColor="#7f000000"
+                android:shadowRadius="4"
+                android:shadowDx="4"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/medications_icon_text"
+            app:layout_widthPercent="50%"
+            app:layout_heightPercent="60%"
+            android:layout_below="@id/appointment_icon_text">
+
+            <ImageView
+                android:id="@+id/medication_icon"
+                app:layout_widthPercent="40%"
+                app:layout_heightPercent="35%"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="25%"
+                android:src="@drawable/pill"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/medications"
+                android:layout_below="@id/medication_icon"
+                app:layout_marginTopPercent="5%"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/yellow"
+                android:shadowColor="#7f000000"
+                android:shadowRadius="4"
+                android:shadowDx="4"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/weight_icon_text"
+            app:layout_widthPercent="50%"
+            app:layout_heightPercent="30%"
+            android:layout_below="@id/appointment_icon_text"
+            android:layout_toRightOf="@id/medications_icon_text">
+
+            <ImageView
+                android:id="@+id/weight_icon"
+                app:layout_widthPercent="50%"
+                app:layout_heightPercent="45%"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="15%"
+                android:src="@drawable/weight"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight_and_bmi"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/weight_icon"
+                app:layout_marginTopPercent="7%"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/yellow"
+                android:shadowColor="#7f000000"
+                android:shadowRadius="4"
+                android:shadowDx="4"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/period_icon_text"
             app:layout_widthPercent="25%"
-            app:layout_heightPercent="18%"
-            android:layout_centerHorizontal="true"
-            app:layout_marginTopPercent="5%"
-            android:src="@drawable/heart"/>
+            app:layout_heightPercent="30%"
+            android:layout_below="@id/weight_icon_text"
+            android:layout_toRightOf="@id/medications_icon_text">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/medical_appointments"
-            app:layout_marginTopPercent="25%"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/yellow"/>
+            <ImageView
+                android:id="@+id/period_icon"
+                app:layout_widthPercent="50%"
+                app:layout_heightPercent="45%"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="15%"
+                android:src="@drawable/flower"/>
 
-        <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menstrual_period"
+                android:maxLines="2"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:layout_below="@id/period_icon"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/yellow"
+                android:shadowColor="#7f000000"
+                android:shadowRadius="4"
+                android:shadowDx="4"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
             app:layout_widthPercent="25%"
-            app:layout_heightPercent="18%"
-            app:layout_marginTopPercent="55%"
-            app:layout_marginLeftPercent="12%"
-            android:src="@drawable/pill"/>
+            app:layout_heightPercent="30%"
+            android:layout_below="@id/weight_icon_text"
+            android:layout_toRightOf="@id/period_icon_text">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/medications"
-            app:layout_marginTopPercent="77%"
-            app:layout_marginLeftPercent="10%"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/yellow"/>
+            <ImageView
+                app:layout_widthPercent="50%"
+                app:layout_heightPercent="45%"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="45%"
+                android:src="@drawable/profile"/>
 
-        <ImageView
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="18%"
-            app:layout_marginTopPercent="43%"
-            android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="12%"
-            android:src="@drawable/flower"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="20%"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/yellow"
+                android:shadowColor="#7f000000"
+                android:shadowRadius="4"
+                android:shadowDx="4"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/menstrual_period"
-            app:layout_marginTopPercent="63%"
-            android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="5%"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/yellow"/>
-
-        <ImageView
-            app:layout_widthPercent="15%"
-            app:layout_heightPercent="10%"
-            app:layout_marginTopPercent="75%"
-            app:layout_marginLeftPercent="55%"
-            android:src="@drawable/weight"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/weight_and_bmi"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="27%"
-            app:layout_marginBottomPercent="9%"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/yellow"/>
-
-        <ImageView
-            app:layout_widthPercent="15%"
-            app:layout_heightPercent="10%"
-            app:layout_marginTopPercent="85%"
-            android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="5%"
-            android:src="@drawable/profile"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="6%"
-            app:layout_marginBottomPercent="17%"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/yellow"/>
+        </android.support.percent.PercentRelativeLayout>
 
     </android.support.percent.PercentRelativeLayout>
 
@@ -168,27 +226,28 @@
             android:background="@android:color/transparent"/>
 
         <Button
-            android:id="@+id/period_button"
+            android:id="@+id/weight_button"
             app:layout_widthPercent="50%"
             app:layout_heightPercent="30%"
-            android:layout_below="@id/appointment_button"
+            android:background="@android:color/transparent"
+            android:layout_below="@+id/appointment_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/period_button"
+            app:layout_widthPercent="25%"
+            app:layout_heightPercent="33%"
+            android:layout_below="@id/weight_button"
             android:layout_toRightOf="@id/medications_button"
             android:background="@android:color/transparent"/>
 
         <Button
-            android:id="@+id/weight_button"
+            android:id="@+id/settings_button"
             app:layout_widthPercent="25%"
             app:layout_heightPercent="33%"
-            android:layout_below="@id/period_button"
-            android:layout_toRightOf="@id/medications_button"
-            android:background="@android:color/transparent"/>
-
-        <Button
-            android:id="@+id/settins_button"
-            app:layout_widthPercent="25%"
-            app:layout_heightPercent="33%"
-            android:layout_below="@id/period_button"
-            android:layout_toRightOf="@id/weight_button"
+            android:layout_below="@id/weight_button"
+            android:layout_toRightOf="@id/period_button"
             android:background="@android:color/transparent"/>
 
     </android.support.percent.PercentRelativeLayout>

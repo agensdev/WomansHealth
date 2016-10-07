@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appointmentButton.setOnClickListener(this);
         Button medicationsButton = (Button) findViewById(R.id.medications_button);
         medicationsButton.setOnClickListener(this);
-        Button periodButton = (Button) findViewById(R.id.period_button);
+        Button periodButton = (Button) findViewById(R.id.weight_button);
         periodButton.setOnClickListener(this);
-        Button weightButton = (Button) findViewById(R.id.weight_button);
+        Button weightButton = (Button) findViewById(R.id.period_button);
         weightButton.setOnClickListener(this);
-        Button settingsButton = (Button) findViewById(R.id.settins_button);
+        Button settingsButton = (Button) findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(this);
     }
 
@@ -69,15 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 makeIntent(MedicationsActivity.class);
                 break;
 
-            case R.id.period_button:
-                makeIntent(PeriodActivity.class);
-                break;
-
             case R.id.weight_button:
                 makeIntent(WeightActivity.class);
                 break;
 
-            case R.id.settins_button:
+            case R.id.period_button:
+                makeIntent(PeriodActivity.class);
+                break;
+
+            case R.id.settings_button:
                 makeIntent(ProfileActivity.class);
                 break;
 
