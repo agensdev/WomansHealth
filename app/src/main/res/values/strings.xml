@@ -96,7 +96,7 @@
     <string name="set_time">Set time</string>
     <string name="how_long">How long do you need to take it</string>
     <string name="allergy_to">Allergy to:</string>
-    <string name="allergies_effects">Type of allergies or side-effects</string>
+    <string name="allergies_effects">Type of allergies or side-effects:</string>
 
 
     <string-array name="how_taken_array">
@@ -156,8 +156,7 @@
     <string name="appointment_name">Appointment name</string>
     <string name="doctors_name">Doctor\'s name</string>
     <string name="address">Address</string>
-    <string name="telephone_number1">Telephone number 1</string>
-    <string name="telephone_number2">Telephone number 2</string>
+    <string name="telephone_number">Telephone number</string>
     <string name="email">Email</string>
     <string name="last_date">Last date</string>
     <string name="select_date">Select date</string>
