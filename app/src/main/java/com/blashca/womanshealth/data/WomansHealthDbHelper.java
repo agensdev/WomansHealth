@@ -23,8 +23,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME,
             WomansHealthContract.WomansHealthAppointment.COLUMN_DOCTOR_NAME,
             WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS,
-            WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE1,
-            WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE2,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE,
             WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL,
             WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT,
             WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT,
@@ -73,8 +72,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME + " TEXT NOT NULL, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_DOCTOR_NAME + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS + " TEXT, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE1 + " TEXT, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE2 + " TEXT, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT + " TEXT, " +

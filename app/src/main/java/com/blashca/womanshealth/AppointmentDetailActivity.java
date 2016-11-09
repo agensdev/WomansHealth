@@ -20,8 +20,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     private TextView appointmentName;
     private TextView doctorsName;
     private TextView address;
-    private TextView telephone1;
-    private TextView telephone2;
+    private TextView telephone;
     private TextView email;
     private TextView lastDate;
     private TextView nextDate;
@@ -40,8 +39,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         appointmentName = (TextView) findViewById(R.id.appointment_name_textView);
         doctorsName = (TextView) findViewById(R.id.doctors_name_textView);
         address = (TextView) findViewById(R.id.address_textView);
-        telephone1 = (TextView) findViewById(R.id.telephone_number1_textView);
-        telephone2 = (TextView) findViewById(R.id.telephone_number2_textView);
+        telephone = (TextView) findViewById(R.id.telephone_number_textView);
         email = (TextView) findViewById(R.id.email_textView);
         lastDate = (TextView) findViewById(R.id.last_date_textView);
         nextDate = (TextView) findViewById(R.id.next_date_textView);
@@ -105,10 +103,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         doctorsName.setText(doctorText);
         String addressText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS));
         address.setText(addressText);
-        String tel1Text = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE1));
-        telephone1.setText(tel1Text);
-        String tel2Text = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE2));
-        telephone2.setText(tel2Text);
+        String telText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE));
+        telephone.setText(telText);
         String emailText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL));
         email.setText(emailText);
         String lastDateText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT));

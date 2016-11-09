@@ -13,8 +13,7 @@ public class WomansHealthContract {
         public static final String COLUMN_APPOINTMENT_NAME = "appointment_name";
         public static final String COLUMN_DOCTOR_NAME = "doctor_name";
         public static final String COLUMN_ADDRESS = "address";
-        public static final String COLUMN_TELEPHONE1 = "telephone1";
-        public static final String COLUMN_TELEPHONE2 = "telephone2";
+        public static final String COLUMN_TELEPHONE = "telephone";
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_LAST_APPOINTMENT = "last_appointment";
         public static final String COLUMN_NEXT_APPOINTMENT = "next_appointment";

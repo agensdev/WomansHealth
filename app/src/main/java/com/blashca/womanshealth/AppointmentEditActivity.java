@@ -31,8 +31,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     private EditText appointmentNameEditText;
     private EditText doctorsNameEditText;
     private EditText addressEditText;
-    private EditText telephone1EditText;
-    private EditText telephone2EditText;
+    private EditText telephoneEditText;
     private EditText emailEditText;
     private TextView lastDateTextView;
     private Spinner nextDateSpinner;
@@ -55,8 +54,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         appointmentNameEditText = (EditText) findViewById(R.id.appointment_name_editText);
         doctorsNameEditText = (EditText) findViewById(R.id.doctors_name_editText);
         addressEditText = (EditText) findViewById(R.id.address_editText);
-        telephone1EditText = (EditText) findViewById(R.id.tephone_number1_editText);
-        telephone2EditText = (EditText) findViewById(R.id.tephone_number2_editText);
+        telephoneEditText = (EditText) findViewById(R.id.telephone_number_editText);
         emailEditText = (EditText) findViewById(R.id.email_editText);
         lastDateTextView = (TextView) findViewById(R.id.last_date_set_textView);
         nextDateSpinner = (Spinner) findViewById(R.id.next_date_spinner);
@@ -143,12 +141,9 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
             String addressText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS));
             addressEditText.setText(addressText);
             addressEditText.setSelection(addressEditText.getText().length());
-            String tel1Text = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE1));
-            telephone1EditText.setText(tel1Text);
-            telephone1EditText.setSelection(telephone1EditText.getText().length());
-            String tel2Text = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE2));
-            telephone2EditText.setText(tel2Text);
-            telephone2EditText.setSelection(telephone2EditText.getText().length());
+            String tel1Text = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE));
+            telephoneEditText.setText(tel1Text);
+            telephoneEditText.setSelection(telephoneEditText.getText().length());
             String emailText = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL));
             emailEditText.setText(emailText);
             emailEditText.setSelection(emailEditText.getText().length());
@@ -165,8 +160,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         String appointmentName = appointmentNameEditText.getText().toString();
         String doctorsName = doctorsNameEditText.getText().toString();
         String address = addressEditText.getText().toString();
-        String telephone1 = telephone1EditText.getText().toString();
-        String telephone2 = telephone2EditText.getText().toString();
+        String telephone = telephoneEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String lastDate = lastDateTextView.getText().toString();
         String nextDate = nextDateTextView.getText().toString();
@@ -176,8 +170,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, appointmentName);
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_DOCTOR_NAME, doctorsName);
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS, address);
-        values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE1, telephone1);
-        values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE2, telephone2);
+        values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE, telephone);
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL, email);
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT, lastDate);
         values.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT, nextDate);
