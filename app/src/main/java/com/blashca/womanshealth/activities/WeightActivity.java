@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 
 import android.app.DialogFragment;
@@ -15,6 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.Bmi;
+import com.blashca.womanshealth.fragments.DatePickerFragment;
+import com.blashca.womanshealth.DateReceiver;
+import com.blashca.womanshealth.DateUtil;
+import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
@@ -23,10 +28,10 @@ import java.util.Date;
 
 
 public class WeightActivity extends AppCompatActivity implements DateReceiver {
-    private String formattedDate;
     private static TextView dateTextView;
     private WomansHealthDbHelper dbHelper;
     private Date chosenDate;
+    private DateFormat dateFormat;
     private int height;
     private double weight;
 
@@ -36,26 +41,22 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         setContentView(R.layout.activity_weight);
 
         chosenDate = DateUtil.removeTime(new Date());
-
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        formattedDate = dateFormat.format(chosenDate);
-
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
-        dateTextView.setText(formattedDate);
+        dateTextView.setText(dateFormat.format(chosenDate));
 
         dbHelper = new WomansHealthDbHelper(this);
     }
 
     @Override
     public void onDateReceive(Date date, int id) {
-        this.chosenDate = date;
+        this.chosenDate = DateUtil.removeTime(date);
         // Since there is only one text view with date we don't use the id
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        dateTextView.setText(dateFormat.format(date));
+        dateTextView.setText(dateFormat.format(chosenDate));
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView);
+        DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView, chosenDate);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -96,7 +97,6 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         int category = bmi.getCategory();
         String optimum = getString(bmi.getOptimum());
         String optimalWeight = bmi.getOptimalWeight();
-
 
         TextView bmiResult = (TextView) findViewById(R.id.bmi_result_textView);
         bmiResult.setText(bmiValue);

@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.fragments;
 
 
 import android.annotation.SuppressLint;
@@ -7,33 +7,37 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
-import java.text.DateFormat;
+import com.blashca.womanshealth.DateReceiver;
+import com.blashca.womanshealth.DateUtil;
+
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.R.attr.id;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     private DateReceiver dateReceiver;
     private int id;
+    private Date selectedDate;
 
-    public DatePickerFragment() {
-
-    }
+    public DatePickerFragment() {}
 
     // We pass an interface as an argument to the constructor because we only care if this object has onDateReceive method
     @SuppressLint("ValidFragment")
-    public DatePickerFragment(DateReceiver dateReceiver, int id) {
+    public DatePickerFragment(DateReceiver dateReceiver, int id, Date selectedDate) {
         this.dateReceiver = dateReceiver;
         this.id = id;
+        this.selectedDate = selectedDate;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
+
+        if (selectedDate != null) {
+            c.setTime(selectedDate);
+        }
+
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);

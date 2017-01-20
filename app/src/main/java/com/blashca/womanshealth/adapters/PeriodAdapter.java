@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.adapters;
 
 
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.blashca.womanshealth.Period;
+import com.blashca.womanshealth.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

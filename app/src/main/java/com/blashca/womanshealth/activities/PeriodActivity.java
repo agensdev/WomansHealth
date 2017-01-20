@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
@@ -14,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.fragments.DatePickerFragment;
+import com.blashca.womanshealth.DateReceiver;
+import com.blashca.womanshealth.DateUtil;
+import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
@@ -64,7 +68,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId(), chosenDate);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -105,8 +109,9 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         expectedDate.setText(newFormattedDate);
     }
 
-    public void setDaysToGo(Date userDate) {
-        int difference = Math.abs ((int) ((userDate.getTime()/(24*60*60*1000)) - (int)(futureDate.getTime()/(24*60*60*1000))));
+    public void setDaysToGo() {
+        Date today = new Date();
+        int difference = Math.abs ((int) ((today.getTime()/(24*60*60*1000)) - (int)(futureDate.getTime()/(24*60*60*1000))));
         daysToGo.setText("" + difference);
     }
 
@@ -116,7 +121,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         periodDate.setText(dateFormat.format(date));
         setExpectedDate(date);
-        setDaysToGo(date);
+        setDaysToGo();
     }
 
     public void showPeriodRecords(View view) {

@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 
+import com.blashca.womanshealth.adapters.AppointmentCursorAdapter;
+import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class AppointmentsActivity extends AppCompatActivity {

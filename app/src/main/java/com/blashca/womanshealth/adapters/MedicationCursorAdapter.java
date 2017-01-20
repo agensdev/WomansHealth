@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.adapters;
 
 
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 
 public class MedicationCursorAdapter extends CursorAdapter {
@@ -44,7 +45,7 @@ public class MedicationCursorAdapter extends CursorAdapter {
         String textName = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME));
         int isAllergen = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN));
 
-        int howOften = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN));
+        int howOften = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD));
         String sideEffects = cursor.getString(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS));
 
         if (isAllergen == 0) {

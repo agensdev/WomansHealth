@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.fragments;
 
 
 import android.content.DialogInterface;
@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 
+import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.activities.WeightRecordsActivity;
+import com.blashca.womanshealth.adapters.WeightCursorAdapter;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class WeightListFragment extends Fragment {

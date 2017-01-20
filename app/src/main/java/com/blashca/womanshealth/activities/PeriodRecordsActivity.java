@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 
 import android.content.DialogInterface;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.blashca.womanshealth.adapters.PeriodAdapter;
+import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class PeriodRecordsActivity extends AppCompatActivity {

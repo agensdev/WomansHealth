@@ -1,9 +1,13 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
+import com.blashca.womanshealth.adapters.MyPagerAdapter;
+import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.fragments.WeightChartFragment;
+import com.blashca.womanshealth.fragments.WeightListFragment;
 import com.blashca.womanshealth.external.SlidingTabLayout;
 
 

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity" >
+            android:name=".activities.MainActivity" >
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -19,77 +19,77 @@
         </activity>
 
         <activity
-            android:name=".AppointmentsActivity"
+            android:name=".activities.AppointmentsActivity"
             android:label="My Appointments"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activities.MainActivity">
         </activity>
 
         <activity
-            android:name=".AppointmentDetailActivity"
-            android:parentActivityName=".AppointmentsActivity">
+            android:name=".activities.AppointmentDetailActivity"
+            android:parentActivityName=".activities.AppointmentsActivity">
         </activity>
 
         <activity
-            android:name=".AppointmentEditActivity"
-            android:parentActivityName=".AppointmentDetailActivity">
+            android:name=".activities.AppointmentEditActivity"
+            android:parentActivityName=".activities.AppointmentDetailActivity">
         </activity>
 
         <activity
-            android:name=".WeightActivity"
+            android:name=".activities.WeightActivity"
             android:label="Weight/BMI"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateVisible">
         </activity>
 
         <activity
-            android:name=".WeightRecordsActivity"
+            android:name=".activities.WeightRecordsActivity"
             android:label="Weight/BMI"
-            android:parentActivityName=".WeightActivity">
+            android:parentActivityName=".activities.WeightActivity">
         </activity>
 
         <activity
-            android:name=".PeriodActivity"
+            android:name=".activities.PeriodActivity"
             android:label="Menstrual Period"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activities.MainActivity">
         </activity>
 
         <activity
-            android:name=".PeriodRecordsActivity"
+            android:name=".activities.PeriodRecordsActivity"
             android:label="Menstrual Period Records"
-            android:parentActivityName=".PeriodActivity">
+            android:parentActivityName=".activities.PeriodActivity">
         </activity>
 
         <activity
-            android:name=".MedicationsActivity"
+            android:name=".activities.MedicationsActivity"
             android:label="My Medications"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activities.MainActivity">
         </activity>
 
         <activity
-            android:name=".MedicationDetailActivity"
-            android:parentActivityName=".MedicationsActivity">
+            android:name=".activities.MedicationDetailActivity"
+            android:parentActivityName=".activities.MedicationsActivity">
         </activity>
 
         <activity
-            android:name=".MedicationEditActivity"
-            android:parentActivityName=".MedicationDetailActivity">
+            android:name=".activities.MedicationEditActivity"
+            android:parentActivityName=".activities.MedicationDetailActivity">
         </activity>
 
         <activity
-            android:name=".AllergenDetailActivity"
-            android:parentActivityName=".MedicationsActivity">
+            android:name=".activities.AllergenDetailActivity"
+            android:parentActivityName=".activities.MedicationsActivity">
         </activity>
 
         <activity
-            android:name=".AllergenEditActivity"
-            android:parentActivityName=".AllergenDetailActivity"
+            android:name=".activities.AllergenEditActivity"
+            android:parentActivityName=".activities.AllergenDetailActivity"
             android:windowSoftInputMode="stateVisible">
         </activity>
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="Settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activities.MainActivity">
         </activity>
 
     </application>

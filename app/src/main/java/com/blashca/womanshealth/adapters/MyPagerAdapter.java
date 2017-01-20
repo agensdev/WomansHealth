@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

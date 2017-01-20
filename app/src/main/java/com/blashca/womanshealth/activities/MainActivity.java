@@ -1,4 +1,4 @@
-package com.blashca.womanshealth;
+package com.blashca.womanshealth.activities;
 
 
 import android.app.DialogFragment;
@@ -18,14 +18,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.DateReceiver;
+import com.blashca.womanshealth.DateUtil;
+import com.blashca.womanshealth.DigestUtil;
+import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.fragments.DatePickerFragment;
+
 import java.text.DateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, DateReceiver {
-    private SharedPreferences sharedPreferences;
     public static final String Overlay = "overlayKey";
+    private SharedPreferences sharedPreferences;
     private String password;
     private TextView birthDateTextView;
+    private Date birthDate;
     private int radioButtonIndex;
 
     @Override
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (sharedPreferences.getBoolean(Overlay, true)) {
             showWelcomeDialog();
         } else {
-            password = sharedPreferences.getString("password", "");
+            password = sharedPreferences.getString("digestPassword", "");
 
             if (!password.equals("")) {
                 showPasswordDialog();
@@ -100,6 +107,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.welcome_radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
+        int checkedId = radioGroup.getCheckedRadioButtonId();
+        switch (checkedId) {
+            case R.id.welcome_radio_pregnant:
+                radioButtonIndex = 0;
+                break;
+            case R.id.welcome_radio_menopause:
+                radioButtonIndex = 1;
+                break;
+            case R.id.welcome_radio_normal:
+                radioButtonIndex = 2;
+                break;
+        }
 
         birthDateTextView = (TextView) view.findViewById(R.id.date_of_birth_textView);
 
@@ -129,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!birthday.equals("DD-MM-YYYY")) {
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("birthday", birthday);
+                    editor.putLong("birthday", birthDate.getTime());
                     editor.putInt("radioButtonIndex", radioButtonIndex);
                     editor.putBoolean(Overlay, false);
                     editor.commit();
@@ -139,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), R.string.empty_date_of_birth, Toast.LENGTH_SHORT).show();
                 }
 
-                if(wantToCloseDialog)
+                if (wantToCloseDialog) {
                     dialog.dismiss();
-                //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+                } //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
             }
         });
     }
@@ -172,7 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 EditText login = (EditText) view.findViewById(R.id.login_editText);
                 String loginText = login.getText().toString();
 
-                if (loginText.equals(password)) {
+                String hash = DigestUtil.digestPassword(loginText);
+
+                if (hash.equals(password)) {
                     wantToCloseDialog = true;
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.incorrect_password, Toast.LENGTH_SHORT).show();
@@ -186,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment(this, v.getId());
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId(), birthDate);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -195,13 +216,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
         if(radioButton != null && checkedId > -1){
             switch (checkedId) {
-                case R.id.welcome_radio_normal:
+                case R.id.welcome_radio_pregnant:
                     radioButtonIndex = 0;
                     break;
-                case R.id.welcome_radio_pregnant:
+                case R.id.welcome_radio_menopause:
                     radioButtonIndex = 1;
                     break;
-                case R.id.welcome_radio_menopause:
+                case R.id.welcome_radio_normal:
                     radioButtonIndex = 2;
                     break;
             }
@@ -210,7 +231,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDateReceive(Date date, int id) {
+        birthDate = DateUtil.removeTime(date);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        birthDateTextView.setText(dateFormat.format(date));
+        birthDateTextView.setText(dateFormat.format(birthDate));
     }
 }
