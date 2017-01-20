@@ -15,9 +15,11 @@ public class WomansHealthContract {
         public static final String COLUMN_ADDRESS = "address";
         public static final String COLUMN_TELEPHONE = "telephone";
         public static final String COLUMN_EMAIL = "email";
-        public static final String COLUMN_LAST_APPOINTMENT = "last_appointment";
-        public static final String COLUMN_NEXT_APPOINTMENT = "next_appointment";
-        public static final String COLUMN_APPOINTMENT_TIME = "appointment_time";
+        public static final String COLUMN_LAST_APPOINTMENT_DATE = "last_appointment_date";
+        public static final String COLUMN_NEXT_APPOINTMENT_SPINNER_POSITION = "next_appointment_spinner_position";
+        public static final String COLUMN_NEXT_APPOINTMENT_DATE = "next_appointment_date";
+        public static final String COLUMN_NEXT_APPOINTMENT_HOUR = "next_appointment_hour";
+        public static final String COLUMN_NEXT_APPOINTMENT_MINUTE = "next_appointment_minute";
         public static final String COLUMN_APPOINTMENT_REMINDER = "appointment_reminder";
     }
 
@@ -28,10 +30,13 @@ public class WomansHealthContract {
         public static final String COLUMN_DOSAGE = "dosage";
         public static final String COLUMN_NUMBER = "number";
         public static final String COLUMN_HOW_TAKEN = "how_taken";
-        public static final String COLUMN_HOW_OFTEN = "how_often";
-        public static final String COLUMN_COMMENCEMENT = "commencement";
-        public static final String COLUMN_MEDICATION_TIME = "medication_time";
-        public static final String COLUMN_HOW_LONG = "how_long";
+        public static final String COLUMN_HOW_OFTEN_NUMBER = "how_often_number";
+        public static final String COLUMN_HOW_OFTEN_PERIOD = "how_often_period";
+        public static final String COLUMN_COMMENCEMENT_DATE = "commencement_date";
+        public static final String COLUMN_MEDICATION_HOUR = "medication_hour";
+        public static final String COLUMN_MEDICATION_MINUTE = "medication_minute";
+        public static final String COLUMN_HOW_LONG_NUMBER = "how_long_number";
+        public static final String COLUMN_HOW_LONG_PERIOD = "how_long_period";
         public static final String COLUMN_MEDICATION_REMINDER = "medication_reminder";
         public static final String COLUMN_IS_ALLERGEN = "is_alergen";
         public static final String COLUMN_ALLERGIES_EFFECTS = "allergies_effects";

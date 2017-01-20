@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.blashca.womanshealth.Period;
+import com.blashca.womanshealth.models.Appointment;
+import com.blashca.womanshealth.models.Medication;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,9 +27,11 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS,
             WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE,
             WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL,
-            WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT,
-            WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT,
-            WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT_DATE,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_SPINNER_POSITION,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR,
+            WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE,
             WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER
     };
 
@@ -37,10 +41,13 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthMedication.COLUMN_DOSAGE,
             WomansHealthContract.WomansHealthMedication.COLUMN_NUMBER,
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_TAKEN,
-            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN,
-            WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT,
-            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_TIME,
-            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG,
+            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER,
+            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD,
+            WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE,
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR,
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE,
+            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER,
+            WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD,
             WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER,
             WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN,
             WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS
@@ -74,9 +81,11 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE + " TEXT, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL + " TEXT, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT + " TEXT, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT + " TEXT, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME + " TEXT, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT_DATE + " INTEGER, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_SPINNER_POSITION + " INTEGER, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE + " INTEGER, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR + " INTEGER, " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE + " INTEGER, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER + " INTEGER DEFAULT 0 NOT NULL " +
                 " );";
 
@@ -84,16 +93,19 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         ContentValues appointmentValues = new ContentValues();
         appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, "Appointment1");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT, "01.01.2016");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME, "10:00");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE, "01.01.2016");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR, "10");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE, "30");
         db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
         appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, "Appointment2");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT, "02.01.2016");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME, "11:00");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE, "02.01.2016");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR, "11");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE, "30");
         db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
         appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, "Appointment3");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT, "03.01.2016");
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_TIME, "12:00");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE, "03.01.2016");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR, "12");
+        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE, "30");
         db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
 
 
@@ -103,10 +115,13 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthMedication.COLUMN_DOSAGE + " TEXT, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_NUMBER + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_TAKEN + " INTEGER, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN + " TEXT, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT + " TEXT, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_TIME + " TEXT, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG + " TEXT, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER + " INTEGER DEFAULT 0 NOT NULL, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " INTEGER DEFAULT 0 NOT NULL, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS + " TEXT " +
@@ -116,13 +131,16 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         ContentValues medicationValues = new ContentValues();
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "AAAAA");
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN, "0");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 1);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 1);
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "BBBBB");
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN, "1");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 2);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 2);
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "CCCCC");
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN, "2");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 3);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 3);
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "ALLERGEN");
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN, 1);
@@ -235,6 +253,36 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public Appointment loadAppointmentDataFromDb(long id) {
+        Cursor appointmentCursor = getAppointmentIdCursor(id);
+        Appointment appointment = new Appointment();
+
+        if (id != 0) {
+            appointment.name = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME));
+            appointment.doctorsName = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_DOCTOR_NAME));
+            appointment.address = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_ADDRESS));
+            appointment.telephone = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_TELEPHONE));
+            appointment.email = appointmentCursor.getString(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_EMAIL));
+            long lastDateLong = appointmentCursor.getLong(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_LAST_APPOINTMENT_DATE));
+            if (lastDateLong != 0) {
+                appointment.lastDate = new Date(lastDateLong);
+            }
+            appointment.nextDateSpinnerPosition = appointmentCursor.getInt(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_SPINNER_POSITION));
+            long nextDateLong = appointmentCursor.getLong(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE));
+            if (nextDateLong != 0) {
+                appointment.nextDate = new Date(nextDateLong);
+            }
+            appointment.nextAppointmentHour = appointmentCursor.getInt(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR));
+            appointment.nextAppointmentMinute = appointmentCursor.getInt(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE));
+            int reminderInt = appointmentCursor.getInt(appointmentCursor.getColumnIndex(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER));
+            if (reminderInt == 1) {
+                appointment.reminder = true;
+            }
+        }
+
+        return appointment;
+    }
+
 
     //Medication
 
@@ -303,6 +351,34 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs);
         db.close();
+    }
+
+    public Medication loadMedicationDataFromDb(long id) {
+        Cursor medicationCursor = getMedicationIdCursor(id);
+        Medication medication = new Medication();
+
+        if (id != 0) {
+            medication.name = medicationCursor.getString(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME));
+            medication.dosage = medicationCursor.getString(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_DOSAGE));
+            medication.number = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_NUMBER));
+            medication.howTaken = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_TAKEN));
+            medication.howOftenNumber = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER));
+            medication.howOftenPeriod = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD));
+            long commencementDateLong = medicationCursor.getLong(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE));
+            if (commencementDateLong != 0) {
+                medication.commencementDate = new Date(commencementDateLong);
+            }
+            medication.medicationHour = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR));
+            medication.medicationMinute = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE));
+            medication.howLongNumber = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER));
+            medication.howLongPeriod = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD));
+            int medicationReminderInt = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER));
+            if (medicationReminderInt == 1) {
+                medication.reminder = true;
+            }
+        }
+
+        return medication;
     }
 
 
