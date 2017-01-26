@@ -28,7 +28,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private TextView howTakenTextView;
     private TextView howOftenTextView;
     private TextView commencementTextView;
-    private TextView timeTextView;
+    private TextView[] medicationTimeTextViewsArray = new TextView[12];
     private TextView howLongTextView;
     private TextView medicationReminderTextView;
 
@@ -54,7 +54,18 @@ public class MedicationDetailActivity extends AppCompatActivity {
         howTakenTextView = (TextView) findViewById(R.id.how_taken_textView);
         howOftenTextView = (TextView) findViewById(R.id.how_often_textView);
         commencementTextView = (TextView) findViewById(R.id.commencement_textView);
-        timeTextView = (TextView) findViewById(R.id.medication_time_textView);
+        medicationTimeTextViewsArray[0] = (TextView) findViewById(R.id.medication_time1_textView);
+        medicationTimeTextViewsArray[1] = (TextView) findViewById(R.id.medication_time2_textView);
+        medicationTimeTextViewsArray[2] = (TextView) findViewById(R.id.medication_time3_textView);
+        medicationTimeTextViewsArray[3] = (TextView) findViewById(R.id.medication_time4_textView);
+        medicationTimeTextViewsArray[4] = (TextView) findViewById(R.id.medication_time5_textView);
+        medicationTimeTextViewsArray[5] = (TextView) findViewById(R.id.medication_time6_textView);
+        medicationTimeTextViewsArray[6] = (TextView) findViewById(R.id.medication_time7_textView);
+        medicationTimeTextViewsArray[7] = (TextView) findViewById(R.id.medication_time8_textView);
+        medicationTimeTextViewsArray[8] = (TextView) findViewById(R.id.medication_time9_textView);
+        medicationTimeTextViewsArray[9] = (TextView) findViewById(R.id.medication_time10_textView);
+        medicationTimeTextViewsArray[10] = (TextView) findViewById(R.id.medication_time11_textView);
+        medicationTimeTextViewsArray[11] = (TextView) findViewById(R.id.medication_time12_textView);
         howLongTextView = (TextView) findViewById(R.id.how_long_textView);
         medicationReminderTextView = (TextView) findViewById(R.id.medication_reminder_textView);
 
@@ -153,9 +164,27 @@ public class MedicationDetailActivity extends AppCompatActivity {
 
             LinearLayout howOftenLayout = (LinearLayout) findViewById(R.id.how_often_layout);
             howOftenLayout.setVisibility(View.VISIBLE);
+
+            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
+            timeLayout.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < medication.medicationHourArray.length; i++) {
+                if (medication.medicationHourArray[i] != -1) {
+
+                    medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
+                    medicationTimeTextViewsArray[i].setVisibility(View.VISIBLE);
+                } else {
+                    medicationTimeTextViewsArray[i].setVisibility(View.GONE);
+                }
+
+            }
+
         } else {
             LinearLayout howOftenLayout = (LinearLayout) findViewById(R.id.how_often_layout);
             howOftenLayout.setVisibility(View.GONE);
+
+            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
+            timeLayout.setVisibility(View.GONE);
         }
 
         if (medication.commencementDate != null) {
@@ -166,16 +195,6 @@ public class MedicationDetailActivity extends AppCompatActivity {
         } else {
             LinearLayout commencementLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
             commencementLayout.setVisibility(View.GONE);
-        }
-
-        if (!medication.getMedicationTime().equals("")) {
-            timeTextView.setText(medication.getMedicationTime());
-
-            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
-            timeLayout.setVisibility(View.VISIBLE);
-        } else {
-            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
-            timeLayout.setVisibility(View.GONE);
         }
 
         if (medication.howLongNumber != 0) {

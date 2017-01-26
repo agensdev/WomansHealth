@@ -11,27 +11,28 @@ public class Medication {
     public int howOftenNumber;
     public int howOftenPeriod;
     public Date commencementDate;
-    public int medicationHour = -1;
-    public int medicationMinute = -1;
+    public int[] medicationHourArray = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    public int[] medicationMinuteArray = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     public int howLongNumber;
     public int howLongPeriod;
     public boolean reminder;
 
-    public String getMedicationTime() {
 
-        if (medicationHour != -1) {
+    public String getMedicationTime(int index) {
+
+        if (medicationHourArray[index] != -1) {
             String hour;
             String minute;
-            if (medicationHour <= 9) {
-                hour = "0" + medicationHour;
+            if (medicationHourArray[index] <= 9) {
+                hour = "0" + medicationHourArray[index];
             } else {
-                hour = "" + medicationHour;
+                hour = "" + medicationHourArray[index];
             }
 
-            if (medicationMinute <= 9) {
-                minute = "0" + medicationMinute;
+            if (medicationMinuteArray[index] <= 9) {
+                minute = "0" + medicationMinuteArray[index];
             } else {
-                minute = "" + medicationMinute;
+                minute = "" + medicationMinuteArray[index];
             }
 
             return new StringBuilder().append(hour).append(':').append(minute).toString();

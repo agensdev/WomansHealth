@@ -44,8 +44,30 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER,
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD,
             WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE,
-            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR,
-            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE,
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[0],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[1],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[2],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[3],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[4],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[5],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[6],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[7],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[8],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[9],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[10],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[11],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[0],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[1],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[2],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[3],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[4],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[5],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[6],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[7],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[8],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[9],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[10],
+            WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[11],
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER,
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD,
             WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER,
@@ -118,8 +140,30 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE + " INTEGER, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR + " INTEGER, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[0] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[1] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[2] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[3] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[4] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[5] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[6] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[7] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[8] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[9] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[10] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[11] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[0] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[1] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[2] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[3] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[4] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[5] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[6] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[7] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[8] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[9] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[10] + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[11] + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER + " INTEGER DEFAULT 0 NOT NULL, " +
@@ -368,8 +412,30 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             if (commencementDateLong != 0) {
                 medication.commencementDate = new Date(commencementDateLong);
             }
-            medication.medicationHour = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR));
-            medication.medicationMinute = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE));
+            medication.medicationHourArray[0] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[0]));
+            medication.medicationHourArray[1] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[1]));
+            medication.medicationHourArray[2] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[2]));
+            medication.medicationHourArray[3] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[3]));
+            medication.medicationHourArray[4] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[4]));
+            medication.medicationHourArray[5] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[5]));
+            medication.medicationHourArray[6] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[6]));
+            medication.medicationHourArray[7] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[7]));
+            medication.medicationHourArray[8] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[8]));
+            medication.medicationHourArray[9] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[9]));
+            medication.medicationHourArray[10] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[10]));
+            medication.medicationHourArray[11] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[11]));
+            medication.medicationMinuteArray[0] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[0]));
+            medication.medicationMinuteArray[1] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[1]));
+            medication.medicationMinuteArray[2] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[2]));
+            medication.medicationMinuteArray[3] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[3]));
+            medication.medicationMinuteArray[4] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[4]));
+            medication.medicationMinuteArray[5] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[5]));
+            medication.medicationMinuteArray[6] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[6]));
+            medication.medicationMinuteArray[7] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[7]));
+            medication.medicationMinuteArray[8] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[8]));
+            medication.medicationMinuteArray[9] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[9]));
+            medication.medicationMinuteArray[10] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[10]));
+            medication.medicationMinuteArray[11] = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[11]));
             medication.howLongNumber = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER));
             medication.howLongPeriod = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD));
             int medicationReminderInt = medicationCursor.getInt(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER));
@@ -377,7 +443,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 medication.reminder = true;
             }
         }
-
         return medication;
     }
 

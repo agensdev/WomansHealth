@@ -2,7 +2,6 @@ package com.blashca.womanshealth.activities;
 
 
 import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,12 +21,12 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.TimeReceiver;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 import com.blashca.womanshealth.fragments.DatePickerFragment;
@@ -38,7 +37,8 @@ import java.text.DateFormat;
 import java.util.Date;
 
 
-public class MedicationEditActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DateReceiver {
+public class MedicationEditActivity extends AppCompatActivity implements DateReceiver, TimeReceiver {
+
     private DateFormat dateFormat;
     private static String MEDICATION_ID = "medicationId";
     private long medicationId;
@@ -49,7 +49,7 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
     private EditText numberEditText;
     private TextView howOftenTextView;
     private TextView commencementTextView;
-    private TextView medicationTimeTextView;
+    private TextView[] medicationTimeTextViewsArray = new TextView[12];
     private TextView howLongTextView;
     private Spinner howTakenSpinner;
     private Switch medicationReminderSwitch;
@@ -62,6 +62,7 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
 
     private LinearLayout commencementLinearLayout;
     private LinearLayout medicationTimeLinearLayout;
+    private LinearLayout[] linearLayoutsArrayList = new LinearLayout[12];
     private View commencementLine;
     private View medicationTimeLine;
 
@@ -84,13 +85,36 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
         numberEditText = (EditText) findViewById(R.id.number_editText);
         howOftenTextView = (TextView) findViewById(R.id.how_often_set_textView);
         commencementTextView = (TextView) findViewById(R.id.commencement_set_textView);
-        medicationTimeTextView = (TextView) findViewById(R.id.medication_time_set_textView);
+        medicationTimeTextViewsArray[0] = (TextView) findViewById(R.id.medication_time_set1_textView);
+        medicationTimeTextViewsArray[1] = (TextView) findViewById(R.id.medication_time_set2_textView);
+        medicationTimeTextViewsArray[2] = (TextView) findViewById(R.id.medication_time_set3_textView);
+        medicationTimeTextViewsArray[3] = (TextView) findViewById(R.id.medication_time_set4_textView);
+        medicationTimeTextViewsArray[4] = (TextView) findViewById(R.id.medication_time_set5_textView);
+        medicationTimeTextViewsArray[5] = (TextView) findViewById(R.id.medication_time_set6_textView);
+        medicationTimeTextViewsArray[6] = (TextView) findViewById(R.id.medication_time_set7_textView);
+        medicationTimeTextViewsArray[7] = (TextView) findViewById(R.id.medication_time_set8_textView);
+        medicationTimeTextViewsArray[8] = (TextView) findViewById(R.id.medication_time_set9_textView);
+        medicationTimeTextViewsArray[9] = (TextView) findViewById(R.id.medication_time_set10_textView);
+        medicationTimeTextViewsArray[10] = (TextView) findViewById(R.id.medication_time_set11_textView);
+        medicationTimeTextViewsArray[11] = (TextView) findViewById(R.id.medication_time_set12_textView);
         howLongTextView = (TextView) findViewById(R.id.how_long_set_textView);
         frequencyArray = getResources().getStringArray(R.array.frequency_array);
         lengthArray = getResources().getStringArray(R.array.length_array);
 
         commencementLinearLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
         medicationTimeLinearLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
+        linearLayoutsArrayList[0] = (LinearLayout) findViewById(R.id.medication_time_set1_linearLayout);
+        linearLayoutsArrayList[1] = (LinearLayout) findViewById(R.id.medication_time_set2_linearLayout);
+        linearLayoutsArrayList[2] = (LinearLayout) findViewById(R.id.medication_time_set3_linearLayout);
+        linearLayoutsArrayList[3] = (LinearLayout) findViewById(R.id.medication_time_set4_linearLayout);
+        linearLayoutsArrayList[4] = (LinearLayout) findViewById(R.id.medication_time_set5_linearLayout);
+        linearLayoutsArrayList[5] = (LinearLayout) findViewById(R.id.medication_time_set6_linearLayout);
+        linearLayoutsArrayList[6] = (LinearLayout) findViewById(R.id.medication_time_set7_linearLayout);
+        linearLayoutsArrayList[7] = (LinearLayout) findViewById(R.id.medication_time_set8_linearLayout);
+        linearLayoutsArrayList[8] = (LinearLayout) findViewById(R.id.medication_time_set9_linearLayout);
+        linearLayoutsArrayList[9] = (LinearLayout) findViewById(R.id.medication_time_set10_linearLayout);
+        linearLayoutsArrayList[10] = (LinearLayout) findViewById(R.id.medication_time_set11_linearLayout);
+        linearLayoutsArrayList[11] = (LinearLayout) findViewById(R.id.medication_time_set12_linearLayout);
         commencementLine = (View) findViewById(R.id.commencement_line);
         medicationTimeLine = (View) findViewById(R.id.medications_time_line);
         medicationReminderSwitch = (Switch) findViewById(R.id.medication_reminder_switch);
@@ -147,16 +171,6 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
     }
 
 
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        medication.medicationHour = hourOfDay;
-        medication.medicationMinute = minute;
-
-        medicationTimeTextView.setText(medication.getMedicationTime());
-
-        refreshUI();
-    }
-
     public void showHowOftenPicker(View v) {
 
         // Use the Builder class for convenient dialog construction
@@ -169,7 +183,7 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
         final NumberPicker howOftenPeriodPicker = (NumberPicker) view.findViewById(R.id.frequency_picker);
 
         howOftenNumberPicker.setMinValue(1);
-        howOftenNumberPicker.setMaxValue(31);
+        howOftenNumberPicker.setMaxValue(12);
 
         howOftenPeriodPicker.setMaxValue(frequencyArray.length - 1);
         howOftenPeriodPicker.setDisplayedValues(frequencyArray);
@@ -189,28 +203,36 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
                         medication.howOftenNumber = howOftenNumberPicker.getValue();
                         medication.howOftenPeriod = howOftenPeriodPicker.getValue();
 
-                        refreshUI();
-                    }
-                })
-                .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        medication.howOftenNumber = 0;
-                        medication.howOftenPeriod = 0;
-                        medication.commencementDate = null;
-                        medication.medicationHour = 0;
-                        medication.medicationMinute = 0;
+                        for (int i = 0; i < medication.medicationHourArray.length; i++) {
+                            medication.medicationHourArray[i] = -1;
+                            medication.medicationMinuteArray[i] = -1;
+                        }
 
                         refreshUI();
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        medication.howOftenNumber = 0;
+                        medication.howOftenPeriod = 0;
+                        medication.commencementDate = null;
+
+                        for (int i = 0; i < medication.medicationHourArray.length; i++) {
+                            medication.medicationHourArray[i] = -1;
+                            medication.medicationMinuteArray[i] = -1;
+                        }
+
+                        refreshUI();
                     }
                 });
 
@@ -224,9 +246,28 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment(medication.medicationHour, medication.medicationMinute);
+        int index = mapViewIdOnIndex(v);
+
+        DialogFragment newFragment = new TimePickerFragment(this, index, medication.medicationHourArray[index],
+                medication.medicationMinuteArray[index]);
         newFragment.show(getFragmentManager(), "timePicker");
     }
+
+    @Override
+    public void onDateReceive(Date date, int id) {
+        medication.commencementDate = DateUtil.removeTime(date);
+        refreshUI();
+    }
+
+    @Override
+    public void onTimeReceive(int index, int hour, int minute) {
+        medication.medicationHourArray[index] = hour;
+        medication.medicationMinuteArray[index] = minute;
+        medicationTimeTextViewsArray[index].setText(medication.getMedicationTime(index));
+
+        refreshUI();
+    }
+
 
     public void showHowLongPicker(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -264,20 +305,23 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
                         refreshUI();
                     }
                 })
-                .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         medication.howLongNumber = 0;
                         medication.howLongPeriod = 0;
 
                         refreshUI();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+
                     }
                 });
+
         builder.create();
         builder.show();
     }
@@ -336,16 +380,30 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
             }
 
             commencementLinearLayout.setVisibility(View.VISIBLE);
-            medicationTimeLinearLayout.setVisibility(View.VISIBLE);
             commencementLine.setVisibility(View.VISIBLE);
+            medicationTimeLinearLayout.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                if (i < medication.howOftenNumber) {
+                    linearLayoutsArrayList[i].setVisibility(View.VISIBLE);
+                    medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
+                } else {
+                    linearLayoutsArrayList[i].setVisibility(View.GONE);
+                }
+            }
+
             medicationTimeLine.setVisibility(View.VISIBLE);
         } else {
             howOftenTextView.setText("");
 
-//            commencementLinearLayout.setVisibility(View.INVISIBLE);
-//            medicationTimeLinearLayout.setVisibility(View.INVISIBLE);
-//            commencementLine.setVisibility(View.INVISIBLE);
-//            medicationTimeLine.setVisibility(View.INVISIBLE);
+            commencementLinearLayout.setVisibility(View.GONE);
+            commencementLine.setVisibility(View.GONE);
+            medicationTimeLinearLayout.setVisibility(View.GONE);
+            medicationTimeLine.setVisibility(View.GONE);
+
+            for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                linearLayoutsArrayList[i].setVisibility(View.GONE);
+            }
         }
 
 
@@ -353,7 +411,6 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
             commencementTextView.setText(dateFormat.format(medication.commencementDate));
         }
 
-        medicationTimeTextView.setText(medication.getMedicationTime());
 
         if (medication.howLongNumber != 0) {
             howLongTextView.setText(medication.howLongNumber + " " + lengthArray[medication.howLongPeriod]);
@@ -378,8 +435,10 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
         int medicationReminderInt;
         if (medication.reminder) {
             medicationReminderInt = 1;
+            onReminderEnabled();
         } else {
             medicationReminderInt = 0;
+            onReminderDisabled();
         }
 
 
@@ -391,19 +450,20 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, medication.howOftenNumber);
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, medication.howOftenPeriod);
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE, commencementDateLong);
-        values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOUR, medication.medicationHour);
-        values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTE, medication.medicationMinute);
+
+        for (int i = 0; i < medication.medicationHourArray.length; i++) {
+            values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[i], medication.medicationHourArray[i]);
+        }
+
+        for (int i = 0; i < medication.medicationMinuteArray.length; i++) {
+            values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[i], medication.medicationMinuteArray[i]);
+        }
+
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER, medication.howLongNumber);
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD, medication.howLongPeriod);
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER, medicationReminderInt);
 
         return values;
-    }
-
-    @Override
-    public void onDateReceive(Date date, int id) {
-        medication.commencementDate = DateUtil.removeTime(date);
-        refreshUI();
     }
 
     private void addChangedTextListeners() {
@@ -482,5 +542,45 @@ public class MedicationEditActivity extends AppCompatActivity implements TimePic
 //            @Override
 //            public void afterTextChanged(Editable s) {}
 //        });
+    }
+
+    private int mapViewIdOnIndex(View v) {
+        int index = -1;
+
+        if (v.getId() == R.id.medication_time_set1_textView) {
+            index = 0;
+        } else if (v.getId() == R.id.medication_time_set2_textView) {
+            index = 1;
+        } else if (v.getId() == R.id.medication_time_set3_textView) {
+            index = 2;
+        } else if (v.getId() == R.id.medication_time_set4_textView) {
+            index = 3;
+        } else if (v.getId() == R.id.medication_time_set5_textView) {
+            index = 4;
+        } else if (v.getId() == R.id.medication_time_set6_textView) {
+            index = 5;
+        } else if (v.getId() == R.id.medication_time_set7_textView) {
+            index = 6;
+        } else if (v.getId() == R.id.medication_time_set8_textView) {
+            index = 7;
+        } else if (v.getId() == R.id.medication_time_set9_textView) {
+            index = 8;
+        } else if (v.getId() == R.id.medication_time_set10_textView) {
+            index = 9;
+        } else if (v.getId() == R.id.medication_time_set11_textView) {
+            index = 10;
+        } else if (v.getId() == R.id.medication_time_set12_textView) {
+            index = 11;
+        }
+
+        return index;
+    }
+
+    private void onReminderEnabled() {
+
+    }
+
+    private void onReminderDisabled() {
+
     }
 }

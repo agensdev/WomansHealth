@@ -33,8 +33,12 @@ public class WomansHealthContract {
         public static final String COLUMN_HOW_OFTEN_NUMBER = "how_often_number";
         public static final String COLUMN_HOW_OFTEN_PERIOD = "how_often_period";
         public static final String COLUMN_COMMENCEMENT_DATE = "commencement_date";
-        public static final String COLUMN_MEDICATION_HOUR = "medication_hour";
-        public static final String COLUMN_MEDICATION_MINUTE = "medication_minute";
+        public static final String[] COLUMN_MEDICATION_HOURS = {"medication_hour_1", "medication_hour_2", "medication_hour_3",
+                "medication_hour_4", "medication_hour_5", "medication_hour_6", "medication_hour_7", "medication_hour_8",
+                "medication_hour_9", "medication_hour_10", "medication_hour_11", "medication_hour_12"};
+        public static final String[] COLUMN_MEDICATION_MINUTES = {"medication_minute_1", "medication_minute_2", "medication_minute_3",
+                "medication_minute_4", "medication_minute_5", "medication_minute_6", "medication_minute_7", "medication_minute_8",
+                "medication_minute_9","medication_minute_10","medication_minute_11","medication_minute_12"};
         public static final String COLUMN_HOW_LONG_NUMBER = "how_long_number";
         public static final String COLUMN_HOW_LONG_PERIOD = "how_long_period";
         public static final String COLUMN_MEDICATION_REMINDER = "medication_reminder";
