@@ -22,7 +22,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public TimePickerFragment() {}
 
     @SuppressLint("ValidFragment")
-    public TimePickerFragment(int hour, int minute) {
+    public TimePickerFragment(TimeReceiver timeReceiver) {
+        this.timeReceiver = timeReceiver;
+    }
+
+    @SuppressLint("ValidFragment")
+    public TimePickerFragment(TimeReceiver timeReceiver, int hour, int minute) {
+        this.timeReceiver = timeReceiver;
         this.hour = hour;
         this.minute = minute;
     }
