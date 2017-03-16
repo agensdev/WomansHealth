@@ -261,14 +261,15 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void insertAppointment(ContentValues values) {
+    public long insertAppointment(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert(
+        long id = db.insert(
                 WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT,
                 null,
                 values);
         db.close();
+        return id;
     }
 
     public void updateAppointment(ContentValues values, long id) {
@@ -388,14 +389,16 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void insertMedication(ContentValues values) {
+    public long insertMedication(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert(
+        long id = db.insert(
                 WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION,
                 null,
                 values);
         db.close();
+
+        return id;
     }
 
     public void updateMedication(ContentValues values, long id) {
