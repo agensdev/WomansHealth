@@ -39,4 +39,8 @@ public class Appointment {
             return "";
         }
     }
+
+    public long getAlarmId() {
+        return 10000000000L + id;
+    }
 }

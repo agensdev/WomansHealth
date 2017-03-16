@@ -43,4 +43,9 @@ public class Medication {
             return "";
         }
     }
+
+    // Generates alarmId based on i (alarm number) multiplied by offset and adding medicationId
+    public long getAlarmId(int i) {
+        return i * 1000000 + id;
+    }
 }
