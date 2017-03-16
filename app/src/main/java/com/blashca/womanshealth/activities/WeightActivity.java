@@ -16,12 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blashca.womanshealth.Bmi;
-import com.blashca.womanshealth.fragments.DatePickerFragment;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
+import com.blashca.womanshealth.fragments.DatePickerFragment;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -166,6 +166,8 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
     }
 
     private void resetScreen() {
+        chosenDate = DateUtil.removeTime(new Date());
+        dateTextView.setText(dateFormat.format(chosenDate));
         EditText height = (EditText) findViewById(R.id.height_editText);
         height.setText("");
         EditText weight = (EditText) findViewById(R.id.weight_editText);
