@@ -26,7 +26,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private static String MEDICATION_ID = "medicationId";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
-    private long medicationId;
+    private Long medicationId;
 
     private TextView medicationNameTextView;
     private TextView dosageTextView;
@@ -53,6 +53,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
         }
+
         medication = dbHelper.loadMedicationDataFromDb(medicationId);
 
         medicationNameTextView = (TextView) findViewById(R.id.medicine_name_textView);
@@ -79,9 +80,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         refreshUI();
     }
 
-
-
-    public void onDeleteMedicationButtonClicked(View v) {
+    public void onDeleteMedicationButtonClicked(final View v) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set dialog message
@@ -91,6 +90,17 @@ public class MedicationDetailActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
+
+                        if (medication.howOftenNumber != null) {
+                            for (int i = 0; i < medication.howOftenNumber; i++) {
+                                alarmHelper.cancelAlarm(v.getContext(), DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
+                            }
+                        }
+
+                        alarmHelper.cancelAlarm(v.getContext(), WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
+                        alarmHelper.cancelAlarm(v.getContext(), MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
+                        alarmHelper.cancelAlarm(v.getContext(), YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
+
                         dbHelper.deleteMedication(medicationId);
 
                         Intent intent = new Intent();
@@ -128,7 +138,6 @@ public class MedicationDetailActivity extends AppCompatActivity {
         }
     }
 
-
     private void refreshUI() {
         String[] howTakenArray = getResources().getStringArray(R.array.how_taken_array);
         String[] howOftenArray = getResources().getStringArray(R.array.how_often_array);
@@ -136,86 +145,82 @@ public class MedicationDetailActivity extends AppCompatActivity {
 
         medicationNameTextView.setText(medication.name);
 
-        if (!medication.dosage.equals("")) {
-            dosageTextView.setText(medication.dosage);
+        LinearLayout dosageLayout = (LinearLayout) findViewById(R.id.dosage_layout);
 
-            LinearLayout dosageLayout = (LinearLayout) findViewById(R.id.dosage_layout);
+        if (medication.dosage != null) {
+            dosageTextView.setText(medication.dosage);
             dosageLayout.setVisibility(View.VISIBLE);
         } else {
-            LinearLayout dosageLayout = (LinearLayout) findViewById(R.id.dosage_layout);
             dosageLayout.setVisibility(View.GONE);
         }
 
-        if (medication.number != 0) {
-            numberTextView.setText("" + medication.number);
+        LinearLayout numberLayout = (LinearLayout) findViewById(R.id.number_layout);
 
-            LinearLayout numberLayout = (LinearLayout) findViewById(R.id.number_layout);
+        if (medication.number != null) {
+            numberTextView.setText("" + medication.number);
             numberLayout.setVisibility(View.VISIBLE);
         } else {
-            LinearLayout numberLayout = (LinearLayout) findViewById(R.id.number_layout);
             numberLayout.setVisibility(View.GONE);
         }
 
-        if (medication.howTaken != howTakenArray.length - 1) {
-            howTakenTextView.setText(howTakenArray[medication.howTaken]);
+        LinearLayout howTakenLayout = (LinearLayout) findViewById(R.id.how_taken_layout);
 
-            LinearLayout howTakenLayout = (LinearLayout) findViewById(R.id.how_taken_layout);
+        if (medication.howTaken != null && medication.howTaken != howTakenArray.length - 1) {
+            howTakenTextView.setText(howTakenArray[medication.howTaken]);
             howTakenLayout.setVisibility(View.VISIBLE);
         } else {
-            LinearLayout howTakenLayout = (LinearLayout) findViewById(R.id.how_taken_layout);
             howTakenLayout.setVisibility(View.GONE);
         }
 
-        if (medication.howOftenNumber != 0) {
-            howOftenTextView.setText(medication.howOftenNumber + " " + howOftenArray[medication.howOftenPeriod]);
+        LinearLayout howOftenLayout = (LinearLayout) findViewById(R.id.how_often_layout);
 
-            LinearLayout howOftenLayout = (LinearLayout) findViewById(R.id.how_often_layout);
+        if (medication.howOftenNumber != null) {
+            howOftenTextView.setText(medication.howOftenNumber + " " + howOftenArray[medication.howOftenPeriod]);
             howOftenLayout.setVisibility(View.VISIBLE);
 
-            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
+        } else {
+            howOftenLayout.setVisibility(View.GONE);
+        }
+
+        LinearLayout commencementLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
+
+        if (medication.commencementDate != null) {
+            commencementTextView.setText(dateFormat.format(medication.commencementDate));
+            commencementLayout.setVisibility(View.VISIBLE);
+        } else {
+            commencementLayout.setVisibility(View.GONE);
+        }
+
+        LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
+
+        if (medication.medicationHourArray[0] != null) {
             timeLayout.setVisibility(View.VISIBLE);
 
             for (int i = 0; i < medication.medicationHourArray.length; i++) {
-                if (medication.medicationHourArray[i] != -1) {
-
+                if (medication.medicationHourArray[i] != null) {
                     medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
                     medicationTimeTextViewsArray[i].setVisibility(View.VISIBLE);
                 } else {
                     medicationTimeTextViewsArray[i].setVisibility(View.GONE);
                 }
-
             }
-
         } else {
-            LinearLayout howOftenLayout = (LinearLayout) findViewById(R.id.how_often_layout);
-            howOftenLayout.setVisibility(View.GONE);
-
-            LinearLayout timeLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
             timeLayout.setVisibility(View.GONE);
         }
 
-        if (medication.commencementDate != null) {
-            commencementTextView.setText(dateFormat.format(medication.commencementDate));
+        LinearLayout howLongLayout = (LinearLayout) findViewById(R.id.how_long_layout);
 
-            LinearLayout commencementLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
-            commencementLayout.setVisibility(View.VISIBLE);
-        } else {
-            LinearLayout commencementLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
-            commencementLayout.setVisibility(View.GONE);
-        }
-
-        if (medication.howLongNumber != 0) {
+        if (medication.howLongNumber != null) {
             howLongTextView.setText(medication.howLongNumber + " " + howLongArray[medication.howLongPeriod]);
-
-            LinearLayout howLongLayout = (LinearLayout) findViewById(R.id.how_long_layout);
             howLongLayout.setVisibility(View.VISIBLE);
         } else {
-            LinearLayout howLongLayout = (LinearLayout) findViewById(R.id.how_long_layout);
             howLongLayout.setVisibility(View.GONE);
         }
 
         if (medication.reminder == true) {
             medicationReminderTextView.setText(R.string.on);
+        } else {
+            medicationReminderTextView.setText(R.string.off);
         }
     }
 }

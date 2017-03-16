@@ -4,23 +4,26 @@ package com.blashca.womanshealth.models;
 import java.util.Date;
 
 public class Medication {
+    public Long id;
     public String name;
     public String dosage;
-    public int number;
-    public int howTaken = -1;
-    public int howOftenNumber;
-    public int howOftenPeriod;
+    public Integer number;
+    public Integer howTaken;
+    public Integer howOftenNumber;
+    public Integer howOftenPeriod;
     public Date commencementDate;
-    public int[] medicationHourArray = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    public int[] medicationMinuteArray = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    public int howLongNumber;
-    public int howLongPeriod;
+    public Integer[] medicationHourArray = new Integer[12];
+    public Integer[] medicationMinuteArray = new Integer[12];
+    public Integer howLongNumber;
+    public Integer howLongPeriod;
     public boolean reminder;
+    public boolean isAllergen;
+    public String allergyEffects;
 
 
     public String getMedicationTime(int index) {
 
-        if (medicationHourArray[index] != -1) {
+        if (medicationHourArray[index] != null) {
             String hour;
             String minute;
             if (medicationHourArray[index] <= 9) {

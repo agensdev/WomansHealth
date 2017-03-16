@@ -46,7 +46,6 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
     private DateFormat dateFormat;
     private static String MEDICATION_ID = "medicationId";
-    private long medicationId;
     private WomansHealthDbHelper dbHelper;
 
     private EditText nameEditText;
@@ -81,10 +80,16 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         dbHelper = new WomansHealthDbHelper(this);
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
+        Long medicationId = null;
         if (getIntent().getExtras() != null) {
             medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
         }
-        medication = dbHelper.loadMedicationDataFromDb(medicationId);
+
+        if (medicationId != null) {
+            medication = dbHelper.loadMedicationDataFromDb(medicationId);
+        } else {
+            medication = new Medication();
+        }
 
         nameEditText = (EditText) findViewById(R.id.medicine_name_editText);
         dosageEditText = (EditText) findViewById(R.id.dosage_editText);
@@ -125,10 +130,9 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         medicationTimeLine = (View) findViewById(R.id.medications_time_line);
         medicationReminderSwitch = (Switch) findViewById(R.id.medication_reminder_switch);
 
-        addChangedTextListeners();
-
         initHowTakenSpinner();
         refreshUI();
+        addChangedTextListeners();
     }
 
     public void initHowTakenSpinner() {
@@ -157,7 +161,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         };
         howTakenSpinner.setAdapter(adapter);
         howTakenSpinner.setSelection(adapter.getCount());
-        if (medication.howTaken == -1) {
+        if (medication.howTaken == null) {
             medication.howTaken = howTakenSpinner.getCount();
         }
 
@@ -194,7 +198,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         howOftenPeriodPicker.setMaxValue(frequencyArray.length - 1);
         howOftenPeriodPicker.setDisplayedValues(frequencyArray);
 
-        if (medication.howOftenNumber != 0) {
+        if (medication.howOftenNumber != null) {
             howOftenNumberPicker.setValue(medication.howOftenNumber);
             howOftenPeriodPicker.setValue(medication.howOftenPeriod);
 
@@ -213,8 +217,8 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
                         medication.howOftenPeriod = howOftenPeriodPicker.getValue();
 
                         for (int i = 0; i < medication.medicationHourArray.length; i++) {
-                            medication.medicationHourArray[i] = -1;
-                            medication.medicationMinuteArray[i] = -1;
+                            medication.medicationHourArray[i] = null;
+                            medication.medicationMinuteArray[i] = null;
                         }
 
                         refreshUI();
@@ -229,13 +233,13 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
                 .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        medication.howOftenNumber = 0;
-                        medication.howOftenPeriod = 0;
+                        medication.howOftenNumber = null;
+                        medication.howOftenPeriod = null;
                         medication.commencementDate = null;
 
                         for (int i = 0; i < medication.medicationHourArray.length; i++) {
-                            medication.medicationHourArray[i] = -1;
-                            medication.medicationMinuteArray[i] = -1;
+                            medication.medicationHourArray[i] = null;
+                            medication.medicationMinuteArray[i] = null;
                         }
 
                         refreshUI();
@@ -270,7 +274,6 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         medication.medicationHourArray[index] = hour;
         medication.medicationMinuteArray[index] = minute;
         medicationTimeTextViewsArray[index].setText(medication.getMedicationTime(index));
-
         refreshUI();
     }
 
@@ -290,7 +293,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         lengthPeriodPicker.setMaxValue(lengthArray.length - 1);
         lengthPeriodPicker.setDisplayedValues(lengthArray);
 
-        if (medication.howLongNumber != 0) {
+        if (medication.howLongNumber != null) {
             lengthNumberPicker.setValue(medication.howLongNumber);
             lengthPeriodPicker.setValue(medication.howLongPeriod);
 
@@ -320,11 +323,10 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
                 .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        medication.howLongNumber = 0;
-                        medication.howLongPeriod = 0;
+                        medication.howLongNumber = null;
+                        medication.howLongPeriod = null;
 
                         refreshUI();
-
                     }
                 });
 
@@ -335,15 +337,34 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
     public void onRecordMedicationButtonClicked(View v) {
 
-        if (medication.name.equals("")) {
+        if (medication.name == null) {
             Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (medicationId != 0) {
-            dbHelper.updateMedication(getMedicationContentValues(), medicationId);
+        if (medication.id != null) {
+            dbHelper.updateMedication(getMedicationContentValues(), medication.id);
         } else {
-            dbHelper.insertMedication(getMedicationContentValues());
+            medication.id = dbHelper.insertMedication(getMedicationContentValues());
+        }
+
+        if (medication.howOftenNumber != null) {
+            if (medication.reminder) {
+                for (int i = 0; i < medication.howOftenNumber; i++) {
+                    alarmHelper.cancelAlarm(this, DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
+                }
+                alarmHelper.cancelAlarm(this, WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
+                alarmHelper.cancelAlarm(this, MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
+                alarmHelper.cancelAlarm(this, YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
+                alarmHelper.setMedicationAlarms(this, medication);
+            } else {
+                for (int i = 0; i < medication.howOftenNumber; i++) {
+                    alarmHelper.cancelAlarm(this, DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
+                }
+                alarmHelper.cancelAlarm(this, WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
+                alarmHelper.cancelAlarm(this, MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
+                alarmHelper.cancelAlarm(this, YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
+            }
         }
 
         Intent intent = new Intent();
@@ -359,7 +380,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         dosageEditText.setText(medication.dosage);
         dosageEditText.setSelection(dosageEditText.getText().length());
 
-        if (medication.number != 0) {
+        if (medication.number != null) {
             numberEditText.setText("" + medication.number);
             numberEditText.setSelection(numberEditText.getText().length());
         } else {
@@ -373,8 +394,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             howTakenSpinner.setSelection(howTakenSpinner.getCount());
         }
 
-
-        if (medication.howOftenNumber != 0) {
+        if (medication.howOftenNumber != null) {
             if (medication.howOftenNumber == 1) {
                 howOftenTextView.setText(getString(R.string.once) + " " + frequencyArray[medication.howOftenPeriod]);
             } else if (medication.howOftenNumber == 2) {
@@ -389,12 +409,23 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             commencementLine.setVisibility(View.VISIBLE);
             medicationTimeLinearLayout.setVisibility(View.VISIBLE);
 
-            for (int i = 0; i < linearLayoutsArrayList.length; i++) {
-                if (i < medication.howOftenNumber) {
-                    linearLayoutsArrayList[i].setVisibility(View.VISIBLE);
-                    medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
-                } else {
-                    linearLayoutsArrayList[i].setVisibility(View.GONE);
+            if (frequencyArray[medication.howOftenPeriod] == frequencyArray[0]) {
+                for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                    if (i < medication.howOftenNumber) {
+                        linearLayoutsArrayList[i].setVisibility(View.VISIBLE);
+                        medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
+                    } else {
+                        linearLayoutsArrayList[i].setVisibility(View.GONE);
+                    }
+                }
+            } else {
+                for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                    if (i == 0) {
+                        linearLayoutsArrayList[0].setVisibility(View.VISIBLE);
+                        medicationTimeTextViewsArray[0].setText(medication.getMedicationTime(0));
+                    } else {
+                        linearLayoutsArrayList[i].setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -412,27 +443,38 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             }
         }
 
-
         if (medication.commencementDate != null) {
             commencementTextView.setText(dateFormat.format(medication.commencementDate));
+        } else {
+            commencementTextView.setText("");
+            commencementTextView.setHint(R.string.commencement_date);
         }
 
-
-        if (medication.howLongNumber != 0) {
+        if (medication.howLongNumber != null) {
             howLongTextView.setText(medication.howLongNumber + " " + lengthArray[medication.howLongPeriod]);
         } else {
             howLongTextView.setText("");
         }
 
-        if (medication.reminder) {
-            medicationReminderSwitch.setChecked(true);
-        }
 
+        if (medication.howOftenPeriod != null
+                && medication.commencementDate != null
+                && (frequencyArray[medication.howOftenPeriod] == frequencyArray[0] || medication.howOftenNumber == 1)) {
+            medicationReminderSwitch.setVisibility(View.VISIBLE);
+
+            if (medication.reminder) {
+                medicationReminderSwitch.setChecked(true);
+            } else {
+                medicationReminderSwitch.setChecked(false);
+            }
+        } else {
+            medicationReminderSwitch.setVisibility(View.GONE);
+        }
     }
 
 
     private ContentValues getMedicationContentValues() {
-        long commencementDateLong = 0;
+        Long commencementDateLong = null;
         if (medication.commencementDate != null) {
             commencementDateLong = medication.commencementDate.getTime();
         }
@@ -441,12 +483,9 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         int medicationReminderInt;
         if (medication.reminder) {
             medicationReminderInt = 1;
-            onReminderEnabled();
         } else {
             medicationReminderInt = 0;
-            onReminderDisabled();
         }
-
 
         ContentValues values = new ContentValues();
         values.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, medication.name);
@@ -479,10 +518,11 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 if (!nameEditText.getText().toString().equals("")) {
                     medication.name = nameEditText.getText().toString().trim();
                 } else {
-                    medication.name = "";
+                    medication.name = null;
                 }
             }
 
@@ -496,7 +536,12 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                medication.dosage = dosageEditText.getText().toString().trim();
+
+                if (!dosageEditText.getText().toString().equals("")) {
+                    medication.dosage = dosageEditText.getText().toString().trim();
+                } else {
+                    medication.dosage = null;
+                }
             }
 
             @Override
@@ -509,45 +554,17 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {
-                    medication.number = Integer.parseInt(numberEditText.getText().toString());
-                } catch (NumberFormatException e) {
-                    medication.number = 0;
+
+                if (!numberEditText.getText().toString().equals("")) {
+                    medication.number = Integer.parseInt(numberEditText.getText().toString().trim());
+                } else {
+                    medication.dosage = null;
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
-
-
-
-//        commencementTextView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                commencementDate = commencementTextView.getText().toString();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {}
-//        });
-//
-//        medicationTimeTextView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                medicationTime = medicationTimeTextView.getText().toString();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {}
-//        });
     }
 
     private int mapViewIdOnIndex(View v) {
@@ -582,11 +599,48 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         return index;
     }
 
-    private void onReminderEnabled() {
+    private int mapDeleteTimeViewIdOnIndex(View view) {
+        int index = -1;
 
+        if (view.getId() == R.id.medication_time1_delete) {
+            index = 0;
+        } else if (view.getId() == R.id.medication_time2_delete) {
+            index = 1;
+        } else if (view.getId() == R.id.medication_time3_delete) {
+            index = 2;
+        } else if (view.getId() == R.id.medication_time4_delete) {
+            index = 3;
+        } else if (view.getId() == R.id.medication_time5_delete) {
+            index = 4;
+        } else if (view.getId() == R.id.medication_time6_delete) {
+            index = 5;
+        } else if (view.getId() == R.id.medication_time7_delete) {
+            index = 6;
+        } else if (view.getId() == R.id.medication_time8_delete) {
+            index = 7;
+        } else if (view.getId() == R.id.medication_time9_delete) {
+            index = 8;
+        } else if (view.getId() == R.id.medication_time10_delete) {
+            index = 9;
+        } else if (view.getId() == R.id.medication_time11_delete) {
+            index = 10;
+        } else if (view.getId() == R.id.medication_time12_delete) {
+            index = 11;
+        }
+
+        return index;
     }
 
-    private void onReminderDisabled() {
+    public void onCommencementDateDelete(View view) {
+        medication.commencementDate = null;
+        medication.reminder = false;
+        refreshUI();
+    }
 
+    public void onMedicationTimeDelete(View view) {
+        int index = mapDeleteTimeViewIdOnIndex(view);
+        medication.medicationHourArray[index] = null;
+        medication.medicationMinuteArray[index] = null;
+        refreshUI();
     }
 }

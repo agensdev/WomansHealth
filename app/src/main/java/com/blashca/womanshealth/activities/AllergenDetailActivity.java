@@ -4,36 +4,43 @@ package com.blashca.womanshealth.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blashca.womanshealth.R;
-import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
+import com.blashca.womanshealth.models.Medication;
 
 public class AllergenDetailActivity extends AppCompatActivity {
     private static String MEDICATION_ID = "medicationId";
-    private long medicationId;
+    private Long medicationId;
     private WomansHealthDbHelper dbHelper;
     private TextView allergenName;
     private TextView effects;
+
+    private Medication medication;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergen_detail);
 
-        medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
-
         dbHelper = new WomansHealthDbHelper(this);
+
+        if (getIntent().getExtras() != null) {
+            medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
+        }
+
+        medication = dbHelper.loadMedicationDataFromDb(medicationId);
 
         allergenName = (TextView) findViewById(R.id.allergen_textView);
         effects = (TextView) findViewById(R.id.effects_textView);
 
-        setAllergenDataFromDb();
+        refreshUI();
     }
 
     public void onDeleteAllergenButtonClicked(View v) {
@@ -77,17 +84,24 @@ public class AllergenDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3) {
             if(resultCode == AllergenEditActivity.RESULT_OK){
-                setAllergenDataFromDb();
+                medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                refreshUI();
             }
         }
     }
 
-    private void setAllergenDataFromDb() {
-        Cursor medicationCursor = dbHelper.getMedicationIdCursor(medicationId);
+    private void refreshUI() {
+        LinearLayout allergyTypeLayout = (LinearLayout) findViewById(R.id.allergy_type_linearLayout);
 
-        String nameText = medicationCursor.getString(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME));
-        allergenName.setText(nameText);
-        String effectsText  = medicationCursor.getString(medicationCursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS));
-        effects.setText(effectsText);
+        if (medication.isAllergen) {
+            allergenName.setText(medication.name);
+
+            if (medication.allergyEffects != null) {
+                effects.setText(medication.allergyEffects);
+                allergyTypeLayout.setVisibility(View.VISIBLE);
+            } else {
+                allergyTypeLayout.setVisibility(View.GONE);
+            }
+        }
     }
 }

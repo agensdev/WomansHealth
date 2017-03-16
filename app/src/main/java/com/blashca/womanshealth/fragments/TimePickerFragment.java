@@ -16,8 +16,8 @@ import java.util.Calendar;
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
     private TimeReceiver timeReceiver;
     private int index;
-    private int hour;
-    private int minute;
+    private Integer hour;
+    private Integer minute;
 
     public TimePickerFragment() {}
 
@@ -27,14 +27,14 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     }
 
     @SuppressLint("ValidFragment")
-    public TimePickerFragment(TimeReceiver timeReceiver, int hour, int minute) {
+    public TimePickerFragment(TimeReceiver timeReceiver, Integer hour, Integer minute) {
         this.timeReceiver = timeReceiver;
         this.hour = hour;
         this.minute = minute;
     }
 
     @SuppressLint("ValidFragment")
-    public TimePickerFragment(TimeReceiver timeReceiver, int index, int hour, int minute) {
+    public TimePickerFragment(TimeReceiver timeReceiver, int index, Integer hour, Integer minute) {
         this.timeReceiver = timeReceiver;
         this.index = index;
         this.hour = hour;
@@ -47,19 +47,19 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         // Use the current time as the default values for the picker
         final Calendar c = Calendar.getInstance();
 
-        if (hour != -1) {
+        if (hour != null) {
             c.set(Calendar.HOUR_OF_DAY, hour);
         }
 
-        if (minute != -1) {
+        if (minute != null) {
             c.set(Calendar.MINUTE, minute);
         }
 
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
+        int h = c.get(Calendar.HOUR_OF_DAY);
+        int min = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
+        return new TimePickerDialog(getActivity(), this, h, min,
                 DateFormat.is24HourFormat(getActivity()));
     }
 
