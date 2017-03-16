@@ -44,7 +44,7 @@ public class PeriodRecordsActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dbHelper.deletePeriod(periodId);
-                                refresh();
+                                refreshUI();
                             }
                         })
                         .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
@@ -64,10 +64,10 @@ public class PeriodRecordsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        refreshUI();
     }
 
-    public void refresh() {
+    public void refreshUI() {
         periodAdapter.clear();
         periodAdapter.addAll(dbHelper.getPeriods(dbHelper.getPeriodsCursor()));
         periodAdapter.notifyDataSetChanged();
