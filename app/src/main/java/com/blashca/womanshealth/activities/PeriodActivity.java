@@ -173,7 +173,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     private void resetScreen() {
         periodDate.setText(R.string.select_date);
         spinner.setSelection(adapter.getCount());
-        expectedDate.setText(R.string.expected_date);
-        daysToGo.setText(R.string.days_to_go);
+        expectedDate.setText(R.string.double_pause_icon);
+        daysToGo.setText(R.string.double_pause_icon);
     }
 }
