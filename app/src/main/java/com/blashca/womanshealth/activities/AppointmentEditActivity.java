@@ -1,14 +1,12 @@
 package com.blashca.womanshealth.activities;
 
 import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,13 +14,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.blashca.womanshealth.AlarmHelper;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.TimeReceiver;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 import com.blashca.womanshealth.fragments.DatePickerFragment;
@@ -34,13 +32,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 
+public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver, TimeReceiver {
     private final static String FIRST_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION";
     private final static String SECOND_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION";
     private final static int NOTIFICATION_OFFSET = 1000000;
 
-public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener, DateReceiver {
     private static String APPOINTMENT_ID = "appointmentId";
-    private long appointmentId;
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
 
@@ -67,10 +64,16 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         dbHelper = new WomansHealthDbHelper(this);
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
+        Long appointmentId = null;
         if (getIntent().getExtras() != null) {
             appointmentId = getIntent().getExtras().getLong(APPOINTMENT_ID);
         }
-        appointment = dbHelper.loadAppointmentDataFromDb(appointmentId);
+
+        if (appointmentId != null) {
+            appointment = dbHelper.loadAppointmentDataFromDb(appointmentId);
+        } else {
+            appointment = new Appointment();
+        }
 
         appointmentNameEditText = (EditText) findViewById(R.id.appointment_name_editText);
         doctorsNameEditText = (EditText) findViewById(R.id.doctors_name_editText);
@@ -82,8 +85,6 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         nextDateTextView = (TextView) findViewById(R.id.next_date_set_textView);
         nextDateTimeTextView = (TextView) findViewById(R.id.next_date_time_set_textView);
         reminderSwitch = (Switch) findViewById(R.id.appointment_reminder_switch);
-
-        addTextChangedListeners();
 
         //Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -97,52 +98,47 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         nextDateSpinner.setOnItemSelectedListener(this);
 
         refreshUI();
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        appointment.nextAppointmentHour = hourOfDay;
-        appointment.nextAppointmentMinute = minute;
-
-        appointment.getAppointmentTime();
-
-        TextView appointmentTime = (TextView) findViewById(R.id.next_date_time_set_textView);
-        appointmentTime.setText(appointment.getAppointmentTime());
-
-        refreshUI();
+        addTextChangedListeners();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.DAY_OF_YEAR, 7);
-                break;
-            case 2:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 1);
-                break;
-            case 3:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 3);
-                break;
-            case 4:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 6);
-                break;
-            case 5:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 1);
-                break;
-            case 6:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 2);
-                break;
-            case 7:
-                calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 3);
-                break;
-            default:
-                break;
+
+            switch (position) {
+                case 0:
+                    break;
+                case 1:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.DAY_OF_YEAR, 7);
+                    break;
+                case 2:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 1);
+                    break;
+                case 3:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 3);
+                    break;
+                case 4:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.MONTH, 6);
+                    break;
+                case 5:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 1);
+                    break;
+                case 6:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 2);
+                    break;
+                case 7:
+                    calculateNextDateFromSpinner(appointment.lastDate, Calendar.YEAR, 3);
+                    break;
+                default:
+                    break;
+            }
+
+        if (appointment.lastDate != null) {
+            appointment.nextDateSpinnerPosition = position;
+        } else {
+            appointment.nextDateSpinnerPosition = 0;
         }
-        nextDateSpinner.setSelection(position);
-        appointment.nextDateSpinnerPosition = position;
+
+        refreshUI();
     }
 
     @Override
@@ -159,50 +155,79 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment;
-        if (appointment.nextAppointmentHour != -1) {
-            newFragment = new TimePickerFragment(appointment.nextAppointmentHour, appointment.nextAppointmentMinute);
-        } else {
-            newFragment = new TimePickerFragment();
-        }
-
+        DialogFragment newFragment = new TimePickerFragment(this, appointment.nextAppointmentHour, appointment.nextAppointmentMinute);
         newFragment.show(getFragmentManager(), "timePicker");
     }
 
-    public void onRecordAppointmentButtonClicked(View v) {
-        appointment.name = appointmentNameEditText.getText().toString().trim();
-        appointment.doctorsName = doctorsNameEditText.getText().toString();
-        appointment.address = addressEditText.getText().toString();
-        appointment.telephone = telephoneEditText.getText().toString();
-        appointment.email = emailEditText.getText().toString();
+    @Override
+    public void onDateReceive(Date date, int id) {
 
-        if (!appointment.name.equals("")) {
-            if (appointmentId != 0) {
-                dbHelper.updateAppointment(getAppointmentContentValues(), appointmentId);
-            } else {
-                dbHelper.insertAppointment(getAppointmentContentValues());
-            }
-
-            Intent intent = new Intent();
-            setResult(RESULT_OK, intent);
-            finish();
-        } else {
-            Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
+        if (id == R.id.last_date_set_textView) {
+            appointment.lastDate = DateUtil.removeTime(date);
+        } else if (id == R.id.next_date_set_textView) {
+            appointment.nextDate = DateUtil.removeTime(date);
+            appointment.nextDateSpinnerPosition = 0;
+            reminderSwitch.setVisibility(View.VISIBLE);
         }
+        refreshUI();
+    }
+
+    @Override
+    public void onTimeReceive(int index, int hour, int minute) {
+        appointment.nextAppointmentHour = hour;
+        appointment.nextAppointmentMinute = minute;
+
+        appointment.getAppointmentTime();
+
+        TextView appointmentTime = (TextView) findViewById(R.id.next_date_time_set_textView);
+        appointmentTime.setText(appointment.getAppointmentTime());
+
+        refreshUI();
+    }
+
+
+    public void onRecordAppointmentButtonClicked(View v) {
+
+        if (appointment.name == null) {
+            Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (appointment.id != null) {
+            dbHelper.updateAppointment(getAppointmentContentValues(), appointment.id);
+        } else {
+            appointment.id = dbHelper.insertAppointment(getAppointmentContentValues());
+        }
+
+        if (appointment.reminder) {
+            alarmHelper.setAppointmentAlarms(this, appointment);
+        } else {
+            alarmHelper.cancelAlarm(this, FIRST_APPOINTMENT_NOTIFICATION, appointment.id);
+            alarmHelper.cancelAlarm(this, SECOND_APPOINTMENT_NOTIFICATION, appointment.id + NOTIFICATION_OFFSET);
+        }
+
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 
     private void refreshUI() {
         appointmentNameEditText.setText(appointment.name);
         appointmentNameEditText.setSelection(appointmentNameEditText.getText().length());
+
         doctorsNameEditText.setText(appointment.doctorsName);
         doctorsNameEditText.setSelection(doctorsNameEditText.getText().length());
+
         addressEditText.setText(appointment.address);
         addressEditText.setSelection(addressEditText.getText().length());
+
         telephoneEditText.setText(appointment.telephone);
         telephoneEditText.setSelection(telephoneEditText.getText().length());
+
         emailEditText.setText(appointment.email);
         emailEditText.setSelection(emailEditText.getText().length());
+
         if (appointment.lastDate != null) {
             lastDateTextView.setText(dateFormat.format(appointment.lastDate));
         } else {
@@ -221,13 +246,14 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
         if (appointment.reminder) {
             reminderSwitch.setChecked(true);
+        } else {
+            reminderSwitch.setChecked(false);
         }
     }
 
-
     private ContentValues getAppointmentContentValues() {
-        long lastDateLong = 0;
-        long nextDateLong = 0;
+        Long lastDateLong = null;
+        Long nextDateLong = null;
 
         if (appointment.lastDate != null) {
             lastDateLong = appointment.lastDate.getTime();
@@ -261,19 +287,6 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         return values;
     }
 
-    @Override
-    public void onDateReceive(Date date, int id) {
-        if (id == R.id.last_date_set_textView) {
-            appointment.lastDate = DateUtil.removeTime(date);
-        } else if (id == R.id.next_date_set_textView) {
-            appointment.nextDate = DateUtil.removeTime(date);
-        }
-
-        nextDateSpinner.setSelection(0);
-        appointment.nextDateSpinnerPosition = 0;
-
-        refreshUI();
-    }
 
     private void calculateNextDateFromSpinner(Date lastDate, int calendarPeriod, int periodFromSpinner) {
         if (lastDate != null) {
@@ -284,8 +297,9 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
             onDateReceive(nextDate, R.id.next_date_set_textView);
         } else {
             Toast.makeText(getApplicationContext(), R.string.last_date_not_selected, Toast.LENGTH_SHORT).show();
-            nextDateSpinner.setSelection(0);
+            appointment.nextDateSpinnerPosition = 0;
         }
+        refreshUI();
     }
 
     private void addTextChangedListeners() {
@@ -298,7 +312,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
                 if (!appointmentNameEditText.getText().toString().equals("")) {
                     appointment.name = appointmentNameEditText.getText().toString().trim();
                 } else {
-                    appointment.name = "";
+                    appointment.name = null;
                 }
             }
 
@@ -312,7 +326,11 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                appointment.doctorsName = doctorsNameEditText.getText().toString().trim();
+                if (!doctorsNameEditText.getText().toString().trim().equals("")) {
+                    appointment.doctorsName = doctorsNameEditText.getText().toString().trim();
+                } else {
+                    appointment.doctorsName = null;
+                }
             }
 
             @Override
@@ -325,7 +343,11 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                appointment.address = addressEditText.getText().toString().trim();
+                if (!addressEditText.getText().toString().trim().equals("")) {
+                    appointment.address = addressEditText.getText().toString().trim();
+                } else {
+                    appointment.address = null;
+                }
             }
 
             @Override
@@ -338,7 +360,11 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                appointment.telephone = telephoneEditText.getText().toString().trim();
+                if (!telephoneEditText.getText().toString().trim().equals("")) {
+                    appointment.telephone = telephoneEditText.getText().toString().trim();
+                } else {
+                    appointment.telephone = null;
+                }
             }
 
             @Override
@@ -351,7 +377,11 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                appointment.email = emailEditText.getText().toString().trim();
+                if (!emailEditText.getText().toString().trim().equals("")) {
+                    appointment.email = emailEditText.getText().toString().trim();
+                } else {
+                    appointment.email = null;
+                }
             }
 
             @Override
