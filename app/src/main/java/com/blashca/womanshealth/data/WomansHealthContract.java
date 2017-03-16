@@ -43,7 +43,7 @@ public class WomansHealthContract {
         public static final String COLUMN_HOW_LONG_PERIOD = "how_long_period";
         public static final String COLUMN_MEDICATION_REMINDER = "medication_reminder";
         public static final String COLUMN_IS_ALLERGEN = "is_alergen";
-        public static final String COLUMN_ALLERGIES_EFFECTS = "allergies_effects";
+        public static final String COLUMN_ALLERGY_EFFECTS = "allergies_effects";
     }
 
     public static final class WomansHealthPeriod implements BaseColumns {

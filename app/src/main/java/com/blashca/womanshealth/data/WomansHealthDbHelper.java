@@ -72,7 +72,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD,
             WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER,
             WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN,
-            WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS
+            WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS
     };
 
     private static final String[] WEIGHT_COLUMNS_TO_BE_BOUND_WITH_ID = new String[] {
@@ -168,7 +168,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER + " INTEGER DEFAULT 0 NOT NULL, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " INTEGER DEFAULT 0 NOT NULL, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS + " TEXT " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS + " TEXT " +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_MEDICATION);
@@ -188,7 +188,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "ALLERGEN");
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN, 1);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGIES_EFFECTS, "redness");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS, "redness");
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
 
 
