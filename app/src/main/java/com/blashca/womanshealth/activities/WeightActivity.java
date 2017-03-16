@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,8 +111,8 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
             optimumResult.setText(optimum + " " + optimalWeight + " " + getString(R.string.weight_units));
         }
 
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
-        relativeLayout.setVisibility(View.VISIBLE);
+        LinearLayout bmiLayout = (LinearLayout) findViewById(R.id.bmi_result_linearLayout);
+        bmiLayout.setVisibility(View.VISIBLE);
 
         Button calculateButton = (Button) findViewById(R.id.calculate_button);
         calculateButton.setText(R.string.recalculate);
@@ -173,7 +173,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         Button calculate = (Button) findViewById(R.id.calculate_button);
         calculate.setText(R.string.calculate);
 
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bmi_result_relativeLayout);
-        relativeLayout.setVisibility(View.INVISIBLE);
+        LinearLayout bmiLayout = (LinearLayout) findViewById(R.id.bmi_result_linearLayout);
+        bmiLayout.setVisibility(View.GONE);
     }
 }
