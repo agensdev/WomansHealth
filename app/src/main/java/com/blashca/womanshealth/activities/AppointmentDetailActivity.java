@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blashca.womanshealth.AlarmHelper;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 import com.blashca.womanshealth.models.Appointment;
@@ -16,12 +17,17 @@ import com.blashca.womanshealth.models.Appointment;
 import java.text.DateFormat;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
+    private final static String FIRST_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION";
+    private final static String SECOND_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION";
+    private final static int NOTIFICATION_OFFSET = 1000000;
+
     private static String APPOINTMENT_ID = "appointmentId";
     private long appointmentId;
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
 
     private Appointment appointment;
+    private AlarmHelper alarmHelper = new AlarmHelper();
 
     private TextView appointmentNameTextView;
     private TextView doctorsNameTextView;
@@ -68,6 +74,9 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
+                        alarmHelper.cancelAlarm(v.getContext(), FIRST_APPOINTMENT_NOTIFICATION, appointment.id);
+                        alarmHelper.cancelAlarm(v.getContext(), SECOND_APPOINTMENT_NOTIFICATION, appointment.id + NOTIFICATION_OFFSET);
+
                         dbHelper.deleteAppointment(appointmentId);
 
                         Intent intent = new Intent();

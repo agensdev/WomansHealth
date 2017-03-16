@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blashca.womanshealth.AlarmHelper;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 import com.blashca.womanshealth.models.Medication;
@@ -17,6 +18,11 @@ import com.blashca.womanshealth.models.Medication;
 import java.text.DateFormat;
 
 public class MedicationDetailActivity extends AppCompatActivity {
+    private final static String DAILY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.DAILY_MEDICATION_NOTIFICATIONS";
+    private final static String WEEKLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.WEEKLY_MEDICATION_NOTIFICATIONS";
+    private final static String MONTHLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.MONTHLY_MEDICATION_NOTIFICATIONS";
+    private final static String YEARLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.YEARLY_MEDICATION_NOTIFICATIONS";
+
     private static String MEDICATION_ID = "medicationId";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
@@ -33,6 +39,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private TextView medicationReminderTextView;
 
     private Medication medication;
+    private AlarmHelper alarmHelper = new AlarmHelper();
 
 
     @Override

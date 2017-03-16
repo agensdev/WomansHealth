@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.AlarmHelper;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
@@ -33,6 +34,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 
+    private final static String FIRST_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION";
+    private final static String SECOND_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION";
+    private final static int NOTIFICATION_OFFSET = 1000000;
 
 public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener, DateReceiver {
     private static String APPOINTMENT_ID = "appointmentId";
@@ -52,6 +56,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     private Switch reminderSwitch;
 
     private Appointment appointment;
+    private AlarmHelper alarmHelper = new AlarmHelper();
 
 
     @Override

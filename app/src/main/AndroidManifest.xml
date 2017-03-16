@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blashca.womanshealth">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -104,6 +106,21 @@
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <receiver
+            android:name=".AlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION" />
+                <action android:name="com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION" />
+                <action android:name="com.blashca.womanshealth.DAILY_MEDICATION_NOTIFICATIONS" />
+                <action android:name="com.blashca.womanshealth.WEEKLY_MEDICATION_NOTIFICATIONS" />
+                <action android:name="com.blashca.womanshealth.MONTHLY_MEDICATION_NOTIFICATIONS" />
+                <action android:name="com.blashca.womanshealth.YEARLY_MEDICATION_NOTIFICATIONS" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

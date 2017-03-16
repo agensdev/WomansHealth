@@ -23,6 +23,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blashca.womanshealth.AlarmHelper;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
@@ -38,6 +39,10 @@ import java.util.Date;
 
 
 public class MedicationEditActivity extends AppCompatActivity implements DateReceiver, TimeReceiver {
+    private final static String DAILY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.DAILY_MEDICATION_NOTIFICATIONS";
+    private final static String WEEKLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.WEEKLY_MEDICATION_NOTIFICATIONS";
+    private final static String MONTHLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.MONTHLY_MEDICATION_NOTIFICATIONS";
+    private final static String YEARLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.YEARLY_MEDICATION_NOTIFICATIONS";
 
     private DateFormat dateFormat;
     private static String MEDICATION_ID = "medicationId";
@@ -55,6 +60,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
     private Switch medicationReminderSwitch;
 
     private Medication medication;
+    private AlarmHelper alarmHelper = new AlarmHelper();
 
     private String[] howTakenArray;
     private String[] frequencyArray;
