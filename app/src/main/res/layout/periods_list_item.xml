@@ -3,45 +3,41 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/border_style_yellow"
     android:id="@+id/periods_listView_item">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/period_date_record_textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/date"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/period_date_record_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/date"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/period_duration_record_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="left"
             android:text="@string/duration"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/period_interval_record_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="right"
             android:text="@string/interval"
             android:textSize="16sp"
             android:textColor="@color/colorAccent"/>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

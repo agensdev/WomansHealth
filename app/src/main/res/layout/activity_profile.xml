@@ -2,20 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center_vertical"
-            android:layout_marginRight="8dp"
             android:text="@string/date_of_birth"
             android:textSize="16sp" />
 
@@ -23,7 +27,7 @@
             android:id="@+id/date_set_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:gravity="center"
             android:textStyle="bold"
             android:background="@drawable/border_style_blue"
@@ -36,15 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <RadioButton
-            android:id="@+id/profile_radio_normal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="I\'m normal"
-            android:textSize="16sp"
-            android:checked="true"/>
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <RadioButton
             android:id="@+id/profile_radio_pregnant"
@@ -59,18 +56,29 @@
             android:text="@string/menopause"
             android:textSize="16sp"/>
 
+        <RadioButton
+            android:id="@+id/profile_radio_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/normal"
+            android:textSize="16sp"
+            android:checked="true"/>
+
     </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
+            android:id="@+id/password_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="@string/password"
             android:textSize="16sp"
             android:textStyle="bold"/>
@@ -80,15 +88,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:padding="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:textSize="16sp"
             android:inputType="textPassword"
             android:background="@drawable/border_style_blue"/>
 
         <TextView
+            android:id="@+id/repeat_password_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="@string/repeat_password"
             android:textSize="16sp"
             android:textStyle="bold"/>
@@ -98,7 +109,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:padding="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:textSize="16sp"
             android:inputType="textPassword"
             android:background="@drawable/border_style_blue"/>
@@ -106,8 +118,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button_accent_style"
             android:text="@string/record"
             android:textStyle="bold"

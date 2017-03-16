@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/border_style_accent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -33,11 +32,6 @@
                     android:text="@string/name"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/medicine_name_textView"
@@ -60,7 +54,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/dosage_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -72,11 +68,6 @@
                     android:text="@string/dosage"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/dosage_textView"
@@ -99,7 +90,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/number_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -111,11 +104,6 @@
                     android:text="@string/number"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/number_textView"
@@ -138,7 +126,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/how_taken_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -150,11 +140,6 @@
                     android:text="@string/how_taken"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/how_taken_textView"
@@ -176,7 +161,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/how_often_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -189,11 +176,6 @@
                     android:text="@string/how_often"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/how_often_textView"
@@ -214,10 +196,11 @@
                 android:background="@color/colorAccent" />
 
             <LinearLayout
-                android:id="@+id/commencement_date_linearLayout"
+                android:id="@+id/commencement_date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -229,11 +212,6 @@
                     android:text="@string/commencement_date"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/commencement_textView"
@@ -255,10 +233,11 @@
                 android:background="@color/colorAccent"/>
 
             <LinearLayout
-                android:id="@+id/medication_time_linearLayout"
+                android:id="@+id/medication_time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -271,21 +250,122 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
-
-                <TextView
-                    android:id="@+id/medication_time_textView"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:layout_weight="3"
                     android:padding="12dp"
-                    android:layout_marginLeft="4dp"
-                    android:gravity="center_vertical"
-                    android:textSize="15dp"
-                    android:maxLines="1"/>
+                    android:layout_marginLeft="4dp">
+
+                    <TextView
+                        android:id="@+id/medication_time1_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time2_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time3_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time4_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time5_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time6_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time7_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time8_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time9_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time10_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time11_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/medication_time12_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:maxLines="1"
+                        android:visibility="gone"/>
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -297,7 +377,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/how_long_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -309,11 +391,6 @@
                     android:text="@string/how_long"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/how_long_textView"
@@ -348,11 +425,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorAccent" />
-
                 <TextView
                     android:id="@+id/medication_reminder_textView"
                     android:layout_width="0dp"
@@ -380,7 +452,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_yellow_style"
                 android:text="@string/delete"
-                android:textStyle="bold"
+                android:elevation="2dp"
                 android:onClick="onDeleteMedicationButtonClicked"/>
 
             <Button
@@ -391,7 +463,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_yellow_style"
                 android:text="@string/edit"
-                android:textStyle="bold"
+                android:elevation="2dp"
                 android:onClick="onEditMedicationButtonClicked"/>
         </LinearLayout>
     </LinearLayout>

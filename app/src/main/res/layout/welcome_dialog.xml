@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:padding="4dp"
             android:text="@string/about_yourself"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -33,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="0dp"
@@ -63,15 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <RadioButton
-            android:id="@+id/welcome_radio_normal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="I\'m normal"
-            android:textSize="16sp"
-            android:checked="true"/>
+        android:padding="16dp">
 
         <RadioButton
             android:id="@+id/welcome_radio_pregnant"
@@ -87,12 +78,20 @@
             android:text="@string/menopause"
             android:textSize="16sp"/>
 
+        <RadioButton
+            android:id="@+id/welcome_radio_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/normal"
+            android:textSize="16sp"
+            android:checked="true"/>
+
     </RadioGroup>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="16dp"
         android:text="@string/want_password"
         android:textSize="14sp"
         android:textStyle="italic"
@@ -100,6 +99,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="40dp"/>
 
 </LinearLayout>
