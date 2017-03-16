@@ -1,31 +1,37 @@
 <resources>
     <string name="app_name">Woman\'s Health</string>
 
-    // Welcome screen
+    <!--Welcome screen-->
+    <string name="on_boot_denied">Permission denied. Your reminders will be lost after rebooting.</string>
     <string name="welcome_header">Welcome to Woman\'sHealth</string>
     <string name="about_yourself">tell us about yourself...</string>
     <string name="date_of_birth">Your date of birth:</string>
     <string name="pregnant">I\'m pregnant</string>
     <string name="menopause">I\'m in menopause</string>
-    <string name="want_password">If you want to set a password to protect your data, go to Profile</string>
+    <string name="normal">None of the above</string>
+    <string name="want_password">To protect your data with a password, go to Profile</string>
     <string name="go_to_settings">Go now</string>
     <string name="begin">Let\'s begin</string>
     <string name="empty_date_of_birth">Date of birth can\'t be empty</string>
 
-    // Password screen
+    <!--Password screen-->
+
     <string name="enter_password">Enter password</string>
     <string name="incorrect_password">Incorrect password, try again</string>
     <string name="access_denied">Access denied</string>
 
 
-    // Main screen
+    <!--Main screen-->
+
     <string name="medical_appointments">Medical Appointments</string>
     <string name="weight_and_bmi">Weight/BMI</string>
     <string name="menstrual_period">Menstrual\nPeriod</string>
     <string name="medications">Medications</string>
     <string name="profile">Profile</string>
 
-    // Weight/BMI Screen
+
+    <!--Weight/BMI screen-->
+
     <string name="date">Date:</string>
     <string name="height">Height:</string>
     <string name="height_units">cm</string>
@@ -53,7 +59,8 @@
     <string name="update">Update</string>
 
 
-    // Period screen
+    <!--Period screen-->
+
     <string name="last_period">Last Menstrual Period</string>
     <string name="set_duration">Set duration</string>
     <string name="duration">Duration: </string>
@@ -62,7 +69,8 @@
     <string name="days_to_go">Days to go</string>
     <string name="interval">Interval: </string>
 
-    // Medications screen
+
+    <!--Medications screen-->
 
     <string-array name="medications_array">
         <item>Medicine 1</item>
@@ -93,7 +101,18 @@
     <string name="how_often">How often do you need to take it</string>
     <string name="commencement_date">Date of commencement</string>
     <string name="medication_time">Medication time</string>
-    <string name="set_time">Set time</string>
+    <string name="set_time1">Set time 1</string>
+    <string name="set_time2">Set time 2</string>
+    <string name="set_time3">Set time 3</string>
+    <string name="set_time4">Set time 4</string>
+    <string name="set_time5">Set time 5</string>
+    <string name="set_time6">Set time 6</string>
+    <string name="set_time7">Set time 7</string>
+    <string name="set_time8">Set time 8</string>
+    <string name="set_time9">Set time 9</string>
+    <string name="set_time10">Set time 10</string>
+    <string name="set_time11">Set time 11</string>
+    <string name="set_time12">Set time 12</string>
     <string name="how_long">How long do you need to take it</string>
     <string name="allergy_to">Allergy to:</string>
     <string name="allergies_effects">Type of allergies or side-effects:</string>
@@ -110,26 +129,10 @@
     </string-array>
 
     <string-array name="how_often_array">
-        <item>12 times a day</item>
-        <item>8 times a day</item>
-        <item>6 times a day</item>
-        <item>5 times a day</item>
-        <item>4 times a day</item>
-        <item>Thrice a day</item>
-        <item>Twice a day</item>
-        <item>Once a day</item>
-        <item>Alternate days</item>
-        <item>Thrice a week</item>
-        <item>Twice a week</item>
-        <item>Weekly</item>
-        <item>Twice a month</item>
-        <item>Monthly</item>
-        <item>Once in 2 months</item>
-        <item>Once in 3 months</item>
-        <item>Once in 4 months</item>
-        <item>Once in 5 months</item>
-        <item>Once in 6 months</item>
-        <item>Once a year</item>
+        <item>a day</item>
+        <item>a week</item>
+        <item>a month</item>
+        <item>a year</item>
     </string-array>
 
     <string name="once">Once a</string>
@@ -161,20 +164,23 @@
     <string name="last_date">Last date</string>
     <string name="select_date">Select date</string>
     <string name="next_date">Next date</string>
-    <string name="basis">Basis</string>
+    <string name="from_last_date">from last date</string>
+    <string name="last_date_not_selected">Last date not selected</string>
     <string name="or">--- or ---</string>
     <string name="select_exact_date">Select exact date</string>
     <string name="select_exact_time">Select exact time</string>
 
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
+    <string name="new_password">Enter new password</string>
+    <string name="repeat_new_password">Repeat new password</string>
     <string name="incorrect_password_confirmation">Confirmation doesn\'t match password</string>
 
 
 
 
 
-    <string-array name="appointment_reminder_array">
+    <string-array name="next_appointment_date_array">
         <item>Off</item>
         <item>One week</item>
         <item>One month</item>
@@ -211,6 +217,7 @@
     </string-array>
 
     <!--Alert messages-->
+
     <string name="delete_appointment_message">Delete appointment?</string>
     <string name="delete_medication_message">Delete medication?</string>
     <string name="delete_allergen_message">Delete allergen?</string>
@@ -224,6 +231,22 @@
     <string name="day">day</string>
     <string name="days">days</string>
 
+
+    <!--Reminder messages-->
+
+    <string name="appointment_tomorrow">Your appointment: %s is tomorrow</string>
+    <string name="appointment_today">Your appointment: %s is in one hour</string>
+    <string name="take_medicine">Take your medicine now:</string>
+
+    <!--Description content-->
+    <string name="person_icon">Person icon</string>
+    <string name="location_icon">Location icon</string>
+    <string name="telephone_icon">Telephone icon</string>
+    <string name="mail_icon">Mail icon</string>
+
+
+    <string name="x_icon">x</string>
+    <string name="double_pause_icon">--</string>
 </resources>
 
 
