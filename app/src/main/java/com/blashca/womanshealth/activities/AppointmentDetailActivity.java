@@ -23,7 +23,6 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     private final static int NOTIFICATION_OFFSET = 1000000;
 
     private static String APPOINTMENT_ID = "appointmentId";
-    private long appointmentId;
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
 
@@ -48,6 +47,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         dbHelper = new WomansHealthDbHelper(this);
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
+        Long appointmentId = null;
         if (getIntent().getExtras() != null) {
             appointmentId = getIntent().getExtras().getLong(APPOINTMENT_ID);
         }
@@ -78,7 +78,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                         alarmHelper.cancelAlarm(v.getContext(), FIRST_APPOINTMENT_NOTIFICATION, appointment.id);
                         alarmHelper.cancelAlarm(v.getContext(), SECOND_APPOINTMENT_NOTIFICATION, appointment.id + NOTIFICATION_OFFSET);
 
-                        dbHelper.deleteAppointment(appointmentId);
+                        dbHelper.deleteAppointment(appointment.id);
 
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
@@ -101,7 +101,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     public void onEditAppointmentButtonClicked(View v) {
         Intent intent = new Intent(this, AppointmentEditActivity.class);
-        intent.putExtra(APPOINTMENT_ID, appointmentId);
+        intent.putExtra(APPOINTMENT_ID, appointment.id);
         startActivityForResult(intent, 1);
     }
 
@@ -109,7 +109,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == AppointmentEditActivity.RESULT_OK){
-                appointment = dbHelper.loadAppointmentDataFromDb(appointmentId);
+                appointment = dbHelper.loadAppointmentDataFromDb(appointment.id);
                 refreshUI();
             }
         }

@@ -16,7 +16,6 @@ import com.blashca.womanshealth.models.Medication;
 
 public class AllergenDetailActivity extends AppCompatActivity {
     private static String MEDICATION_ID = "medicationId";
-    private Long medicationId;
     private WomansHealthDbHelper dbHelper;
     private TextView allergenName;
     private TextView effects;
@@ -31,6 +30,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
 
         dbHelper = new WomansHealthDbHelper(this);
 
+        Long medicationId = null;
         if (getIntent().getExtras() != null) {
             medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
         }
@@ -53,7 +53,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
-                        dbHelper.deleteMedication(medicationId);
+                        dbHelper.deleteMedication(medication.id);
 
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
@@ -76,7 +76,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
 
     public void onEditAllergenButtonClicked(View v) {
         Intent intent = new Intent(this, AllergenEditActivity.class);
-        intent.putExtra(MEDICATION_ID, medicationId);
+        intent.putExtra(MEDICATION_ID, medication.id);
         startActivityForResult(intent, 3);
     }
 
@@ -84,7 +84,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3) {
             if(resultCode == AllergenEditActivity.RESULT_OK){
-                medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                medication = dbHelper.loadMedicationDataFromDb(medication.id);
                 refreshUI();
             }
         }
