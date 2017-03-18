@@ -100,7 +100,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setOnItemSelectedListener(this);
     }
 
-    public void setExpectedDate(Date userDate) {
+    private void setExpectedDate(Date userDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(userDate);
         calendar.add(Calendar.DAY_OF_YEAR, 28); //Adding 28 days to the time set by user
@@ -109,7 +109,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         expectedDate.setText(newFormattedDate);
     }
 
-    public void setDaysToGo() {
+    private void setDaysToGo() {
         Date today = new Date();
         int difference = Math.abs ((int) ((today.getTime()/(24*60*60*1000)) - (int)(futureDate.getTime()/(24*60*60*1000))));
         daysToGo.setText("" + difference);

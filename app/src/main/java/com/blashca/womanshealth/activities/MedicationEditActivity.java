@@ -135,8 +135,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         addChangedTextListeners();
     }
 
-    public void initHowTakenSpinner() {
-
+    private void initHowTakenSpinner() {
         howTakenSpinner = (Spinner) findViewById(R.id.how_taken_spinner);
         howTakenArray = getResources().getStringArray(R.array.how_taken_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -161,10 +160,10 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         };
         howTakenSpinner.setAdapter(adapter);
         howTakenSpinner.setSelection(adapter.getCount());
+
         if (medication.howTaken == null) {
             medication.howTaken = howTakenSpinner.getCount();
         }
-
         howTakenSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
