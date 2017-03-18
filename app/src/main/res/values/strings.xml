@@ -199,7 +199,7 @@
         <item>5 days</item>
         <item>6 days</item>
         <item>7 days</item>
-        <item>Set duration</item>
+        <item>Set duration</item> <!-- Hint -->
     </string-array>
 
     <string-array name="frequency_array">
@@ -247,6 +247,38 @@
 
     <string name="x_icon">x</string>
     <string name="double_pause_icon">--</string>
+
+    <string name="no_data">Non data has been added</string>
+
+
+    <string name="blood_tests">Blood tests (morphology, ESR, glucose, cholesterol (lipid profile), uric acid, creatinine)</string>
+    <string name="thyroid_test">Thyroid test</string>
+    <string name="urine_test">Urine test</string>
+    <string name="fecal_blood_test">Fecal occult blood test (FOBT)</string>
+    <string name="pelvic_and_pap">Pelvic exam and pap smear</string>
+    <string name="transvaginal_ultrasound">Transvaginal ultrasound</string>
+    <string name="breast_ultrasound">Breast ultrasound</string>
+    <string name="mammogram">Mammogram</string>
+    <string name="chest_Xray">Chest X-ray</string>
+    <string name="spirometry">Spirometry</string>
+    <string name="ekg">Electrocardiogram (EKG)</string>
+    <string name="doppler_ultrasound">Doppler ultrasound</string>
+    <string name="blood_pressure_test">Blood pressure test</string>
+    <string name="abdominal_ultrasound">Abdominal ultrasound</string>
+    <string name="gastroscopy">Gastroscopy</string>
+    <string name="colonoscopy">Colonoscopy</string>
+    <string name="bone_density_test">Bone density test</string>
+    <string name="dental_exam">Dental exam</string>
+    <string name="eye_exam">Eye exam and vision screening (fundus examination, intraocular pressure check)</string>
+    <string name="hearing_test">Hearing test (audiogram)</string>
+    <string name="skin_check">Skin cancer screening</string>
+
+
+
+
+
+
+
 </resources>
 
 
