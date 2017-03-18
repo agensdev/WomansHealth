@@ -164,6 +164,12 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetScreen();
+    }
+
     private ContentValues getPeriodContentValues() {
 
         ContentValues values = new ContentValues();

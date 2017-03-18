@@ -173,6 +173,12 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetScreen();
+    }
+
     private ContentValues getWeightContentValues() {
 
         ContentValues values = new ContentValues();
