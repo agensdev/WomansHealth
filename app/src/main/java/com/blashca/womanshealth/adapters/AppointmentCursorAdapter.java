@@ -52,8 +52,8 @@ public class AppointmentCursorAdapter extends CursorAdapter {
         Integer minuteInt = dbHelper.getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE);
         String hour = "";
         String minute = "";
-        if (hourInt != null) {
 
+        if (hourInt != null) {
             if (hourInt <= 9) {
                 hour = "0" + hourInt;
             } else {
@@ -62,7 +62,6 @@ public class AppointmentCursorAdapter extends CursorAdapter {
         }
 
         if (minuteInt != null) {
-
             if (minuteInt <= 9) {
                 minute = "0" + minuteInt;
             } else {

@@ -40,7 +40,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         WomansHealthDbHelper dbHelper = new WomansHealthDbHelper(context);
 
         try {
-
             if (intent.getAction().equals(FIRST_APPOINTMENT_NOTIFICATION)) {
                 long appointmentId = intent.getLongExtra(APPOINTMENT_ID, -1);
 
@@ -112,38 +111,31 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                     alarmHelper.setAppointmentAlarms(context, appointment);
                 }
 
-
                 ArrayList<Medication> medicationArrayList = dbHelper.getMedicationsWithReminders();
 
                 for (int i = 0; i < medicationArrayList.size(); i++) {
                     medication = medicationArrayList.get(i);
                     alarmHelper.setMedicationAlarms(context, medication);
                 }
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
-
     }
 
     private void showNotification(String title, String string, Context context, long notificationId, int iconId) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-
         notificationBuilder.setSmallIcon(iconId);
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
         notificationBuilder.setWhen(0);
         notificationBuilder.setContentText(string);
         notificationBuilder.setDefaults(Notification.DEFAULT_SOUND);
-
         getNotificationManager(context).notify((int) notificationId, notificationBuilder.build());
     }
 
     private NotificationManager getNotificationManager(Context context) {
         return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
-
 }
