@@ -625,6 +625,21 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return weightCursor.getCount();
     }
 
+    public int getAllWeightsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor weightCursor = db.query(
+                WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT,
+                WEIGHT_COLUMNS_TO_BE_BOUND_WITH_ID,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        return weightCursor.getCount();
+    }
+
     public void insertWeight(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -689,6 +704,21 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID,
                 WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " = ?",
                 selectionArgs,
+                null,
+                null,
+                null);
+
+        return periodCursor.getCount();
+    }
+
+    public int getAllPeriodsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor periodCursor = db.query(
+                WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD,
+                PERIOD_COLUMNS_TO_BE_BOUND_WITH_ID,
+                null,
+                null,
                 null,
                 null,
                 null);

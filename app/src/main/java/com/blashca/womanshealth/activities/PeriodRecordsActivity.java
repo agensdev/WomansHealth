@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.blashca.womanshealth.adapters.PeriodAdapter;
 import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.adapters.PeriodAdapter;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class PeriodRecordsActivity extends AppCompatActivity {
@@ -71,5 +71,12 @@ public class PeriodRecordsActivity extends AppCompatActivity {
         periodAdapter.clear();
         periodAdapter.addAll(dbHelper.getPeriods(dbHelper.getPeriodsCursor()));
         periodAdapter.notifyDataSetChanged();
+        getBackToPeriodActivity();
+    }
+
+    private void getBackToPeriodActivity() {
+        if (dbHelper.getAllPeriodsCount() == 0) {
+            finish();
+        }
     }
 }

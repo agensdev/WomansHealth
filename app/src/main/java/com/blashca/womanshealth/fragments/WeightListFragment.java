@@ -84,5 +84,12 @@ public class WeightListFragment extends Fragment {
         myCursorAdapter.changeCursor(dbHelper.getWeightsCursor());
         // notifies adapter on the change
         myCursorAdapter.notifyDataSetChanged();
+        getBackToWeightActivity();
+    }
+
+    private void getBackToWeightActivity() {
+        if (dbHelper.getAllWeightsCount() == 0) {
+            getActivity().finish();
+        }
     }
 }
