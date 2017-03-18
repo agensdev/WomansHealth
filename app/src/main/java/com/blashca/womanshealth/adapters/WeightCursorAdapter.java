@@ -38,7 +38,6 @@ public class WeightCursorAdapter extends CursorAdapter {
         TextView weightAndHeight = (TextView) view.findViewById(R.id.weight_and_height_record_textView);
         TextView dateTextView = (TextView) view.findViewById(R.id.weight_date_record_textView);
 
-
         int height = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
         float weight = cursor.getFloat(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
 
@@ -49,7 +48,7 @@ public class WeightCursorAdapter extends CursorAdapter {
         categoryTextView.setText(category);
         weightAndHeight.setText(weight + " kg       " + height + " cm");
 
-        Long timestamp = cursor.getLong(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE));
+        long timestamp = cursor.getLong(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE));
         Date date = new Date(timestamp);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         String formattedDate = dateFormat.format(date);
