@@ -67,7 +67,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
     private LinearLayout commencementLinearLayout;
     private LinearLayout medicationTimeLinearLayout;
-    private LinearLayout[] linearLayoutsArrayList = new LinearLayout[12];
+    private LinearLayout[] linearLayoutsArray = new LinearLayout[12];
     private View commencementLine;
     private View medicationTimeLine;
 
@@ -114,18 +114,18 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
         commencementLinearLayout = (LinearLayout) findViewById(R.id.commencement_date_layout);
         medicationTimeLinearLayout = (LinearLayout) findViewById(R.id.medication_time_layout);
-        linearLayoutsArrayList[0] = (LinearLayout) findViewById(R.id.medication_time_set1_linearLayout);
-        linearLayoutsArrayList[1] = (LinearLayout) findViewById(R.id.medication_time_set2_linearLayout);
-        linearLayoutsArrayList[2] = (LinearLayout) findViewById(R.id.medication_time_set3_linearLayout);
-        linearLayoutsArrayList[3] = (LinearLayout) findViewById(R.id.medication_time_set4_linearLayout);
-        linearLayoutsArrayList[4] = (LinearLayout) findViewById(R.id.medication_time_set5_linearLayout);
-        linearLayoutsArrayList[5] = (LinearLayout) findViewById(R.id.medication_time_set6_linearLayout);
-        linearLayoutsArrayList[6] = (LinearLayout) findViewById(R.id.medication_time_set7_linearLayout);
-        linearLayoutsArrayList[7] = (LinearLayout) findViewById(R.id.medication_time_set8_linearLayout);
-        linearLayoutsArrayList[8] = (LinearLayout) findViewById(R.id.medication_time_set9_linearLayout);
-        linearLayoutsArrayList[9] = (LinearLayout) findViewById(R.id.medication_time_set10_linearLayout);
-        linearLayoutsArrayList[10] = (LinearLayout) findViewById(R.id.medication_time_set11_linearLayout);
-        linearLayoutsArrayList[11] = (LinearLayout) findViewById(R.id.medication_time_set12_linearLayout);
+        linearLayoutsArray[0] = (LinearLayout) findViewById(R.id.medication_time_set1_linearLayout);
+        linearLayoutsArray[1] = (LinearLayout) findViewById(R.id.medication_time_set2_linearLayout);
+        linearLayoutsArray[2] = (LinearLayout) findViewById(R.id.medication_time_set3_linearLayout);
+        linearLayoutsArray[3] = (LinearLayout) findViewById(R.id.medication_time_set4_linearLayout);
+        linearLayoutsArray[4] = (LinearLayout) findViewById(R.id.medication_time_set5_linearLayout);
+        linearLayoutsArray[5] = (LinearLayout) findViewById(R.id.medication_time_set6_linearLayout);
+        linearLayoutsArray[6] = (LinearLayout) findViewById(R.id.medication_time_set7_linearLayout);
+        linearLayoutsArray[7] = (LinearLayout) findViewById(R.id.medication_time_set8_linearLayout);
+        linearLayoutsArray[8] = (LinearLayout) findViewById(R.id.medication_time_set9_linearLayout);
+        linearLayoutsArray[9] = (LinearLayout) findViewById(R.id.medication_time_set10_linearLayout);
+        linearLayoutsArray[10] = (LinearLayout) findViewById(R.id.medication_time_set11_linearLayout);
+        linearLayoutsArray[11] = (LinearLayout) findViewById(R.id.medication_time_set12_linearLayout);
         commencementLine = (View) findViewById(R.id.commencement_line);
         medicationTimeLine = (View) findViewById(R.id.medications_time_line);
         medicationReminderSwitch = (Switch) findViewById(R.id.medication_reminder_switch);
@@ -409,21 +409,21 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             medicationTimeLinearLayout.setVisibility(View.VISIBLE);
 
             if (frequencyArray[medication.howOftenPeriod] == frequencyArray[0]) {
-                for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                for (int i = 0; i < linearLayoutsArray.length; i++) {
                     if (i < medication.howOftenNumber) {
-                        linearLayoutsArrayList[i].setVisibility(View.VISIBLE);
+                        linearLayoutsArray[i].setVisibility(View.VISIBLE);
                         medicationTimeTextViewsArray[i].setText(medication.getMedicationTime(i));
                     } else {
-                        linearLayoutsArrayList[i].setVisibility(View.GONE);
+                        linearLayoutsArray[i].setVisibility(View.GONE);
                     }
                 }
             } else {
-                for (int i = 0; i < linearLayoutsArrayList.length; i++) {
+                for (int i = 0; i < linearLayoutsArray.length; i++) {
                     if (i == 0) {
-                        linearLayoutsArrayList[0].setVisibility(View.VISIBLE);
+                        linearLayoutsArray[0].setVisibility(View.VISIBLE);
                         medicationTimeTextViewsArray[0].setText(medication.getMedicationTime(0));
                     } else {
-                        linearLayoutsArrayList[i].setVisibility(View.GONE);
+                        linearLayoutsArray[i].setVisibility(View.GONE);
                     }
                 }
             }
@@ -437,8 +437,8 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             medicationTimeLinearLayout.setVisibility(View.GONE);
             medicationTimeLine.setVisibility(View.GONE);
 
-            for (int i = 0; i < linearLayoutsArrayList.length; i++) {
-                linearLayoutsArrayList[i].setVisibility(View.GONE);
+            for (int i = 0; i < linearLayoutsArray.length; i++) {
+                linearLayoutsArray[i].setVisibility(View.GONE);
             }
         }
 
