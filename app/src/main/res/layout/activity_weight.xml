@@ -133,6 +133,7 @@
                     android:onClick="calculateBMI"/>
 
                 <ImageButton
+                    android:id="@+id/weight_records_button"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:paddingTop="6dp"
@@ -141,7 +142,8 @@
                     android:scaleType="centerCrop"
                     android:layout_gravity="bottom"
                     android:src="@drawable/data"
-                    android:onClick="showWeightRecords"/>
+                    android:onClick="showWeightRecords"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 

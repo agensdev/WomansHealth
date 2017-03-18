@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,10 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
         dateTextView.setText(dateFormat.format(weight.date));
 
+        weightRecordsButton = (ImageButton) findViewById(R.id.weight_records_button);
+
+
+        displayWeightRecordsButton();
     }
 
     @Override
@@ -187,8 +192,18 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         weight.setText("");
         Button calculate = (Button) findViewById(R.id.calculate_button);
         calculate.setText(R.string.calculate);
+        displayWeightRecordsButton();
 
         LinearLayout bmiLayout = (LinearLayout) findViewById(R.id.bmi_result_linearLayout);
         bmiLayout.setVisibility(View.GONE);
+    }
+
+    private void displayWeightRecordsButton() {
+
+        if (dbHelper.getAllWeightsCount() > 0) {
+            weightRecordsButton.setVisibility(View.VISIBLE);
+        } else {
+            weightRecordsButton.setVisibility(View.GONE);
+        }
     }
 }
