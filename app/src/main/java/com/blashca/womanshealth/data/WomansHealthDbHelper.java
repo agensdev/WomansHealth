@@ -267,7 +267,11 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null);
+                "IFNULL(" + WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE + ",999999999999999) ASC,"
+                        + WomansHealthContract.WomansHealthAppointment._ID + " DESC");
+        // If next appointment date is null we fake it to be number larger than any realistic date,
+        // so it gets sorted after the once with next appointment date set
+        // (we need this because SQLite sorts nulls before non nulls)
 
         return appointmentsCursor;
     }
@@ -395,7 +399,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC");
+                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC,"
+                        + WomansHealthContract.WomansHealthMedication._ID + " DESC");
 
         return medicationsCursor;
     }
