@@ -563,75 +563,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return  medicationArrayList;
     }
 
-    public String getStringFromCursor(Cursor cursor, String columnName) {
-        String value;
-        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
-            value = cursor.getString(cursor.getColumnIndex(columnName));
-        } else {
-            value = null;
-        }
-        return value;
-    }
-
-
-    public Integer getIntegerFromCursor(Cursor cursor, String columnName) {
-        Integer value;
-
-        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
-            value = cursor.getInt(cursor.getColumnIndex(columnName));
-        } else {
-            value = null;
-        }
-        return value;
-    }
-
-    public Long getLongFromCursor(Cursor cursor, String columnName) {
-        Long value;
-
-        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
-            value = cursor.getLong(cursor.getColumnIndex(columnName));
-        } else {
-            value = null;
-        }
-        return value;
-    }
-
-    private Boolean getBooleanFromCursor(Cursor cursor, String columnName) {
-        Boolean value;
-
-        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
-            int intValue = cursor.getInt(cursor.getColumnIndex(columnName));
-
-            if (intValue == 1) {
-                value = true;
-            } else {
-                value = false;
-            }
-
-        } else {
-            value = null;
-        }
-        return value;
-    }
-
-    private Date getDateFromCursor(Cursor cursor, String columnName) {
-        Date value;
-
-        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
-            Long longValue = cursor.getLong(cursor.getColumnIndex(columnName));
-
-            if (longValue != null) {
-                value = new Date(longValue);
-            } else {
-                value = null;
-            }
-
-        } else {
-            value = null;
-        }
-        return value;
-    }
-
 
 
     //Weight
@@ -827,5 +758,74 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         Collections.reverse(periods);
 
         return periods;
+    }
+
+    public String getStringFromCursor(Cursor cursor, String columnName) {
+        String value;
+        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
+            value = cursor.getString(cursor.getColumnIndex(columnName));
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+
+    public Integer getIntegerFromCursor(Cursor cursor, String columnName) {
+        Integer value;
+
+        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
+            value = cursor.getInt(cursor.getColumnIndex(columnName));
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    public Long getLongFromCursor(Cursor cursor, String columnName) {
+        Long value;
+
+        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
+            value = cursor.getLong(cursor.getColumnIndex(columnName));
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    private Boolean getBooleanFromCursor(Cursor cursor, String columnName) {
+        Boolean value;
+
+        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
+            int intValue = cursor.getInt(cursor.getColumnIndex(columnName));
+
+            if (intValue == 1) {
+                value = true;
+            } else {
+                value = false;
+            }
+
+        } else {
+            value = null;
+        }
+        return value;
+    }
+
+    private Date getDateFromCursor(Cursor cursor, String columnName) {
+        Date value;
+
+        if (!cursor.isNull(cursor.getColumnIndex(columnName))) {
+            Long longValue = cursor.getLong(cursor.getColumnIndex(columnName));
+
+            if (longValue != null) {
+                value = new Date(longValue);
+            } else {
+                value = null;
+            }
+
+        } else {
+            value = null;
+        }
+        return value;
     }
 }
