@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.blashca.womanshealth.Period;
+import com.blashca.womanshealth.models.Period;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.models.Appointment;
 import com.blashca.womanshealth.models.Medication;
@@ -807,15 +807,15 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
     public ArrayList<Period> getPeriods(Cursor periodCursor) {
         ArrayList<Period> periods = new ArrayList<>();
-        long oldTimestamp = 0;
+        Long oldTimestamp = null;
 
         while (periodCursor.moveToNext()) {
-            int id = periodCursor.getInt(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod._ID));
-            long timestamp = periodCursor.getLong(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE));
-            int duration = periodCursor.getInt(periodCursor.getColumnIndex(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION));
-            int intervalInDays = 0;
+            Long id = getLongFromCursor(periodCursor, WomansHealthContract.WomansHealthPeriod._ID);
+            Long timestamp = getLongFromCursor(periodCursor, WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE);
+            Integer duration = getIntegerFromCursor(periodCursor, WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION);
+            Integer intervalInDays = null;
 
-            if (oldTimestamp != 0) {
+            if (oldTimestamp != null) {
                 intervalInDays = (int) Math.abs((timestamp - oldTimestamp) / (24 * 60 * 60 * 1000));
             }
 

@@ -8,26 +8,27 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.blashca.womanshealth.Period;
 import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.models.Period;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
+// We use custom adapter, because we need to compare two subsequent records from db to calculate period interval
+// that would be impossible with cursor adapter
 public class PeriodAdapter extends ArrayAdapter<Period> {
-    private String duration;
-    private String day;
-    private String days;
-    private String interval;
+    private String durationText;
+    private String dayText;
+    private String daysText;
+    private String intervalText;
 
 
     public PeriodAdapter(Context context, ArrayList<Period> objects) {
         super(context, 0, objects);
-        duration = context.getResources().getString(R.string.duration);
-        day = context.getResources().getString(R.string.day);
-        days = context.getResources().getString(R.string.days);
-        interval = context.getResources().getString(R.string.interval);
+        durationText = context.getResources().getString(R.string.duration);
+        dayText = context.getResources().getString(R.string.day);
+        daysText = context.getResources().getString(R.string.days);
+        intervalText = context.getResources().getString(R.string.interval);
     }
 
 
@@ -47,23 +48,25 @@ public class PeriodAdapter extends ArrayAdapter<Period> {
         TextView intervalTextView = (TextView) convertView.findViewById(R.id.period_interval_record_textView);
 
         // Populate the data into the template view using the data object
-        Date date = new Date(period.date);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        String formattedDate = dateFormat.format(date);
+        String formattedDate = dateFormat.format(period.date);
         dateTextView.setText(formattedDate);
 
-        if (period.duration == 1) {
-            durationTextView.setText(duration + " " + period.duration + " " + day);
+        String[] durationArray = getContext().getResources().getStringArray(R.array.duration_array);
+
+        if (period.duration != durationArray.length - 1) {
+            durationTextView.setText(durationText + " " + durationArray[period.duration]);
         } else {
-            durationTextView.setText(duration + " " + period.duration + " " + days);
+            durationTextView.setText("");
         }
 
-        if (period.interval == 0) {
+
+        if (period.interval == null) {
             intervalTextView.setText("");
         } else if (period.interval == 1) {
-            intervalTextView.setText(interval + " " + period.interval + " " + day);
+            intervalTextView.setText(intervalText + " " + period.interval + " " + dayText);
         } else {
-            intervalTextView.setText(interval + " " + period.interval + " " + days);
+            intervalTextView.setText(intervalText + " " + period.interval + " " + daysText);
         }
 
         // Return the completed view to render on screen

@@ -15,30 +15,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blashca.womanshealth.fragments.DatePickerFragment;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
+import com.blashca.womanshealth.fragments.DatePickerFragment;
+import com.blashca.womanshealth.models.Period;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class PeriodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver {
+public class PeriodActivity extends AppCompatActivity implements DateReceiver {
     private WomansHealthDbHelper dbHelper;
-    private Date chosenDate;
-    private DateFormat dateFormat;
-    private String formattedDate;
     private TextView periodDate;
+    private Spinner durationSpinner;
+    private ImageButton periodRecordsButton;
     private TextView expectedDate;
-    private Date futureDate;
     private TextView daysToGo;
-    private Spinner spinner;
-    private ArrayAdapter<String> adapter;
-    private int duration;
+
+    private DateFormat dateFormat;
+    private Date futureDate;
+    private Period period;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,43 +47,43 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
 
         dbHelper = new WomansHealthDbHelper(this);
 
-        chosenDate = DateUtil.removeTime(new Date());
-        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        formattedDate = dateFormat.format(chosenDate);
-
-        setDuration();
+        period = new Period();
+        period.date = DateUtil.removeTime(new Date());
 
         periodDate = (TextView) findViewById(R.id.period_date);
         periodRecordsButton = (ImageButton) findViewById(R.id.period_records_button);
         expectedDate = (TextView) findViewById(R.id.expeced_date_data);
         daysToGo = (TextView) findViewById(R.id.days_to_go_data);
-    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        periodDate.setText(dateFormat.format(period.date));
 
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+        initDurationSpinner();
         displayPeriodRecordsButton();
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment(this, v.getId(), chosenDate);
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId(), period.date);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private void setDuration() {
-        spinner = (Spinner) findViewById(R.id.duration_spinner);
+    @Override
+    public void onDateReceive(Date date, int id) {
+        period.date = DateUtil.removeTime(date);
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        periodDate.setText(dateFormat.format(period.date));
+        setExpectedDate(period.date);
+        setDaysToGo();
+    }
+
+    private void initDurationSpinner() {
+        durationSpinner = (Spinner) findViewById(R.id.duration_spinner);
         String[] durationArray = getResources().getStringArray(R.array.duration_array);
-        adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, durationArray) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                duration = position + 1;
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
@@ -98,9 +98,21 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
                 return super.getCount() - 1;
             }
         };
-        spinner.setAdapter(adapter);
-        spinner.setSelection(adapter.getCount());
-        spinner.setOnItemSelectedListener(this);
+        durationSpinner.setAdapter(adapter);
+        durationSpinner.setSelection(adapter.getCount());
+
+        if (period.duration == null) {
+            period.duration = durationSpinner.getCount();
+        }
+        durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                period.duration = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
     }
 
     private void setExpectedDate(Date userDate) {
@@ -108,6 +120,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         calendar.setTime(userDate);
         calendar.add(Calendar.DAY_OF_YEAR, 28); //Adding 28 days to the time set by user
         futureDate = calendar.getTime();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         String newFormattedDate = dateFormat.format(futureDate);
         expectedDate.setText(newFormattedDate);
     }
@@ -118,15 +131,6 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         daysToGo.setText("" + difference);
     }
 
-    @Override
-    public void onDateReceive(Date date, int id) {
-        this.chosenDate = date;
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-        periodDate.setText(dateFormat.format(date));
-        setExpectedDate(date);
-        setDaysToGo();
-    }
-
     public void showPeriodRecords(View view) {
         Intent intent = new Intent(this, PeriodRecordsActivity.class);
         startActivity(intent);
@@ -134,7 +138,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void onRecordPeriodButtonClicked(View view) {
 
-        if (dbHelper.getPeriodsCount(chosenDate) == 0) {
+        if (dbHelper.getPeriodsCount(period.date) == 0) {
             dbHelper.insertPeriod(getPeriodContentValues());
             resetScreen();
             Toast.makeText(this, R.string.record_added, Toast.LENGTH_SHORT).show();
@@ -146,7 +150,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
                     .setCancelable(false)
                     .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            dbHelper.updatePeriod(getPeriodContentValues(), chosenDate);
+                            dbHelper.updatePeriod(getPeriodContentValues(), period.date);
                             resetScreen();
                             Toast.makeText(getApplicationContext(), R.string.record_added, Toast.LENGTH_SHORT).show();
                         }
@@ -173,15 +177,15 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     private ContentValues getPeriodContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE, chosenDate.getTime());
-        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION, duration);
-
+        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE, period.date.getTime());
+        values.put(WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION, period.duration);
         return values;
     }
 
     private void resetScreen() {
-        periodDate.setText(R.string.select_date);
-        spinner.setSelection(adapter.getCount());
+        period.date = DateUtil.removeTime(new Date());
+        periodDate.setText(dateFormat.format(period.date));
+        durationSpinner.setSelection(durationSpinner.getCount());
         expectedDate.setText(R.string.double_pause_icon);
         daysToGo.setText(R.string.double_pause_icon);
         displayPeriodRecordsButton();
