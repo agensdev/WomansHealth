@@ -32,6 +32,7 @@ public class WeightCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
         TextView bmiTextView = (TextView) view.findViewById(R.id.bmi_record_textView);
         TextView categoryTextView = (TextView) view.findViewById(R.id.category_record_textView);
         TextView weightAndHeight = (TextView) view.findViewById(R.id.weight_and_height_record_textView);
@@ -39,7 +40,7 @@ public class WeightCursorAdapter extends CursorAdapter {
 
 
         int height = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT));
-        double weight = cursor.getDouble(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
+        float weight = cursor.getFloat(cursor.getColumnIndex(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT));
 
         Bmi bmi = new Bmi(height, weight);
         String bmiValue = bmi.getBmiValue();

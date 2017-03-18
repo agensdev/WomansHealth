@@ -3,13 +3,13 @@ package com.blashca.womanshealth;
 
 public class Bmi {
     private int height;
-    private double weight;
-    private double bmi;
+    private float weight;
+    private float bmi;
 
-    public Bmi(int height, double weight) {
+    public Bmi(int height, float weight) {
         this.height = height;
         this.weight = weight;
-        bmi = weight / Math.pow(height/100.0, 2);
+        bmi = weight / (float) Math.pow(height/100.0, 2);
     }
 
     public String getBmiValue() {
