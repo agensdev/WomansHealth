@@ -187,21 +187,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
-                Boolean wantToCloseDialog = false;
                 EditText login = (EditText) view.findViewById(R.id.login_editText);
                 String loginText = login.getText().toString();
 
                 String hash = DigestUtil.digestPassword(loginText);
 
                 if (hash.equals(password)) {
-                    wantToCloseDialog = true;
+                    dialog.dismiss();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.incorrect_password, Toast.LENGTH_SHORT).show();
                     login.setText("");
                 }
-
-                if(wantToCloseDialog)
-                    dialog.dismiss();
             }
         });
     }
