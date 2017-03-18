@@ -145,13 +145,15 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     public void onNothingSelected(AdapterView<?> parent) {}
 
     public void showDatePickerDialog(View v) {
+        Date date = null;
+
         if (v.getId() == R.id.last_date_set_textView) {
-            DialogFragment newFragment = new DatePickerFragment(this, v.getId(), appointment.lastDate);
-            newFragment.show(getFragmentManager(), "datePicker");
+            date = appointment.lastDate;
         } else if (v.getId() == R.id.next_date_set_textView) {
-            DialogFragment newFragment = new DatePickerFragment(this, v.getId(), appointment.nextDate);
-            newFragment.show(getFragmentManager(), "datePicker");
+            date = appointment.nextDate;
         }
+        DialogFragment newFragment = new DatePickerFragment(this, v.getId(), date);
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
     public void showTimePickerDialog(View v) {
