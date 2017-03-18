@@ -22,41 +22,44 @@ import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 import com.blashca.womanshealth.fragments.DatePickerFragment;
+import com.blashca.womanshealth.models.Weight;
 
 import java.text.DateFormat;
 import java.util.Date;
 
 
 public class WeightActivity extends AppCompatActivity implements DateReceiver {
-    private static TextView dateTextView;
     private WomansHealthDbHelper dbHelper;
-    private Date chosenDate;
+    private TextView dateTextView;
+    private ImageButton weightRecordsButton;
+
     private DateFormat dateFormat;
-    private int height;
-    private double weight;
+    private Weight weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
 
-        chosenDate = DateUtil.removeTime(new Date());
+        dbHelper = new WomansHealthDbHelper(this);
+        weight = new Weight();
+        weight.date = DateUtil.removeTime(new Date());
+
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
-        dateTextView.setText(dateFormat.format(chosenDate));
+        dateTextView.setText(dateFormat.format(weight.date));
 
-        dbHelper = new WomansHealthDbHelper(this);
     }
 
     @Override
     public void onDateReceive(Date date, int id) {
-        this.chosenDate = DateUtil.removeTime(date);
+        weight.date = DateUtil.removeTime(date);
         // Since there is only one text view with date we don't use the id
-        dateTextView.setText(dateFormat.format(chosenDate));
+        dateTextView.setText(dateFormat.format(weight.date));
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView, chosenDate);
+        DialogFragment newFragment = new DatePickerFragment(this, R.id.date_set_textView, weight.date);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
@@ -70,29 +73,39 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
         EditText weightEditText = (EditText) findViewById(R.id.weight_editText);
         String weightText = weightEditText.getText().toString();
 
+        int heightValue;
+        float weightValue;
+
         try {
-            height = Integer.parseInt(heightText);
+            heightValue = Integer.parseInt(heightText);
+
+            if (heightValue > 100 && heightValue < 300) {
+                weight.height = heightValue;
+            } else {
+                Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
+                return;
+            }
         } catch (Exception e) {
             Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
             return;
         }
 
+
         try {
-            weight = Double.parseDouble(weightText);
+            weightValue = Float.parseFloat(weightText);
+
+            if (weightValue > 20 && weightValue < 200) {
+                weight.weight = weightValue;
+            } else {
+                Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
+                return;
+            }
         } catch (Exception e) {
             Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if ((height < 100 || height > 300)) {
-            Toast.makeText(this, R.string.empty_height, Toast.LENGTH_SHORT).show();
-            return;
-        } else if ((weight < 20 || weight > 200)) {
-            Toast.makeText(this, R.string.empty_weight, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Bmi bmi = new Bmi(height, weight);
+        Bmi bmi = new Bmi(weight.height, weight.weight);
         String bmiValue = bmi.getBmiValue();
         int category = bmi.getCategory();
         String optimum = getString(bmi.getOptimum());
@@ -125,7 +138,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
 
     public void onRecordWeightButtonClicked(View view) {
 
-        if (dbHelper.getWeightsCount(chosenDate) == 0) {
+        if (dbHelper.getWeightsCount(weight.date) == 0) {
             dbHelper.insertWeight(getWeightContentValues());
             resetScreen();
             Toast.makeText(this, R.string.record_added, Toast.LENGTH_SHORT).show();
@@ -137,7 +150,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
                     .setCancelable(false)
                     .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            dbHelper.updateWeight(getWeightContentValues(), chosenDate);
+                            dbHelper.updateWeight(getWeightContentValues(), weight.date);
                             resetScreen();
                             Toast.makeText(getApplicationContext(), R.string.record_added, Toast.LENGTH_SHORT).show();
                         }
@@ -158,16 +171,16 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
     private ContentValues getWeightContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, chosenDate.getTime());
-        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT, height);
-        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT, weight);
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE, weight.date.getTime());
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT, weight.height);
+        values.put(WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT, weight.weight);
 
         return values;
     }
 
     private void resetScreen() {
-        chosenDate = DateUtil.removeTime(new Date());
-        dateTextView.setText(dateFormat.format(chosenDate));
+        weight.date = DateUtil.removeTime(new Date());
+        dateTextView.setText(dateFormat.format(weight.date));
         EditText height = (EditText) findViewById(R.id.height_editText);
         height.setText("");
         EditText weight = (EditText) findViewById(R.id.weight_editText);
