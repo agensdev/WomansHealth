@@ -37,7 +37,7 @@ public class DigestUtil {
             hexChars[j * 2] = hexArray[v >>> 4];
             hexChars[j * 2 + 1] = hexArray[v & 0x0F];
         }
-        
+
         return new String(hexChars);
     }
 }
