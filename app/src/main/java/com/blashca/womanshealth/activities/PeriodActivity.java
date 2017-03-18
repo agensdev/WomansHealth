@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         setDuration();
 
         periodDate = (TextView) findViewById(R.id.period_date);
+        periodRecordsButton = (ImageButton) findViewById(R.id.period_records_button);
         expectedDate = (TextView) findViewById(R.id.expeced_date_data);
         daysToGo = (TextView) findViewById(R.id.days_to_go_data);
     }
@@ -65,6 +67,7 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+        displayPeriodRecordsButton();
     }
 
     public void showDatePickerDialog(View v) {
@@ -175,5 +178,15 @@ public class PeriodActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setSelection(adapter.getCount());
         expectedDate.setText(R.string.double_pause_icon);
         daysToGo.setText(R.string.double_pause_icon);
+        displayPeriodRecordsButton();
+    }
+
+    private void displayPeriodRecordsButton() {
+
+        if (dbHelper.getAllPeriodsCount() > 0) {
+            periodRecordsButton.setVisibility(View.VISIBLE);
+        } else {
+            periodRecordsButton.setVisibility(View.GONE);
+        }
     }
 }

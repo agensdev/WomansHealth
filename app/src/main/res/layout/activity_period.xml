@@ -37,7 +37,6 @@
                 android:onClick="showDatePickerDialog"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/select_date"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -81,6 +80,7 @@
                     android:onClick="onRecordPeriodButtonClicked"/>
 
                 <ImageButton
+                    android:id="@+id/period_records_button"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:paddingTop="6dp"
@@ -89,7 +89,8 @@
                     android:scaleType="centerCrop"
                     android:layout_gravity="bottom"
                     android:src="@drawable/data"
-                    android:onClick="showPeriodRecords"/>
+                    android:onClick="showPeriodRecords"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 
