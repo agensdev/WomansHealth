@@ -473,30 +473,15 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         medication.howOftenNumber = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER);
         medication.howOftenPeriod = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD);
         medication.commencementDate = getDateFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE);
-        medication.medicationHourArray[0] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[0]);
-        medication.medicationHourArray[1] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[1]);
-        medication.medicationHourArray[2] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[2]);
-        medication.medicationHourArray[3] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[3]);
-        medication.medicationHourArray[4] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[4]);
-        medication.medicationHourArray[5] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[5]);
-        medication.medicationHourArray[6] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[6]);
-        medication.medicationHourArray[7] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[7]);
-        medication.medicationHourArray[8] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[8]);
-        medication.medicationHourArray[9] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[9]);
-        medication.medicationHourArray[10] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[10]);
-        medication.medicationHourArray[11] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[11]);
-        medication.medicationMinuteArray[0] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[0]);
-        medication.medicationMinuteArray[1] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[1]);
-        medication.medicationMinuteArray[2] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[2]);
-        medication.medicationMinuteArray[3] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[3]);
-        medication.medicationMinuteArray[4] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[4]);
-        medication.medicationMinuteArray[5] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[5]);
-        medication.medicationMinuteArray[6] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[6]);
-        medication.medicationMinuteArray[7] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[7]);
-        medication.medicationMinuteArray[8] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[8]);
-        medication.medicationMinuteArray[9] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[9]);
-        medication.medicationMinuteArray[10] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[10]);
-        medication.medicationMinuteArray[11] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[11]);
+
+        for (int i = 0; i < medication.medicationHourArray.length; i++) {
+            medication.medicationHourArray[i] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[i]);
+        }
+
+        for (int i = 0; i < medication.medicationMinuteArray.length; i++) {
+            medication.medicationMinuteArray[i] = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[i]);
+        }
+
         medication.howLongNumber = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER);
         medication.howLongPeriod = getIntegerFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD);
         medication.reminder = getBooleanFromCursor(medicationCursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER);
@@ -532,30 +517,15 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             medication.howOftenNumber = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER);
             medication.howOftenPeriod = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD);
             medication.commencementDate = getDateFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_COMMENCEMENT_DATE);
-            medication.medicationHourArray[0] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[0]);
-            medication.medicationHourArray[1] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[1]);
-            medication.medicationHourArray[2] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[2]);
-            medication.medicationHourArray[3] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[3]);
-            medication.medicationHourArray[4] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[4]);
-            medication.medicationHourArray[5] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[5]);
-            medication.medicationHourArray[6] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[6]);
-            medication.medicationHourArray[7] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[7]);
-            medication.medicationHourArray[8] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[8]);
-            medication.medicationHourArray[9] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[9]);
-            medication.medicationHourArray[10] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[10]);
-            medication.medicationHourArray[11] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[11]);
-            medication.medicationMinuteArray[0] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[0]);
-            medication.medicationMinuteArray[1] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[1]);
-            medication.medicationMinuteArray[2] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[2]);
-            medication.medicationMinuteArray[3] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[3]);
-            medication.medicationMinuteArray[4] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[4]);
-            medication.medicationMinuteArray[5] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[5]);
-            medication.medicationMinuteArray[6] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[6]);
-            medication.medicationMinuteArray[7] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[7]);
-            medication.medicationMinuteArray[8] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[8]);
-            medication.medicationMinuteArray[9] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[9]);
-            medication.medicationMinuteArray[10] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[10]);
-            medication.medicationMinuteArray[11] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[11]);
+
+            for (int i = 0; i < medication.medicationHourArray.length; i++) {
+                medication.medicationHourArray[i] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_HOURS[i]);
+            }
+
+            for (int i = 0; i < medication.medicationMinuteArray.length; i++) {
+                medication.medicationMinuteArray[i] = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_MINUTES[i]);
+            }
+
             medication.howLongNumber = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_NUMBER);
             medication.howLongPeriod = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD);
             medication.reminder = getBooleanFromCursor(cursor, WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER);
