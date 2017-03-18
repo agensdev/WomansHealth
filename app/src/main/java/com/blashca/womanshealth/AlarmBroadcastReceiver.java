@@ -29,8 +29,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private static String ALARM_ID = "alarmId";
 
     private long medicationId;
-    private Appointment appointment = new Appointment();
-    private Medication medication = new Medication();
     private AlarmHelper alarmHelper = new AlarmHelper();
 
 
@@ -67,7 +65,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         context.getResources().getString(R.string.take_medicine) + " " + medication.name, context, medicationId, icon);
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
-                AlarmHelper alarmHelper = new AlarmHelper();
                 alarmHelper.setDailyMedicationAlarm(context, medication, calendar.getTimeInMillis(), alarmId);
 
             } else if (intent.getAction().equals(WEEKLY_MEDICATION_NOTIFICATIONS)) {
@@ -78,7 +75,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         context.getResources().getString(R.string.take_medicine) + " " + medication.name, context, medicationId, icon);
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_YEAR, 7);
-                AlarmHelper alarmHelper = new AlarmHelper();
                 alarmHelper.setWeeklyMedicationAlarm(context, medication, calendar.getTimeInMillis(), medicationId);
 
             } else if (intent.getAction().equals(MONTHLY_MEDICATION_NOTIFICATIONS)) {
@@ -89,7 +85,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         context.getResources().getString(R.string.take_medicine) + " " + medication.name, context, medicationId, icon);
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.MONTH, 1);
-                AlarmHelper alarmHelper = new AlarmHelper();
                 alarmHelper.setMonthlyMedicationAlarm(context, medication, calendar.getTimeInMillis(), medicationId);
 
             } else if (intent.getAction().equals(YEARLY_MEDICATION_NOTIFICATIONS)) {
@@ -100,21 +95,20 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                         context.getResources().getString(R.string.take_medicine) + " " + medication.name, context, medicationId, icon);
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, 1);
-                AlarmHelper alarmHelper = new AlarmHelper();
                 alarmHelper.setYearlyMedicationAlarm(context, medication, calendar.getTimeInMillis(), medicationId);
 
             } else if (intent.getAction().equals(ACTION_BOOT_COMPLETED)) {
                 ArrayList<Appointment> appointmentArrayList = dbHelper.getAppointmentsWithReminders();
 
                 for (int i = 0; i < appointmentArrayList.size(); i++) {
-                    appointment = appointmentArrayList.get(i);
+                    Appointment appointment = appointmentArrayList.get(i);
                     alarmHelper.setAppointmentAlarms(context, appointment);
                 }
 
                 ArrayList<Medication> medicationArrayList = dbHelper.getMedicationsWithReminders();
 
                 for (int i = 0; i < medicationArrayList.size(); i++) {
-                    medication = medicationArrayList.get(i);
+                    Medication medication = medicationArrayList.get(i);
                     alarmHelper.setMedicationAlarms(context, medication);
                 }
             }
