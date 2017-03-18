@@ -44,7 +44,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
 
         dbHelper = new WomansHealthDbHelper(this);
         weight = new Weight();
-        weight.date = DateUtil.removeTime(new Date());
+        weight.date = DateUtil.resetTime(new Date());
 
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         dateTextView = (TextView) findViewById(R.id.date_set_textView);
@@ -58,7 +58,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
 
     @Override
     public void onDateReceive(Date date, int id) {
-        weight.date = DateUtil.removeTime(date);
+        weight.date = DateUtil.resetTime(date);
         // Since there is only one text view with date we don't use the id
         dateTextView.setText(dateFormat.format(weight.date));
     }
@@ -190,7 +190,7 @@ public class WeightActivity extends AppCompatActivity implements DateReceiver {
     }
 
     private void resetScreen() {
-        weight.date = DateUtil.removeTime(new Date());
+        weight.date = DateUtil.resetTime(new Date());
         dateTextView.setText(dateFormat.format(weight.date));
         EditText height = (EditText) findViewById(R.id.height_editText);
         height.setText("");

@@ -52,6 +52,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         calendar.set(year, monthOfYear, dayOfMonth);
         Date date = calendar.getTime();
 
-        dateReceiver.onDateReceive(DateUtil.removeTime(date), id);
+        dateReceiver.onDateReceive(DateUtil.resetTime(date), id);
     }
 }

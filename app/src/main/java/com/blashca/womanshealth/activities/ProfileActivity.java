@@ -22,8 +22,6 @@ import com.blashca.womanshealth.fragments.DatePickerFragment;
 import java.text.DateFormat;
 import java.util.Date;
 
-import static com.blashca.womanshealth.R.string.date;
-
 public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, DateReceiver {
     private SharedPreferences sharedPreferences;
     private long birthday;
@@ -134,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
 
     @Override
     public void onDateReceive(Date date, int id) {
-        newBirthDate = DateUtil.removeTime(date);
+        newBirthDate = DateUtil.resetTime(date);
         dateTextView.setText(dateFormat.format(newBirthDate));
     }
 }

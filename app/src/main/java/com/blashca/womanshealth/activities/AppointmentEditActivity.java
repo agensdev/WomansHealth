@@ -165,9 +165,9 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     public void onDateReceive(Date date, int id) {
 
         if (id == R.id.last_date_set_textView) {
-            appointment.lastDate = DateUtil.removeTime(date);
+            appointment.lastDate = DateUtil.resetTime(date);
         } else if (id == R.id.next_date_set_textView) {
-            appointment.nextDate = DateUtil.removeTime(date);
+            appointment.nextDate = DateUtil.resetTime(date);
             appointment.nextDateSpinnerPosition = 0;
             reminderSwitch.setVisibility(View.VISIBLE);
         }

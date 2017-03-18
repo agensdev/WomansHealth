@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDateReceive(Date date, int id) {
-        birthDate = DateUtil.removeTime(date);
+        birthDate = DateUtil.resetTime(date);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         birthDateTextView.setText(dateFormat.format(birthDate));
     }

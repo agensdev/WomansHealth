@@ -264,7 +264,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
 
     @Override
     public void onDateReceive(Date date, int id) {
-        medication.commencementDate = DateUtil.removeTime(date);
+        medication.commencementDate = DateUtil.resetTime(date);
         refreshUI();
     }
 

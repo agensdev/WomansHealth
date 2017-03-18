@@ -48,7 +48,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
         dbHelper = new WomansHealthDbHelper(this);
 
         period = new Period();
-        period.date = DateUtil.removeTime(new Date());
+        period.date = DateUtil.resetTime(new Date());
 
         periodDate = (TextView) findViewById(R.id.period_date);
         periodRecordsButton = (ImageButton) findViewById(R.id.period_records_button);
@@ -69,7 +69,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
 
     @Override
     public void onDateReceive(Date date, int id) {
-        period.date = DateUtil.removeTime(date);
+        period.date = DateUtil.resetTime(date);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         periodDate.setText(dateFormat.format(period.date));
         setExpectedDate(period.date);
@@ -183,7 +183,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
     }
 
     private void resetScreen() {
-        period.date = DateUtil.removeTime(new Date());
+        period.date = DateUtil.resetTime(new Date());
         periodDate.setText(dateFormat.format(period.date));
         durationSpinner.setSelection(durationSpinner.getCount());
         expectedDate.setText(R.string.double_pause_icon);
