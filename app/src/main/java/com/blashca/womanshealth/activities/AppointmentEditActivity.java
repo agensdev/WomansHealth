@@ -165,7 +165,6 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         } else if (id == R.id.next_date_set_textView) {
             appointment.nextDate = DateUtil.resetTime(date);
             appointment.nextDateSpinnerPosition = 0;
-            reminderSwitch.setVisibility(View.VISIBLE);
         }
         refreshUI();
     }
@@ -236,8 +235,10 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
         if (appointment.nextDate != null) {
             nextDateTextView.setText(dateFormat.format(appointment.nextDate));
+            reminderSwitch.setVisibility(View.VISIBLE);
         } else {
             nextDateTextView.setText("");
+            reminderSwitch.setVisibility(View.GONE);
         }
 
         nextDateTimeTextView.setText(appointment.getAppointmentTime());
