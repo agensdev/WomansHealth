@@ -26,7 +26,6 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
     private SharedPreferences sharedPreferences;
     private long birthday;
     private Date birthDate;
-    private Date newBirthDate;
     private DateFormat dateFormat;
     private TextView dateTextView;
     private RadioGroup radioGroup;
@@ -71,8 +70,13 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private void setProfileData() {
+    @Override
+    public void onDateReceive(Date date, int id) {
+        birthDate = DateUtil.resetTime(date);
+        dateTextView.setText(dateFormat.format(birthDate));
+    }
 
+    private void setProfileData() {
         birthday = sharedPreferences.getLong("birthday", 0);
         birthDate = new Date(birthday);
         dateTextView.setText(dateFormat.format(birthDate));
@@ -113,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (newBirthDate != null) {
-            editor.putLong("birthday", newBirthDate.getTime());
+        if (birthDate != null) {
+            editor.putLong("birthday", birthDate.getTime());
         }
 
         editor.putInt("radioButtonIndex", radioButtonIndex);
@@ -129,11 +133,5 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
 
         editor.commit();
         finish();
-    }
-
-    @Override
-    public void onDateReceive(Date date, int id) {
-        newBirthDate = DateUtil.resetTime(date);
-        dateTextView.setText(dateFormat.format(newBirthDate));
     }
 }
