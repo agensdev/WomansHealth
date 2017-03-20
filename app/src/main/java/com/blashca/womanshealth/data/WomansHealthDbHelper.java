@@ -276,7 +276,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return appointmentsCursor;
     }
 
-    public Cursor getAppointmentIdCursor(long appointmentId) {
+    private Cursor getAppointmentCursorById(long appointmentId) {
         String[] selectionArgs = {String.valueOf(appointmentId)};
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -331,8 +331,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-        Cursor appointmentCursor = getAppointmentIdCursor(id);
     public Appointment loadAppointment(long id) {
+        Cursor appointmentCursor = getAppointmentCursorById(id);
         Appointment appointment = new Appointment();
 
         appointment.id = id;
@@ -405,7 +405,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         return medicationsCursor;
     }
 
-    public Cursor getMedicationIdCursor(long medicationId) {
+    private Cursor getMedicationCursorById(long medicationId) {
         String[] selectionArgs = {String.valueOf(medicationId)};
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -461,8 +461,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-        Cursor medicationCursor = getMedicationIdCursor(id);
     public Medication loadMedication(long id) {
+        Cursor medicationCursor = getMedicationCursorById(id);
         Medication medication = new Medication();
 
         medication.id = id;
