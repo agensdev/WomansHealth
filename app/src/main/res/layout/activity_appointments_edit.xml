@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:hint="@string/appointment_name"
-            android:maxLines="2"
+            android:maxLines="3"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textSize="16sp"
