@@ -35,6 +35,14 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private TextView howOftenTextView;
     private TextView commencementTextView;
     private TextView[] medicationTimeTextViewsArray = new TextView[12];
+    private int[] medicationTimeTextViewIds = {
+            R.id.medication_time1_textView, R.id.medication_time2_textView,
+            R.id.medication_time3_textView, R.id.medication_time4_textView,
+            R.id.medication_time5_textView, R.id.medication_time6_textView,
+            R.id.medication_time7_textView, R.id.medication_time8_textView,
+            R.id.medication_time9_textView, R.id.medication_time10_textView,
+            R.id.medication_time11_textView, R.id.medication_time12_textView
+    };
     private TextView howLongTextView;
     private TextView medicationReminderTextView;
 
@@ -62,18 +70,11 @@ public class MedicationDetailActivity extends AppCompatActivity {
         howTakenTextView = (TextView) findViewById(R.id.how_taken_textView);
         howOftenTextView = (TextView) findViewById(R.id.how_often_textView);
         commencementTextView = (TextView) findViewById(R.id.commencement_textView);
-        medicationTimeTextViewsArray[0] = (TextView) findViewById(R.id.medication_time1_textView);
-        medicationTimeTextViewsArray[1] = (TextView) findViewById(R.id.medication_time2_textView);
-        medicationTimeTextViewsArray[2] = (TextView) findViewById(R.id.medication_time3_textView);
-        medicationTimeTextViewsArray[3] = (TextView) findViewById(R.id.medication_time4_textView);
-        medicationTimeTextViewsArray[4] = (TextView) findViewById(R.id.medication_time5_textView);
-        medicationTimeTextViewsArray[5] = (TextView) findViewById(R.id.medication_time6_textView);
-        medicationTimeTextViewsArray[6] = (TextView) findViewById(R.id.medication_time7_textView);
-        medicationTimeTextViewsArray[7] = (TextView) findViewById(R.id.medication_time8_textView);
-        medicationTimeTextViewsArray[8] = (TextView) findViewById(R.id.medication_time9_textView);
-        medicationTimeTextViewsArray[9] = (TextView) findViewById(R.id.medication_time10_textView);
-        medicationTimeTextViewsArray[10] = (TextView) findViewById(R.id.medication_time11_textView);
-        medicationTimeTextViewsArray[11] = (TextView) findViewById(R.id.medication_time12_textView);
+
+        for (int i = 0; i < medicationTimeTextViewIds.length; i++) {
+            medicationTimeTextViewsArray[i] = (TextView) findViewById(medicationTimeTextViewIds[i]);
+        }
+
         howLongTextView = (TextView) findViewById(R.id.how_long_textView);
         medicationReminderTextView = (TextView) findViewById(R.id.medication_reminder_textView);
 
