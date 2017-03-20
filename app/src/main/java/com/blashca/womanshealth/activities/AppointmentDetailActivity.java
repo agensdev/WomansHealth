@@ -18,10 +18,6 @@ import com.blashca.womanshealth.models.Appointment;
 import java.text.DateFormat;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
-    private final static String FIRST_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION";
-    private final static String SECOND_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION";
-    private final static int NOTIFICATION_OFFSET = 1000000;
-
     private static String APPOINTMENT_ID = "appointmentId";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
@@ -75,8 +71,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
-                        alarmHelper.cancelAlarm(v.getContext(), FIRST_APPOINTMENT_NOTIFICATION, appointment.id);
-                        alarmHelper.cancelAlarm(v.getContext(), SECOND_APPOINTMENT_NOTIFICATION, appointment.id + NOTIFICATION_OFFSET);
+                        alarmHelper.cancelFirstAppointmentAlarm(v.getContext(), appointment);
+                        alarmHelper.cancelSecondAppointmentAlarm(v.getContext(), appointment);
 
                         dbHelper.deleteAppointment(appointment.id);
 

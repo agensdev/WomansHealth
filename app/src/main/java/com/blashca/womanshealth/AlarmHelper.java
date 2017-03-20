@@ -89,6 +89,18 @@ public class AlarmHelper {
         setSecondAppointmentAlarm(context, appointment, secondAlarm);
     }
 
+    private void setFirstAppointmentAlarm(Context context, Appointment appointment, long alarmTime) {
+        Intent intent = new Intent(FIRST_APPOINTMENT_NOTIFICATION);
+        intent.putExtra(APPOINTMENT_ID, appointment.id);
+        setAlarm(context, intent, alarmTime, appointment.getAlarmId());
+    }
+
+    private void setSecondAppointmentAlarm(Context context, Appointment appointment, long alarmTime) {
+        Intent intent = new Intent(SECOND_APPOINTMENT_NOTIFICATION);
+        intent.putExtra(APPOINTMENT_ID, appointment.id);
+        setAlarm(context, intent, alarmTime, appointment.getAlarmId() + NOTIFICATION_OFFSET);
+    }
+
     public void setMedicationAlarms(Context context, Medication medication) {
         Calendar calendar = getCalendarWithMedicationCommencementDate(medication, 12);
 
@@ -144,7 +156,7 @@ public class AlarmHelper {
         setAlarm(context, intent, alarmTime, alarmId, getMedicationAlarmEndTime(medication));
     }
 
-    public void cancelAlarm(Context context, String intentFilter, long alarmId) {
+    private void cancelAlarm(Context context, String intentFilter, long alarmId) {
         Intent intent = new Intent(intentFilter);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarmId, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -153,16 +165,32 @@ public class AlarmHelper {
         alarmManager.cancel(pendingIntent);
     }
 
-    private void setFirstAppointmentAlarm(Context context, Appointment appointment, long alarmTime) {
-        Intent intent = new Intent(FIRST_APPOINTMENT_NOTIFICATION);
-        intent.putExtra(APPOINTMENT_ID, appointment.id);
-        setAlarm(context, intent, alarmTime, appointment.getAlarmId());
+    public void cancelFirstAppointmentAlarm(Context context, Appointment appointment) {
+        cancelAlarm(context, FIRST_APPOINTMENT_NOTIFICATION, appointment.getAlarmId());
     }
 
-    private void setSecondAppointmentAlarm(Context context, Appointment appointment, long alarmTime) {
-        Intent intent = new Intent(SECOND_APPOINTMENT_NOTIFICATION);
-        intent.putExtra(APPOINTMENT_ID, appointment.id);
-        setAlarm(context, intent, alarmTime, appointment.getAlarmId() + NOTIFICATION_OFFSET);
+    public void cancelSecondAppointmentAlarm(Context context, Appointment appointment) {
+        cancelAlarm(context, SECOND_APPOINTMENT_NOTIFICATION, appointment.getAlarmId() + NOTIFICATION_OFFSET);
+    }
+
+    public void cancelDailyMedicationAlarms(Context context, Medication medication) {
+        if (medication.howOftenNumber != null) {
+            for (int i = 0; i < medication.howOftenNumber; i++) {
+                cancelAlarm(context, DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
+            }
+        }
+    }
+
+    public void cancelWeeklyMedicationAlarm(Context context, Medication medication) {
+        cancelAlarm(context, WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
+    }
+
+    public void cancelMonthlyMedicationAlarm(Context context, Medication medication) {
+        cancelAlarm(context, MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
+    }
+
+    public void cancelYearlyMedicationAlarm(Context context, Medication medication) {
+        cancelAlarm(context, YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
     }
 
 

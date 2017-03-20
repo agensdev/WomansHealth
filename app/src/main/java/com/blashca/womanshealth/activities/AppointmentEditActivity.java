@@ -33,10 +33,6 @@ import java.util.Date;
 
 
 public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver, TimeReceiver {
-    private final static String FIRST_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.FIRST_APPOINTMENT_NOTIFICATION";
-    private final static String SECOND_APPOINTMENT_NOTIFICATION = "com.blashca.womanshealth.SECOND_APPOINTMENT_NOTIFICATION";
-    private final static int NOTIFICATION_OFFSET = 1000000;
-
     private static String APPOINTMENT_ID = "appointmentId";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
@@ -204,8 +200,8 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         if (appointment.reminder) {
             alarmHelper.setAppointmentAlarms(this, appointment);
         } else {
-            alarmHelper.cancelAlarm(this, FIRST_APPOINTMENT_NOTIFICATION, appointment.id);
-            alarmHelper.cancelAlarm(this, SECOND_APPOINTMENT_NOTIFICATION, appointment.id + NOTIFICATION_OFFSET);
+            alarmHelper.cancelFirstAppointmentAlarm(v.getContext(), appointment);
+            alarmHelper.cancelSecondAppointmentAlarm(v.getContext(), appointment);
         }
 
         Intent intent = new Intent();

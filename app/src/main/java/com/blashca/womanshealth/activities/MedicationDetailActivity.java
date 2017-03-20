@@ -18,11 +18,6 @@ import com.blashca.womanshealth.models.Medication;
 import java.text.DateFormat;
 
 public class MedicationDetailActivity extends AppCompatActivity {
-    private final static String DAILY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.DAILY_MEDICATION_NOTIFICATIONS";
-    private final static String WEEKLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.WEEKLY_MEDICATION_NOTIFICATIONS";
-    private final static String MONTHLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.MONTHLY_MEDICATION_NOTIFICATIONS";
-    private final static String YEARLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.YEARLY_MEDICATION_NOTIFICATIONS";
-
     private static String MEDICATION_ID = "medicationId";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
@@ -91,16 +86,10 @@ public class MedicationDetailActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, do that
-
-                        if (medication.howOftenNumber != null) {
-                            for (int i = 0; i < medication.howOftenNumber; i++) {
-                                alarmHelper.cancelAlarm(v.getContext(), DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
-                            }
-                        }
-
-                        alarmHelper.cancelAlarm(v.getContext(), WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
-                        alarmHelper.cancelAlarm(v.getContext(), MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
-                        alarmHelper.cancelAlarm(v.getContext(), YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
+                        alarmHelper.cancelDailyMedicationAlarms(v.getContext(), medication);
+                        alarmHelper.cancelWeeklyMedicationAlarm(v.getContext(), medication);
+                        alarmHelper.cancelMonthlyMedicationAlarm(v.getContext(), medication);
+                        alarmHelper.cancelYearlyMedicationAlarm(v.getContext(), medication);
 
                         dbHelper.deleteMedication(medicationId);
 

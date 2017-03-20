@@ -39,11 +39,6 @@ import java.util.Date;
 
 
 public class MedicationEditActivity extends AppCompatActivity implements DateReceiver, TimeReceiver {
-    private final static String DAILY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.DAILY_MEDICATION_NOTIFICATIONS";
-    private final static String WEEKLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.WEEKLY_MEDICATION_NOTIFICATIONS";
-    private final static String MONTHLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.MONTHLY_MEDICATION_NOTIFICATIONS";
-    private final static String YEARLY_MEDICATION_NOTIFICATIONS = "com.blashca.womanshealth.YEARLY_MEDICATION_NOTIFICATIONS";
-
     private DateFormat dateFormat;
     private static String MEDICATION_ID = "medicationId";
     private WomansHealthDbHelper dbHelper;
@@ -348,21 +343,13 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         }
 
         if (medication.howOftenNumber != null) {
+            alarmHelper.cancelDailyMedicationAlarms(this, medication);
+            alarmHelper.cancelWeeklyMedicationAlarm(this, medication);
+            alarmHelper.cancelMonthlyMedicationAlarm(this, medication);
+            alarmHelper.cancelYearlyMedicationAlarm(this, medication);
+
             if (medication.reminder) {
-                for (int i = 0; i < medication.howOftenNumber; i++) {
-                    alarmHelper.cancelAlarm(this, DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
-                }
-                alarmHelper.cancelAlarm(this, WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
-                alarmHelper.cancelAlarm(this, MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
-                alarmHelper.cancelAlarm(this, YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
                 alarmHelper.setMedicationAlarms(this, medication);
-            } else {
-                for (int i = 0; i < medication.howOftenNumber; i++) {
-                    alarmHelper.cancelAlarm(this, DAILY_MEDICATION_NOTIFICATIONS, medication.getAlarmId(i));
-                }
-                alarmHelper.cancelAlarm(this, WEEKLY_MEDICATION_NOTIFICATIONS, medication.id);
-                alarmHelper.cancelAlarm(this, MONTHLY_MEDICATION_NOTIFICATIONS, medication.id);
-                alarmHelper.cancelAlarm(this, YEARLY_MEDICATION_NOTIFICATIONS, medication.id);
             }
         }
 
