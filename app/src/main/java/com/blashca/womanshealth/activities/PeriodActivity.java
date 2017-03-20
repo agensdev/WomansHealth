@@ -1,5 +1,6 @@
 package com.blashca.womanshealth.activities;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -143,7 +144,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
             resetScreen();
             Toast.makeText(this, R.string.record_added, Toast.LENGTH_SHORT).show();
         } else {
-            android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
             alertDialogBuilder
                     .setMessage(R.string.record_exists)
@@ -163,7 +164,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
                         }
                     });
 
-            android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+            AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
     }
