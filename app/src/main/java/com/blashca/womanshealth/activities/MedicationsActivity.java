@@ -2,7 +2,6 @@ package com.blashca.womanshealth.activities;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,8 +11,8 @@ import android.widget.ListView;
 
 import com.blashca.womanshealth.adapters.MedicationCursorAdapter;
 import com.blashca.womanshealth.R;
-import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
+import com.blashca.womanshealth.models.Medication;
 
 public class MedicationsActivity extends AppCompatActivity {
     private WomansHealthDbHelper dbHelper;
@@ -34,18 +33,16 @@ public class MedicationsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = dbHelper.getMedicationIdCursor(id);
-                int isAllergen = cursor.getInt(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN));
+                Medication medication = dbHelper.loadMedication(id);
 
-                if (isAllergen != 1) {
-                    Intent intent = new Intent(getApplicationContext(), MedicationDetailActivity.class);
-                    intent.putExtra(MEDICATION_ID, id);
-                    startActivity(intent);
+                Intent intent;
+                if (medication.isAllergen) {
+                    intent = new Intent(getApplicationContext(), AllergenDetailActivity.class);
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), AllergenDetailActivity.class);
-                    intent.putExtra(MEDICATION_ID, id);
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), MedicationDetailActivity.class);
                 }
+                intent.putExtra(MEDICATION_ID, id);
+                startActivity(intent);
             }
         });
     }
