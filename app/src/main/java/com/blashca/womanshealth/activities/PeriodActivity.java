@@ -30,6 +30,7 @@ import java.util.Date;
 
 
 public class PeriodActivity extends AppCompatActivity implements DateReceiver {
+    private final static int DAY_IN_MILLIS = 24*60*60*1000;
     private WomansHealthDbHelper dbHelper;
     private TextView periodDate;
     private Spinner durationSpinner;
@@ -128,7 +129,7 @@ public class PeriodActivity extends AppCompatActivity implements DateReceiver {
 
     private void setDaysToGo() {
         Date today = new Date();
-        int difference = Math.abs ((int) ((today.getTime()/(24*60*60*1000)) - (int)(futureDate.getTime()/(24*60*60*1000))));
+        int difference = Math.abs ((int) ((today.getTime()/DAY_IN_MILLIS) - (int)(futureDate.getTime()/DAY_IN_MILLIS)));
         daysToGo.setText("" + difference);
     }
 
