@@ -342,12 +342,12 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
             medication.id = dbHelper.insertMedication(getMedicationContentValues());
         }
 
-        if (medication.howOftenNumber != null) {
-            alarmHelper.cancelDailyMedicationAlarms(this, medication);
-            alarmHelper.cancelWeeklyMedicationAlarm(this, medication);
-            alarmHelper.cancelMonthlyMedicationAlarm(this, medication);
-            alarmHelper.cancelYearlyMedicationAlarm(this, medication);
+        alarmHelper.cancelDailyMedicationAlarms(this, medication);
+        alarmHelper.cancelWeeklyMedicationAlarm(this, medication);
+        alarmHelper.cancelMonthlyMedicationAlarm(this, medication);
+        alarmHelper.cancelYearlyMedicationAlarm(this, medication);
 
+        if (medication.howOftenNumber != null) {
             if (medication.reminder) {
                 alarmHelper.setMedicationAlarms(this, medication);
             }
