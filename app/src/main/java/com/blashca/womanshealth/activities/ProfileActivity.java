@@ -112,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements RadioGroup.OnC
         String repeatText = repeatPassword.getText().toString();
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         if (newBirthDate != null) {
             editor.putLong("birthday", newBirthDate.getTime());
         }
