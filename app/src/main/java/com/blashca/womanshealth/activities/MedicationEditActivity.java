@@ -86,7 +86,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
         }
 
         if (medicationId != null) {
-            medication = dbHelper.loadMedicationDataFromDb(medicationId);
+            medication = dbHelper.loadMedication(medicationId);
         } else {
             medication = new Medication();
         }

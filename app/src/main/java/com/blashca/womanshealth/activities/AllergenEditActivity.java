@@ -36,7 +36,7 @@ public class AllergenEditActivity extends AppCompatActivity {
         }
 
         if (medicationId != null) {
-            medication = dbHelper.loadMedicationDataFromDb(medicationId);
+            medication = dbHelper.loadMedication(medicationId);
         } else {
             medication = new Medication();
         }

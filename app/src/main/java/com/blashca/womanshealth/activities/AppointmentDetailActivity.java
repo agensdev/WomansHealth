@@ -51,7 +51,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             appointmentId = getIntent().getExtras().getLong(APPOINTMENT_ID);
         }
-        appointment = dbHelper.loadAppointmentDataFromDb(appointmentId);
+        appointment = dbHelper.loadAppointment(appointmentId);
 
         appointmentNameTextView = (TextView) findViewById(R.id.appointment_name_textView);
         doctorsNameTextView = (TextView) findViewById(R.id.doctors_name_textView);
@@ -109,7 +109,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == AppointmentEditActivity.RESULT_OK){
-                appointment = dbHelper.loadAppointmentDataFromDb(appointment.id);
+                appointment = dbHelper.loadAppointment(appointment.id);
                 refreshUI();
             }
         }

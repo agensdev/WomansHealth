@@ -331,8 +331,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Appointment loadAppointmentDataFromDb(long id) {
         Cursor appointmentCursor = getAppointmentIdCursor(id);
+    public Appointment loadAppointment(long id) {
         Appointment appointment = new Appointment();
 
         appointment.id = id;
@@ -461,8 +461,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Medication loadMedicationDataFromDb(long id) {
         Cursor medicationCursor = getMedicationIdCursor(id);
+    public Medication loadMedication(long id) {
         Medication medication = new Medication();
 
         medication.id = id;

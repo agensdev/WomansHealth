@@ -54,7 +54,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
             medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
         }
 
-        medication = dbHelper.loadMedicationDataFromDb(medicationId);
+        medication = dbHelper.loadMedication(medicationId);
 
         medicationNameTextView = (TextView) findViewById(R.id.medicine_name_textView);
         dosageTextView = (TextView) findViewById(R.id.dosage_textView);
@@ -132,7 +132,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
             if(resultCode == MedicationEditActivity.RESULT_OK){
-                medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                medication = dbHelper.loadMedication(medicationId);
                 refreshUI();
             }
         }

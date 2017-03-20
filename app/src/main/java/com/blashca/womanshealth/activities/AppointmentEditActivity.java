@@ -70,7 +70,7 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         }
 
         if (appointmentId != null) {
-            appointment = dbHelper.loadAppointmentDataFromDb(appointmentId);
+            appointment = dbHelper.loadAppointment(appointmentId);
         } else {
             appointment = new Appointment();
         }

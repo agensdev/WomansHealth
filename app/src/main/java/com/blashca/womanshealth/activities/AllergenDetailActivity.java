@@ -35,7 +35,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
             medicationId = getIntent().getExtras().getLong(MEDICATION_ID);
         }
 
-        medication = dbHelper.loadMedicationDataFromDb(medicationId);
+        medication = dbHelper.loadMedication(medicationId);
 
         allergenName = (TextView) findViewById(R.id.allergen_textView);
         effects = (TextView) findViewById(R.id.effects_textView);
@@ -84,7 +84,7 @@ public class AllergenDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3) {
             if(resultCode == AllergenEditActivity.RESULT_OK){
-                medication = dbHelper.loadMedicationDataFromDb(medication.id);
+                medication = dbHelper.loadMedication(medication.id);
                 refreshUI();
             }
         }

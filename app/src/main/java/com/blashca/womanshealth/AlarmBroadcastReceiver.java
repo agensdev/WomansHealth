@@ -41,7 +41,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(FIRST_APPOINTMENT_NOTIFICATION)) {
                 long appointmentId = intent.getLongExtra(APPOINTMENT_ID, -1);
 
-                String appointmentName = dbHelper.loadAppointmentDataFromDb(appointmentId).name;
+                String appointmentName = dbHelper.loadAppointment(appointmentId).name;
                 String messageFormat = context.getResources().getString(R.string.appointment_tomorrow);
                 String message = String.format(messageFormat, appointmentName);
                 int icon = R.drawable.ic_heart;
@@ -50,7 +50,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             } else if (intent.getAction().equals(SECOND_APPOINTMENT_NOTIFICATION)) {
                 long appointmentId = intent.getLongExtra(APPOINTMENT_ID, -1);
 
-                String appointmentName = dbHelper.loadAppointmentDataFromDb(appointmentId).name;
+                String appointmentName = dbHelper.loadAppointment(appointmentId).name;
                 String messageFormat = context.getResources().getString(R.string.appointment_today);
                 String message = String.format(messageFormat, appointmentName);
                 int icon = R.drawable.ic_heart;
@@ -58,7 +58,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
             } else if (intent.getAction().equals(DAILY_MEDICATION_NOTIFICATIONS)) {
                 long alarmId = intent.getLongExtra(ALARM_ID, -1);
-                Medication medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                Medication medication = dbHelper.loadMedication(medicationId);
                 int icon = R.drawable.ic_pill;
 
                 showNotification(context.getResources().getString(R.string.app_name),
@@ -68,7 +68,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 alarmHelper.setDailyMedicationAlarm(context, medication, calendar.getTimeInMillis(), alarmId);
 
             } else if (intent.getAction().equals(WEEKLY_MEDICATION_NOTIFICATIONS)) {
-                Medication medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                Medication medication = dbHelper.loadMedication(medicationId);
                 int icon = R.drawable.ic_pill;
 
                 showNotification(context.getResources().getString(R.string.app_name),
@@ -78,7 +78,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 alarmHelper.setWeeklyMedicationAlarm(context, medication, calendar.getTimeInMillis(), medicationId);
 
             } else if (intent.getAction().equals(MONTHLY_MEDICATION_NOTIFICATIONS)) {
-                Medication medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                Medication medication = dbHelper.loadMedication(medicationId);
                 int icon = R.drawable.ic_pill;
 
                 showNotification(context.getResources().getString(R.string.app_name),
@@ -88,7 +88,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 alarmHelper.setMonthlyMedicationAlarm(context, medication, calendar.getTimeInMillis(), medicationId);
 
             } else if (intent.getAction().equals(YEARLY_MEDICATION_NOTIFICATIONS)) {
-                Medication medication = dbHelper.loadMedicationDataFromDb(medicationId);
+                Medication medication = dbHelper.loadMedication(medicationId);
                 int icon = R.drawable.ic_pill;
 
                 showNotification(context.getResources().getString(R.string.app_name),
