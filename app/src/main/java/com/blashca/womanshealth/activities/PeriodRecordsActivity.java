@@ -16,8 +16,6 @@ import com.blashca.womanshealth.data.WomansHealthDbHelper;
 public class PeriodRecordsActivity extends AppCompatActivity {
     private WomansHealthDbHelper dbHelper;
     private PeriodAdapter periodAdapter;
-    private long periodId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class PeriodRecordsActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                periodId = id;
+                final long periodId = id;
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PeriodRecordsActivity.this);
 
