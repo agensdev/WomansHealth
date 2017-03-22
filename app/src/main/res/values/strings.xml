@@ -273,11 +273,11 @@
     <string name="hearing_test">Hearing test (audiogram)</string>
     <string name="skin_check">Skin cancer screening</string>
 
-
-
-
-
-
+    <string name="medication_1">Medication 1</string>
+    <string name="medication_2">Medication 2</string>
+    <string name="medication_3">Medication 3</string>
+    <string name="allergen">Some allergen</string>
+    <string name="redness">redness</string>
 
 </resources>
 

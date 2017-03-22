@@ -202,21 +202,21 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_MEDICATION);
 
         ContentValues medicationValues = new ContentValues();
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "AAAAA");
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 1);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 1);
-        db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "BBBBB");
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 2);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 2);
-        db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "CCCCC");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, context.getResources().getString(R.string.medication_3));
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 3);
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 3);
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, "ALLERGEN");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, context.getResources().getString(R.string.medication_2));
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 2);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 2);
+        db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, context.getResources().getString(R.string.medication_1));
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_NUMBER, 1);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_HOW_OFTEN_PERIOD, 1);
+        db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_NAME, context.getResources().getString(R.string.allergen));
         medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN, 1);
-        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS, "redness");
+        medicationValues.put(WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS, context.getResources().getString(R.string.redness));
         db.insert(WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION, null, medicationValues);
 
 
