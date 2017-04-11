@@ -7,7 +7,6 @@
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/appointment_layout"
-        android:background="@color/violet"
         app:layout_heightPercent="50%"
         app:layout_widthPercent="100%">
 
@@ -15,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/violet">
 
             <ImageView
                 android:id="@+id/appointment_icon"
@@ -39,7 +39,6 @@
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/medications_layout"
         android:layout_below="@id/appointment_layout"
-        android:background="@color/plumb"
         app:layout_heightPercent="25%"
         app:layout_widthPercent="100%">
 
@@ -47,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/plumb">
 
             <ImageView
                 android:id="@+id/medication_icon"
@@ -71,7 +71,6 @@
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/weight_layout"
         android:layout_below="@id/medications_layout"
-        android:background="@color/coral"
         app:layout_heightPercent="26%"
         app:layout_widthPercent="34%">
 
@@ -79,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/coral">
 
             <ImageView
                 android:id="@+id/weight_icon"
@@ -104,7 +104,6 @@
         android:id="@+id/period_layout"
         android:layout_below="@id/medications_layout"
         android:layout_toRightOf="@id/weight_layout"
-        android:background="@color/dark_coral"
         app:layout_heightPercent="26%"
         app:layout_widthPercent="34%">
 
@@ -112,7 +111,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/dark_coral">
 
             <ImageView
                 android:id="@+id/period_icon"
@@ -137,7 +137,6 @@
         android:id="@+id/profile_layout"
         android:layout_below="@id/medications_layout"
         android:layout_toRightOf="@id/period_layout"
-        android:background="@color/coral"
         app:layout_heightPercent="26%"
         app:layout_widthPercent="34%">
 
@@ -145,7 +144,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/coral">
 
             <ImageView
                 android:id="@+id/profile_icon"
