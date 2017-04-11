@@ -33,6 +33,13 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tap_state"
+            android:alpha="0.3"/>
+
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
@@ -64,6 +71,13 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tap_state"
+            android:alpha="0.3"/>
+
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
@@ -95,6 +109,13 @@
                 android:textSize="12sp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tap_state"
+            android:alpha="0.3"/>
+
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
@@ -127,6 +148,13 @@
                 android:textSize="12sp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tap_state"
+            android:alpha="0.3"/>
+
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
@@ -159,5 +187,12 @@
                 android:textSize="12sp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tap_state"
+            android:alpha="0.3"/>
+
     </android.support.percent.PercentRelativeLayout>
 </android.support.percent.PercentRelativeLayout>
