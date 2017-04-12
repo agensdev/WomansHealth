@@ -114,50 +114,6 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_TABLE_APPOINTMENT);
 
-        ContentValues appointmentValues = new ContentValues();
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.skin_check));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.hearing_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.eye_exam));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.dental_exam));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.bone_density_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.colonoscopy));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.gastroscopy));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.abdominal_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.blood_pressure_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.doppler_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.ekg));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.spirometry));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.chest_Xray));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.mammogram));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.breast_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.transvaginal_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.pelvic_and_pap));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.fecal_blood_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.urine_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.thyroid_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.blood_tests));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-
 
         final String SQL_CREATE_TABLE_MEDICATION = "CREATE TABLE " + WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION + " (" +
                 WomansHealthContract.WomansHealthMedication._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
