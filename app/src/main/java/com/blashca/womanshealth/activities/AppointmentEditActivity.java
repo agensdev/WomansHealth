@@ -186,7 +186,12 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     public void onRecordAppointmentButtonClicked(View v) {
 
         if (appointment.name == null) {
-            Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.empty_name_toast_message, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (appointment.nextDate == null) {
+            Toast.makeText(getApplicationContext(), R.string.empty_appointment_date_toast_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
