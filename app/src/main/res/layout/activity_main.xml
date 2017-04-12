@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/medical_appointments"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/medications"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/weight_and_bmi"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
@@ -142,7 +142,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/menstrual_period"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/profile"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
