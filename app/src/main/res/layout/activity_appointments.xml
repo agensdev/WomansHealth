@@ -14,7 +14,7 @@
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:divider="@color/electric"
+        android:divider="@color/light_gray"
         android:dividerHeight="1dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -24,8 +24,8 @@
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
-        app:backgroundTint="@color/yellow"
         app:borderWidth="0dp"
+        app:backgroundTint="@color/colorPrimary"
         app:elevation="6dp"
         app:fabSize="normal"
         android:onClick="onAddAppointmentButtonClicked"/>

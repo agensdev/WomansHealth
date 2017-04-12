@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/violet">
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/appointment_icon"
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/coral">
+            android:background="@color/colorAccent">
 
             <ImageView
                 android:id="@+id/weight_icon"
@@ -169,7 +169,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/coral">
+            android:background="@color/colorAccent">
 
             <ImageView
                 android:id="@+id/profile_icon"
