@@ -332,7 +332,7 @@ public class MedicationEditActivity extends AppCompatActivity implements DateRec
     public void onRecordMedicationButtonClicked(View v) {
 
         if (medication.name == null) {
-            Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.empty_name_toast_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
