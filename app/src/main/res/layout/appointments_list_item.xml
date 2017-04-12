@@ -8,9 +8,10 @@
     android:paddingBottom="20dp">
 
     <TextView
-        android:id="@+id/appoinment_name"
+        android:id="@+id/appointment_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/name"
         android:textSize="16sp"/>
@@ -19,7 +20,8 @@
         android:id="@+id/appointment_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/details"
-        android:textSize="14sp"/>
+        android:textSize="12sp"/>
 </LinearLayout>

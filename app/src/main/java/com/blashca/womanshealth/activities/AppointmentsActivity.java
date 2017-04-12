@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.blashca.womanshealth.adapters.AppointmentCursorAdapter;
 import com.blashca.womanshealth.R;
+import com.blashca.womanshealth.adapters.AppointmentCursorAdapter;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
 public class AppointmentsActivity extends AppCompatActivity {
@@ -54,5 +55,13 @@ public class AppointmentsActivity extends AppCompatActivity {
         mAdapter.changeCursor(dbHelper.getAppointmentsCursor());
         // notifies adapter on the change
         mAdapter.notifyDataSetChanged();
+
+        TextView textView = (TextView) findViewById(R.id.appointment_welcome_textView);
+
+        if (mAdapter.getCount() == 0) {
+            textView.setVisibility(View.VISIBLE);
+        } else {
+            textView.setVisibility(View.GONE);
+        }
     }
 }
