@@ -118,7 +118,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE + " INTEGER, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR + " INTEGER, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE + " INTEGER, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER + " INTEGER DEFAULT 0 NOT NULL " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER + " INTEGER DEFAULT 0 NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_APPOINTMENT);
@@ -161,7 +161,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER + " INTEGER DEFAULT 0 NOT NULL, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " INTEGER DEFAULT 0 NOT NULL, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS + " TEXT " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS + " TEXT" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_MEDICATION);
@@ -188,7 +188,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_PERIOD = "CREATE TABLE " + WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD + " (" +
                 WomansHealthContract.WomansHealthPeriod._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " INTEGER NOT NULL, " +
-                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL " +
+                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_PERIOD);
@@ -198,7 +198,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthWeight._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " INTEGER NOT NULL, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT + " INTEGER NOT NULL, " +
-                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " REAL NOT NULL " +
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " REAL NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_WEIGHT);
@@ -601,8 +601,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC,"
-                        + WomansHealthContract.WomansHealthMedication._ID + " DESC");
+                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC," +
+                        WomansHealthContract.WomansHealthMedication._ID + " DESC");
 
         return medicationsCursor;
     }
