@@ -12,7 +12,6 @@ import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
