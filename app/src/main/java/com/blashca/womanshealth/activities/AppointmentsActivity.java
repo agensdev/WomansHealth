@@ -47,7 +47,7 @@ public class AppointmentsActivity extends AppCompatActivity {
     }
 
     public void onAddAppointmentButtonClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), AppointmentEditActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SuggestedAppointmentsActivity.class);
         startActivity(intent);
     }
 

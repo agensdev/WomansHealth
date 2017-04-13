@@ -34,6 +34,7 @@ import java.util.Date;
 
 public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver, TimeReceiver {
     private static String APPOINTMENT_ID = "appointmentId";
+    private static String TEST_NAME = "test_name";
     private WomansHealthDbHelper dbHelper;
     private DateFormat dateFormat;
 
@@ -60,15 +61,22 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         dbHelper = new WomansHealthDbHelper(this);
         dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
-        Long appointmentId = null;
-        if (getIntent().getExtras() != null) {
-            appointmentId = getIntent().getExtras().getLong(APPOINTMENT_ID);
-        }
+        appointment = new Appointment();
 
-        if (appointmentId != null) {
-            appointment = dbHelper.loadAppointment(appointmentId);
-        } else {
-            appointment = new Appointment();
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+
+            if (extras.containsKey(APPOINTMENT_ID)) {
+                Long appointmentId = extras.getLong(APPOINTMENT_ID);
+                appointment = dbHelper.loadAppointment(appointmentId);
+            } else {
+                String appointmentName = extras.getString(TEST_NAME);
+
+                if (appointmentName != null) {
+                    appointment.name = appointmentName;
+                }
+            }
         }
 
         appointmentNameEditText = (EditText) findViewById(R.id.appointment_name_editText);

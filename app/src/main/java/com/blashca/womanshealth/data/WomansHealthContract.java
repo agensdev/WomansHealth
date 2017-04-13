@@ -60,4 +60,14 @@ public class WomansHealthContract {
         public static final String COLUMN_HEIGHT = "height";
         public static final String COLUMN_WEIGHT = "weight";
     }
+
+    public static final class WomansHealthMedicalTest implements BaseColumns {
+
+        public static final String TABLE_MEDICAL_TEST = "medical_tests";
+        public static final String COLUMN_TEST_NAME = "test_name";
+        public static final String COLUMN_MINIMUM_AGE = "minimum_age";
+        public static final String COLUMN_MAXIMUM_AGE = "maximum_age";
+        public static final String COLUMN_FREQUENCY = "frequency";
+    }
+
 }
