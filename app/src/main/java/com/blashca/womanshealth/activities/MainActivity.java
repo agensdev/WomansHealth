@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,39 +52,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        Button appointmentButton = (Button) findViewById(R.id.appointment_button);
-        appointmentButton.setOnClickListener(this);
-        Button medicationsButton = (Button) findViewById(R.id.medications_button);
-        medicationsButton.setOnClickListener(this);
-        Button periodButton = (Button) findViewById(R.id.weight_button);
-        periodButton.setOnClickListener(this);
-        Button weightButton = (Button) findViewById(R.id.period_button);
-        weightButton.setOnClickListener(this);
-        Button settingsButton = (Button) findViewById(R.id.settings_button);
-        settingsButton.setOnClickListener(this);
+        PercentRelativeLayout appointmentLayout = (PercentRelativeLayout) findViewById(R.id.appointment_layout);
+        appointmentLayout.setOnClickListener(this);
+        PercentRelativeLayout medicationsLayout = (PercentRelativeLayout) findViewById(R.id.medications_layout);
+        medicationsLayout.setOnClickListener(this);
+        PercentRelativeLayout periodLayout = (PercentRelativeLayout) findViewById(R.id.weight_layout);
+        periodLayout.setOnClickListener(this);
+        PercentRelativeLayout weightLayout = (PercentRelativeLayout) findViewById(R.id.period_layout);
+        weightLayout.setOnClickListener(this);
+        PercentRelativeLayout profileLayout = (PercentRelativeLayout) findViewById(R.id.profile_layout);
+        profileLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.appointment_button:
+            case R.id.appointment_layout:
                 makeIntent(AppointmentsActivity.class);
                 break;
 
-            case R.id.medications_button:
+            case R.id.medications_layout:
                 makeIntent(MedicationsActivity.class);
                 break;
 
-            case R.id.weight_button:
+            case R.id.weight_layout:
                 makeIntent(WeightActivity.class);
                 break;
 
-            case R.id.period_button:
+            case R.id.period_layout:
                 makeIntent(PeriodActivity.class);
                 break;
 
-            case R.id.settings_button:
+            case R.id.profile_layout:
                 makeIntent(ProfileActivity.class);
                 break;
 
