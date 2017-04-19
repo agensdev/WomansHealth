@@ -38,14 +38,14 @@
         <activity
             android:name=".activities.AppointmentDetailActivity"
             android:label="Details"
-            android:parentActivityName=".activities.SuggestedAppointmentsActivity"
+            android:parentActivityName=".activities.AppointmentsActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activities.AppointmentEditActivity"
             android:label="Details"
-            android:parentActivityName=".activities.AppointmentDetailActivity"
+            android:parentActivityName=".activities.AppointmentsActivity"
             android:screenOrientation="portrait">
         </activity>
 

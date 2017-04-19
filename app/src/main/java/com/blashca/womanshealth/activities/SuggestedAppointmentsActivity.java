@@ -48,6 +48,7 @@ public class SuggestedAppointmentsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AppointmentEditActivity.class);
                 intent.putExtra(TEST_NAME, medicalTest.name);
                 startActivity(intent);
+                finish();
             }
         });
     }
