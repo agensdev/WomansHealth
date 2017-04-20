@@ -54,7 +54,7 @@ public class AllergenEditActivity extends AppCompatActivity {
         if (!newAllergenName.equals("")) {
             medication.name = newAllergenName;
         } else {
-            Toast.makeText(getApplicationContext(), R.string.record_button_toast_message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.empty_name_toast_message, Toast.LENGTH_SHORT).show();
             return;
         }
 

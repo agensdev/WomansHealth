@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.blashca.womanshealth.models.MedicalTest;
 import com.blashca.womanshealth.models.Period;
 import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.models.Appointment;
@@ -34,6 +35,14 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
             WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR,
             WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE,
             WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER
+    };
+
+    private static final String[] MEDICAL_TEST_COLUMNS_TO_BE_BOUND_WITH_ID = new String[]{
+            WomansHealthContract.WomansHealthMedicalTest._ID,
+            WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME,
+            WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE,
+            WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE,
+            WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY
     };
 
     private static final String[] MEDICATION_COLUMNS_TO_BE_BOUND_WITH_ID = new String[]{
@@ -109,54 +118,10 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE + " INTEGER, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR + " INTEGER, " +
                 WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE + " INTEGER, " +
-                WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER + " INTEGER DEFAULT 0 NOT NULL " +
+                WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_REMINDER + " INTEGER DEFAULT 0 NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_APPOINTMENT);
-
-        ContentValues appointmentValues = new ContentValues();
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.skin_check));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.hearing_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.eye_exam));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.dental_exam));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.bone_density_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.colonoscopy));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.gastroscopy));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.abdominal_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.blood_pressure_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.doppler_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.ekg));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.spirometry));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.chest_Xray));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.mammogram));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.breast_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.transvaginal_ultrasound));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.pelvic_and_pap));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.fecal_blood_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.urine_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.thyroid_test));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
-        appointmentValues.put(WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME, context.getResources().getString(R.string.blood_tests));
-        db.insert(WomansHealthContract.WomansHealthAppointment.TABLE_APPOINTMENT, null, appointmentValues);
 
 
         final String SQL_CREATE_TABLE_MEDICATION = "CREATE TABLE " + WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION + " (" +
@@ -196,7 +161,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthMedication.COLUMN_HOW_LONG_PERIOD + " INTEGER, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_MEDICATION_REMINDER + " INTEGER DEFAULT 0 NOT NULL, " +
                 WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " INTEGER DEFAULT 0 NOT NULL, " +
-                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS + " TEXT " +
+                WomansHealthContract.WomansHealthMedication.COLUMN_ALLERGY_EFFECTS + " TEXT" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_MEDICATION);
@@ -223,7 +188,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_PERIOD = "CREATE TABLE " + WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD + " (" +
                 WomansHealthContract.WomansHealthPeriod._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WomansHealthContract.WomansHealthPeriod.COLUMN_PERIOD_DATE + " INTEGER NOT NULL, " +
-                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL " +
+                WomansHealthContract.WomansHealthPeriod.COLUMN_DURATION + " INTEGER NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_PERIOD);
@@ -233,10 +198,195 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 WomansHealthContract.WomansHealthWeight._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT_DATE + " INTEGER NOT NULL, " +
                 WomansHealthContract.WomansHealthWeight.COLUMN_HEIGHT + " INTEGER NOT NULL, " +
-                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " REAL NOT NULL " +
+                WomansHealthContract.WomansHealthWeight.COLUMN_WEIGHT + " REAL NOT NULL" +
                 " );";
 
         db.execSQL(SQL_CREATE_TABLE_WEIGHT);
+
+        final String SQL_CREATE_TABLE_MEDICAL_TEST = "CREATE TABLE " +
+                WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST + " (" +
+                WomansHealthContract.WomansHealthMedicalTest._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME + " TEXT NOT NULL, " +
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE + " INTEGER, " +
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY + " TEXT" +
+                " );";
+
+        db.execSQL(SQL_CREATE_TABLE_MEDICAL_TEST);
+
+
+        ContentValues appointmentValues = new ContentValues();
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.skin_check));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.hearing_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 30);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 39);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_five_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.eye_exam));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 39);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_four_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.dental_exam));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_six_months));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.bone_density_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 49);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.colonoscopy));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_five_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.gastroscopy));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_five_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.abdominal_ultrasound));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 49);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.blood_pressure_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 49);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_months));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.doppler_ultrasound));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.ekg));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 35);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 49);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.spirometry));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.chest_Xray));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.mammogram));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.breast_ultrasound));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 25);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 29);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 30);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.transvaginal_ultrasound));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 25);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 49);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_two_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 50);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.pelvic_and_pap));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.fecal_blood_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 35);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 39);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.urine_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 29);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 30);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.thyroid_test));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 40);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+
+
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME, context.getResources().getString(R.string.blood_tests));
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 20);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 29);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_in_three_years));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE, 30);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE, 120);
+        appointmentValues.put(WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY, context.getResources().getString(R.string.once_a_year));
+        db.insert(WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST, null, appointmentValues);
     }
 
     // Enable foreign key verification - add to every dbHelper in every app!!!
@@ -252,6 +402,7 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WomansHealthContract.WomansHealthMedication.TABLE_MEDICATION);
         db.execSQL("DROP TABLE IF EXISTS " + WomansHealthContract.WomansHealthPeriod.TABLE_PERIOD);
         db.execSQL("DROP TABLE IF EXISTS " + WomansHealthContract.WomansHealthWeight.TABLE_WEIGHT);
+        db.execSQL("DROP TABLE IF EXISTS " + WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST);
         onCreate(db);
     }
 
@@ -388,6 +539,57 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
     }
 
 
+    // MedicalTest
+
+    public Cursor getMedicalTestsCursorByAge(int age) {
+        String[] selectionArgs = {String.valueOf(age), String.valueOf(age)};
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST,
+                MEDICAL_TEST_COLUMNS_TO_BE_BOUND_WITH_ID,
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE + " <= ? AND " +
+                        WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE + " >= ?",
+                selectionArgs,
+                null,
+                null,
+                WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME + " ASC");
+        cursor.moveToNext();
+
+        return cursor;
+    }
+
+    public MedicalTest loadMedicationTest(long id) {
+        Cursor cursor = getMedicalTestCursorById(id);
+        MedicalTest medicalTest = new MedicalTest();
+
+        medicalTest.id = cursor.getLong(cursor.getColumnIndex(WomansHealthContract.WomansHealthMedicalTest._ID));
+        medicalTest.name = getStringFromCursor(cursor, WomansHealthContract.WomansHealthMedicalTest.COLUMN_TEST_NAME);
+        medicalTest.minimumAge = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedicalTest.COLUMN_MINIMUM_AGE);
+        medicalTest.maximumAge = getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthMedicalTest.COLUMN_MAXIMUM_AGE);
+        medicalTest.frequency = getStringFromCursor(cursor, WomansHealthContract.WomansHealthMedicalTest.COLUMN_FREQUENCY);
+
+        return medicalTest;
+    }
+
+    private Cursor getMedicalTestCursorById(long medicalTestId) {
+        String[] selectionArgs = {String.valueOf(medicalTestId)};
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                WomansHealthContract.WomansHealthMedicalTest.TABLE_MEDICAL_TEST,
+                MEDICAL_TEST_COLUMNS_TO_BE_BOUND_WITH_ID,
+                WomansHealthContract.WomansHealthMedicalTest._ID + " = ?",
+                selectionArgs,
+                null,
+                null,
+                null);
+        cursor.moveToNext();
+
+        return cursor;
+    }
+
+
     //Medication
 
     public Cursor getMedicationsCursor() {
@@ -399,8 +601,8 @@ public class WomansHealthDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC,"
-                        + WomansHealthContract.WomansHealthMedication._ID + " DESC");
+                WomansHealthContract.WomansHealthMedication.COLUMN_IS_ALLERGEN + " ASC," +
+                        WomansHealthContract.WomansHealthMedication._ID + " DESC");
 
         return medicationsCursor;
     }

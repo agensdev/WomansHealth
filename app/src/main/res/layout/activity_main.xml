@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/violet">
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/appointment_icon"
@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/medical_appointments"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/medications"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/coral">
+            android:background="@color/colorAccent">
 
             <ImageView
                 android:id="@+id/weight_icon"
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/weight_and_bmi"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
@@ -142,7 +142,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/menstrual_period"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
@@ -169,7 +169,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/coral">
+            android:background="@color/colorAccent">
 
             <ImageView
                 android:id="@+id/profile_icon"
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto"
+                android:fontFamily="sans-serif"
                 android:text="@string/profile"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"

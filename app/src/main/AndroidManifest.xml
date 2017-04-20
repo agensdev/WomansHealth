@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -22,20 +23,29 @@
 
         <activity
             android:name=".activities.AppointmentsActivity"
-            android:label="My Appointments"
+            android:label="Medical appointments"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
+            android:name=".activities.SuggestedAppointmentsActivity"
+            android:label="Choose the type"
+            android:parentActivityName=".activities.AppointmentsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".activities.AppointmentDetailActivity"
+            android:label="Details"
             android:parentActivityName=".activities.AppointmentsActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activities.AppointmentEditActivity"
-            android:parentActivityName=".activities.AppointmentDetailActivity"
+            android:label="Details"
+            android:parentActivityName=".activities.AppointmentsActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -56,21 +66,21 @@
 
         <activity
             android:name=".activities.PeriodActivity"
-            android:label="Menstrual Period"
+            android:label="Menstrual period"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activities.PeriodRecordsActivity"
-            android:label="Menstrual Period Records"
+            android:label="Menstrual period records"
             android:parentActivityName=".activities.PeriodActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activities.MedicationsActivity"
-            android:label="My Medications"
+            android:label="My medications"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -102,7 +112,7 @@
 
         <activity
             android:name=".activities.ProfileActivity"
-            android:label="Settings"
+            android:label="Profile"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>

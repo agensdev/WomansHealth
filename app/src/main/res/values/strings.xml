@@ -154,7 +154,8 @@
     <string name="add_allergy">Add allergy</string>
 
 
-    <string name="record_button_toast_message">Name can\'t be empty</string>
+    <string name="empty_name_toast_message">Name can\'t be empty</string>
+    <string name="empty_appointment_date_toast_message">Appointment date can\'t be empty</string>
 
     <string name="appointment_name">Appointment name</string>
     <string name="doctors_name">Doctor\'s name</string>
@@ -169,6 +170,7 @@
     <string name="or">--- or ---</string>
     <string name="select_exact_date">Select exact date</string>
     <string name="select_exact_time">Select exact time</string>
+    <string name="on_day">on</string>
 
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
@@ -278,6 +280,18 @@
     <string name="medication_3">Medication 3</string>
     <string name="allergen">Some allergen</string>
     <string name="redness">redness</string>
+
+    <string name="appointment_welcome">Keep track of your upcoming\nmedical appointments.\nStart by adding your first one with \"+\".</string>
+
+    <string name="once_in_three_months">Once in 3 months</string>
+    <string name="once_in_six_months">Once in 6 months</string>
+    <string name="once_a_year">Once a year</string>
+    <string name="once_in_two_years">Once in 2 years</string>
+    <string name="once_in_three_years">Once in 3 years</string>
+    <string name="once_in_four_years">Once in 4 years</string>
+    <string name="once_in_five_years">Once in 5 years</string>
+
+    <string name="profile_suggestions">Suggestions based on your profile</string>
 
 </resources>
 

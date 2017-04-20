@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#522E92</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorAccent">#E91E63</color>
 
     <color name="yellow">#FFC107</color>
     <color name="electric">#00bfa5</color>
@@ -10,9 +10,9 @@
     <color name="navy">#311b92</color>
     <color name="light_blue">#c5cae9</color>
 
-    <color name="violet">#673AB7</color>
+
     <color name="plumb">#9C27B0</color>
     <color name="dark_coral">#CF1B57</color>
-    <color name="coral">#E91E63</color>
+    <color name="light_gray">#999999</color>
 
 </resources>

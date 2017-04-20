@@ -12,7 +12,7 @@ import com.blashca.womanshealth.R;
 import com.blashca.womanshealth.data.WomansHealthContract;
 import com.blashca.womanshealth.data.WomansHealthDbHelper;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -34,19 +34,18 @@ public class AppointmentCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         WomansHealthDbHelper dbHelper = new WomansHealthDbHelper(context);
-        TextView appointmentName = (TextView) view.findViewById(R.id.appoinment_name);
+        TextView appointmentDate = (TextView) view.findViewById(R.id.appointment_date);
         TextView appointmentDetail = (TextView) view.findViewById(R.id.appointment_detail);
-
-        String textName = dbHelper.getStringFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME);
-        appointmentName.setText(textName);
 
         Long dateLong = dbHelper.getLongFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_DATE);
         String formattedDate = "";
         if (dateLong != null) {
             Date date = new Date(dateLong);
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-            formattedDate = dateFormat.format(date);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+            formattedDate = simpleDateFormat.format(date);
         }
+
+
 
         Integer hourInt = dbHelper.getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_HOUR);
         Integer minuteInt = dbHelper.getIntegerFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_NEXT_APPOINTMENT_MINUTE);
@@ -69,13 +68,20 @@ public class AppointmentCursorAdapter extends CursorAdapter {
             }
         }
 
-        if (!formattedDate.equals("") && !hour.equals("")) {
-            appointmentDetail.setText(new StringBuilder().append(formattedDate).append("   ").append(hour).append(':')
-                    .append(minute).toString());
-        } else if (formattedDate.equals("") && !hour.equals(""))  {
-            appointmentDetail.setText(new StringBuilder().append(hour).append(':').append(minute).toString());
+        if (!hour.equals("")) {
+            appointmentDate.setText(new StringBuilder().append(hour).append(':')
+                    .append(minute).append(" ").append(context.getResources().getString(R.string.on_day)).append(" ").append(formattedDate).toString());
         } else {
-            appointmentDetail.setText(new StringBuilder().append(formattedDate).toString());
+            appointmentDate.setText(new StringBuilder().append(formattedDate).toString());
+        }
+
+        String textName = dbHelper.getStringFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_APPOINTMENT_NAME);
+        String doctorName = dbHelper.getStringFromCursor(cursor, WomansHealthContract.WomansHealthAppointment.COLUMN_DOCTOR_NAME);
+
+        if (doctorName != null) {
+            appointmentDetail.setText(textName + "," + " Dr " + doctorName);
+        } else {
+            appointmentDetail.setText(textName);
         }
     }
 }
