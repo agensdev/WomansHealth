@@ -258,7 +258,7 @@
                 android:layout_weight="1"
                 android:text="@string/delete"
                 android:elevation="2dp"
-                android:background="@drawable/button_yellow_style"
+                android:background="@drawable/button_violet"
                 android:onClick="onDeleteAppointmentButtonClicked"/>
 
             <Button
@@ -269,7 +269,7 @@
                 android:layout_weight="1"
                 android:text="@string/edit"
                 android:elevation="2dp"
-                android:background="@drawable/button_yellow_style"
+                android:background="@drawable/button_violet"
                 android:onClick="onEditAppointmentButtonClicked"/>
         </LinearLayout>
     </LinearLayout>

@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="3dp"
             android:layout_weight="1"
-            android:background="@drawable/button_yellow_style"
+            android:background="@drawable/button_violet"
             android:elevation="2dp"
             android:onClick="onDeleteAllergenButtonClicked"
             android:text="@string/delete" />
@@ -90,7 +90,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/button_yellow_style"
+            android:background="@drawable/button_violet"
             android:elevation="2dp"
             android:onClick="onEditAllergenButtonClicked"
             android:text="@string/edit" />
