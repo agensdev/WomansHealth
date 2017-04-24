@@ -35,7 +35,6 @@ public class SuggestedAppointmentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_suggested_appointments);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         dbHelper = new WomansHealthDbHelper(this);
 
         ListView listView = (ListView) findViewById(R.id.suggested_appointments_listView);
