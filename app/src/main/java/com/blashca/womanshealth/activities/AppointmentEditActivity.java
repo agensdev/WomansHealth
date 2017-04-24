@@ -1,10 +1,19 @@
 package com.blashca.womanshealth.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blashca.womanshealth.AlarmHelper;
+import com.blashca.womanshealth.ContactsDelegate;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
@@ -33,10 +43,10 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.blashca.womanshealth.R.drawable.button_violet;
-
 
 public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver, TimeReceiver {
+    private final static int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    private final static int PICK_CONTACT = 777;
     private static String APPOINTMENT_ID = "appointmentId";
     private static String TEST_NAME = "test_name";
     private WomansHealthDbHelper dbHelper;
@@ -107,6 +117,34 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
         refreshUI();
         addTextChangedListeners();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openContacts();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(this, R.string.contacts_denied, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_CONTACT && resultCode == Activity.RESULT_OK) {
+            Uri contactUri = data.getData();
+            ContactsDelegate contactsDelegate = new ContactsDelegate(this);
+            contactsDelegate.fillAppointment(appointment, contactUri);
+            refreshUI();
+        }
     }
 
     @Override
@@ -194,6 +232,9 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
         refreshUI();
     }
 
+    public void onOpenContactsButtonClicked(View v) {
+        contactsPermissionCheck();
+    }
 
     public void onRecordAppointmentButtonClicked(View v) {
 
@@ -413,5 +454,21 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+
+    private void contactsPermissionCheck() {
+        int contactPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+
+        if (contactPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
+
+        openContacts();
+    }
+
+    private void openContacts() {
+        Intent intent = new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, PICK_CONTACT);
     }
 }
