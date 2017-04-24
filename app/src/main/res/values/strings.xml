@@ -141,6 +141,7 @@
     <string name="times">times a</string>
 
     <string name="record">Record</string>
+    <string name="save">Save</string>
     <string name="reminder">Reminder</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>

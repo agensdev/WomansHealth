@@ -3,6 +3,7 @@ package com.blashca.womanshealth.activities;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -30,6 +32,8 @@ import com.blashca.womanshealth.models.Appointment;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.blashca.womanshealth.R.drawable.button_violet;
 
 
 public class AppointmentEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DateReceiver, TimeReceiver {
@@ -260,6 +264,16 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
             reminderSwitch.setChecked(true);
         } else {
             reminderSwitch.setChecked(false);
+        }
+
+        Button saveButton = (Button) findViewById(R.id.save_appointment_button);
+
+        if (appointment.name != null && appointment.nextDate != null) {
+            saveButton.setBackgroundResource(R.drawable.button_violet);
+            saveButton.setTextColor(Color.WHITE);
+        } else {
+            saveButton.setBackgroundResource(R.drawable.button_grey);
+            saveButton.setTextColor(Color.BLACK);
         }
     }
 

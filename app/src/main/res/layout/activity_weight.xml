@@ -129,7 +129,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/calculate"
                     android:textStyle="bold"
-                    android:background="@drawable/button_yellow_style"
+                    android:background="@drawable/button_violet"
                     android:onClick="calculateBMI"/>
 
                 <ImageButton
@@ -267,7 +267,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/record"
                 android:textStyle="bold"
-                android:background="@drawable/button_yellow_style"
+                android:background="@drawable/button_violet"
                 android:onClick="onRecordWeightButtonClicked"/>
         </LinearLayout>
     </LinearLayout>
