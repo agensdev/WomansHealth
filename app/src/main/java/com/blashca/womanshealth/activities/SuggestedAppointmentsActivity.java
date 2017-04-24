@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
@@ -37,6 +39,11 @@ public class SuggestedAppointmentsActivity extends AppCompatActivity {
         dbHelper = new WomansHealthDbHelper(this);
 
         ListView listView = (ListView) findViewById(R.id.suggested_appointments_listView);
+
+        LayoutInflater layoutInflater = getLayoutInflater();
+        ViewGroup header = (ViewGroup) layoutInflater.inflate(R.layout.suggested_apointments_list_header, listView, false);
+        listView.addHeaderView(header);
+
         mAdapter = new SuggestedAppointmentCursorAdapter(this, dbHelper.getMedicalTestsCursorByAge(getAge()), 0);
         listView.setAdapter(mAdapter);
 
