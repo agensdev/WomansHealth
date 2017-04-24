@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blashca.womanshealth.AlarmHelper;
+import com.blashca.womanshealth.ContactsDelegate;
 import com.blashca.womanshealth.DateReceiver;
 import com.blashca.womanshealth.DateUtil;
 import com.blashca.womanshealth.R;
@@ -140,7 +141,8 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
 
         if (requestCode == PICK_CONTACT && resultCode == Activity.RESULT_OK) {
             Uri contactUri = data.getData();
-            readContacts(contactUri);
+            ContactsDelegate contactsDelegate = new ContactsDelegate(this);
+            contactsDelegate.fillAppointment(appointment, contactUri);
             refreshUI();
         }
     }
@@ -468,61 +470,5 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     private void openContacts() {
         Intent intent = new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, PICK_CONTACT);
-    }
-
-    private void readContacts(Uri contactUri) {
-        ContentResolver contentResolver = getContentResolver();
-        Cursor cursor = contentResolver.query(contactUri, null, null, null, null);
-
-        if (cursor.moveToNext()) {
-            appointment.doctorsName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-            String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-
-            if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                // get phone number
-                Cursor phoneCursor = contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                        new String[]{id},
-                        null);
-
-                if (phoneCursor.moveToNext()) {
-                    appointment.telephone = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                }
-                phoneCursor.close();
-            }
-
-            // get email
-            Cursor emailCursor = contentResolver.query(
-                    ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-                    null,
-                    ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
-                    new String[]{id},
-                    null);
-
-            if (emailCursor.moveToNext()) {
-                appointment.email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-            }
-            emailCursor.close();
-
-            // get address
-            Cursor addressCursor = contentResolver.query(
-                    ContactsContract.Data.CONTENT_URI,
-                    null,
-                    ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?",
-                    new String[]{id, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE},
-                    null);
-
-            if (addressCursor.moveToNext()) {
-                String street = addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.STREET));
-                String city = addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.CITY));
-                String postalCode = addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE));
-
-                appointment.address = new StringBuilder().append(street).append(", ").append(postalCode).append(" ").append(city).toString();
-            }
-            addressCursor.close();
-        }
-        cursor.close();
     }
 }
