@@ -139,12 +139,10 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_CONTACT) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri contactUri = data.getData();
-                readContacts(contactUri);
-                refreshUI();
-            }
+        if (requestCode == PICK_CONTACT && resultCode == Activity.RESULT_OK) {
+            Uri contactUri = data.getData();
+            readContacts(contactUri);
+            refreshUI();
         }
     }
 
