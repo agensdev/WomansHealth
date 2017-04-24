@@ -127,7 +127,6 @@ public class AppointmentEditActivity extends AppCompatActivity implements Adapte
                 } else {
                     // Permission Denied
                     Toast.makeText(this, R.string.contacts_denied, Toast.LENGTH_SHORT).show();
-                    finish();
                 }
                 break;
             default:
