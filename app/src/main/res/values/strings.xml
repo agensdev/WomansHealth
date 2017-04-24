@@ -293,6 +293,8 @@
     <string name="once_in_five_years">Once in 5 years</string>
 
     <string name="profile_suggestions">Suggestions based on your profile</string>
+    <string name="open_contacts">Open contacts</string>
+    <string name="contacts_denied">Contacts denied</string>
 
 </resources>
 
