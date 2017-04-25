@@ -158,7 +158,9 @@
     <string name="empty_name_toast_message">Name can\'t be empty</string>
     <string name="empty_appointment_date_toast_message">Appointment date can\'t be empty</string>
 
+    <string name="type">Type</string>
     <string name="appointment_name">Appointment name</string>
+    <string name="who_is_your_doctor">Who is your doctor?</string>
     <string name="doctors_name">Doctor\'s name</string>
     <string name="address">Address</string>
     <string name="telephone_number">Telephone number</string>
