@@ -4,25 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingTop="32dp"
-        android:paddingBottom="8dp"
-        android:text="@string/profile_suggestions"
-        android:textSize="14sp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"/>
-
     <ListView
         android:id="@+id/suggested_appointments_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/light_gray"
+        android:divider="@color/light_grey"
         android:dividerHeight="1dp"/>
 
 </LinearLayout>
